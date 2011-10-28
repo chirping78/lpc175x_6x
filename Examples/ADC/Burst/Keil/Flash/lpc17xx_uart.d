@@ -1,0 +1,11 @@
+.\Flash\lpc17xx_uart.o: ..\..\..\..\Drivers\source\lpc17xx_uart.c
+.\Flash\lpc17xx_uart.o: ..\..\..\..\Drivers\include\lpc17xx_uart.h
+.\Flash\lpc17xx_uart.o: ..\..\..\..\Core\Device\NXP\LPC17xx\Include\LPC17xx.h
+.\Flash\lpc17xx_uart.o: C:\Keil\ARM\RV31\INC\core_cm3.h
+.\Flash\lpc17xx_uart.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\Flash\lpc17xx_uart.o: C:\Keil\ARM\RV31\INC\core_cmInstr.h
+.\Flash\lpc17xx_uart.o: C:\Keil\ARM\RV31\INC\core_cmFunc.h
+.\Flash\lpc17xx_uart.o: ..\..\..\..\Core\Device\NXP\LPC17xx\Include\system_LPC17xx.h
+.\Flash\lpc17xx_uart.o: ..\..\..\..\Drivers\include\lpc_types.h
+.\Flash\lpc17xx_uart.o: ..\..\..\..\Drivers\include\lpc17xx_clkpwr.h
+.\Flash\lpc17xx_uart.o: ..\..\Burst\lpc17xx_libcfg.h

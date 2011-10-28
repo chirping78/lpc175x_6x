@@ -1,0 +1,14 @@
+.\Flash\adc_burst_test.o: ..\adc_burst_test.c
+.\Flash\adc_burst_test.o: ..\..\..\..\Drivers\include\lpc17xx_adc.h
+.\Flash\adc_burst_test.o: ..\..\..\..\Core\Device\NXP\LPC17xx\Include\LPC17xx.h
+.\Flash\adc_burst_test.o: C:\Keil\ARM\RV31\INC\core_cm3.h
+.\Flash\adc_burst_test.o: C:\Keil\ARM\RV31\INC\stdint.h
+.\Flash\adc_burst_test.o: C:\Keil\ARM\RV31\INC\core_cmInstr.h
+.\Flash\adc_burst_test.o: C:\Keil\ARM\RV31\INC\core_cmFunc.h
+.\Flash\adc_burst_test.o: ..\..\..\..\Core\Device\NXP\LPC17xx\Include\system_LPC17xx.h
+.\Flash\adc_burst_test.o: ..\..\..\..\Drivers\include\lpc_types.h
+.\Flash\adc_burst_test.o: ..\lpc17xx_libcfg.h
+.\Flash\adc_burst_test.o: ..\..\..\..\Drivers\include\lpc17xx_pinsel.h
+.\Flash\adc_burst_test.o: ..\..\..\..\Drivers\include\debug_frmwrk.h
+.\Flash\adc_burst_test.o: ..\..\..\..\Drivers\include\lpc17xx_uart.h
+.\Flash\adc_burst_test.o: ..\..\..\..\Drivers\include\lpc17xx_gpio.h
