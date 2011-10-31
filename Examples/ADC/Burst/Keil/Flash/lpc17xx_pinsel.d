@@ -1,9 +1,0 @@
-.\Flash\lpc17xx_pinsel.o: ..\..\..\..\Drivers\source\lpc17xx_pinsel.c
-.\Flash\lpc17xx_pinsel.o: ..\..\..\..\Drivers\include\lpc17xx_pinsel.h
-.\Flash\lpc17xx_pinsel.o: ..\..\..\..\Core\Device\NXP\LPC17xx\Include\lpc17xx.h
-.\Flash\lpc17xx_pinsel.o: C:\Keil\ARM\RV31\INC\core_cm3.h
-.\Flash\lpc17xx_pinsel.o: C:\Keil\ARM\RV31\INC\stdint.h
-.\Flash\lpc17xx_pinsel.o: C:\Keil\ARM\RV31\INC\core_cmInstr.h
-.\Flash\lpc17xx_pinsel.o: C:\Keil\ARM\RV31\INC\core_cmFunc.h
-.\Flash\lpc17xx_pinsel.o: ..\..\..\..\Core\Device\NXP\LPC17xx\Include\system_LPC17xx.h
-.\Flash\lpc17xx_pinsel.o: ..\..\..\..\Drivers\include\lpc_types.h

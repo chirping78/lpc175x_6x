@@ -1,4 +1,14 @@
 
+RELEASE: LPC1700CMSIS_111031
+
+1./ Added casts to eliminate warnings in LPCXpresso in:
+	+ debug_frmwrk.c
+	+ lpc17xx_uart.c
+2./ Eliminate redefinition warnings by checking for previous definitions of MAX and MIN in: lpc_types.h 
+		
+*******************************************************************************************************************************
+	
+	
 RELEASE: LPC1700CMSIS_111029
 
 1./ Update to new CMSIS verision (2.1)

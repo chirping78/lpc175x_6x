@@ -141,7 +141,7 @@
  */
 
 /**
- * @ingroup @ingroup DSP_Functions
+ * @ingroup DSP_Functions
  * @defgroup groupCmplxMath Complex Math Functions
  * This set of functions operates on complex data vectors.
  * The data in the complex arrays is stored in an interleaved fashion

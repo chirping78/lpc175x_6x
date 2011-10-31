@@ -74,7 +74,7 @@ static Status uart_set_divisors(LPC_UART_TypeDef *UARTx, uint32_t baudrate)
 	uint32_t recalcbaud;
 
 	/* get UART block clock */
-	if (UARTx == LPC_UART0)
+	if (UARTx == (LPC_UART_TypeDef *)LPC_UART0)
 	{
 		uClk = CLKPWR_GetPCLK (CLKPWR_PCLKSEL_UART0);
 	}
@@ -204,7 +204,7 @@ void UART_Init(LPC_UART_TypeDef *UARTx, UART_CFG_Type *UART_ConfigStruct)
 	CHECK_PARAM(PARAM_UART_PARITY(UART_ConfigStruct->Parity));
 
 #ifdef _UART0
-	if(UARTx == LPC_UART0)
+	if(UARTx == (LPC_UART_TypeDef *)LPC_UART0)
 	{
 		/* Set up clock and power for UART module */
 		CLKPWR_ConfigPPWR (CLKPWR_PCONP_PCUART0, ENABLE);
@@ -407,7 +407,7 @@ void UART_DeInit(LPC_UART_TypeDef* UARTx)
 	UART_TxCmd(UARTx, DISABLE);
 
 #ifdef _UART0
-	if (UARTx == LPC_UART0)
+	if (UARTx == (LPC_UART_TypeDef *)LPC_UART0)
 	{
 		/* Set up clock and power for UART module */
 		CLKPWR_ConfigPPWR (CLKPWR_PCONP_PCUART0, DISABLE);
