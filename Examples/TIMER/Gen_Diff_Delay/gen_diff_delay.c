@@ -195,7 +195,6 @@ int c_entry(void)
 		/* Enable interrupt for timer 0 */
 		NVIC_DisableIRQ(TIMER0_IRQn);
 	}
-	return (1);
 }
 
 /* Support required entry point for other toolchain */

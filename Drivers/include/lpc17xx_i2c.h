@@ -232,7 +232,7 @@ extern "C"
 
 /* ---------------- CHECK PARAMETER DEFINITIONS ---------------------------- */
 /* Macros check I2C slave address */
-#define PARAM_I2C_SLAVEADDR_CH(n)	((n>=0) && (n<=3))
+#define PARAM_I2C_SLAVEADDR_CH(n)	(n<=3)
 
 /** Macro to determine if it is valid SSP port number */
 #define PARAM_I2Cx(n)	((((uint32_t *)n)==((uint32_t *)LPC_I2C0)) \

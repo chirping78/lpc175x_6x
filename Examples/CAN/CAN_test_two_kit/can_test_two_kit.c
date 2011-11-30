@@ -133,7 +133,7 @@ void PrintMessage(CAN_MSG_Type* CAN_Msg)
  **********************************************************************/
 CAN_ERROR CAN_SetupAFTable(void) {
 	uint32_t i = 0;
-	uint8_t result;
+	CAN_ERROR result;
 	/* Set up Explicit Standard Frame Format Identifier Section
 	 * In this simple test, it has 16 entries ID
 	 */

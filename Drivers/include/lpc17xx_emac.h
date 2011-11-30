@@ -162,7 +162,7 @@ extern "C"
  * Macro defines for PHY Support Register
  **********************************************************************/
 #define EMAC_SUPP_SPEED			0x00000100  	/**< Reduced MII Logic Current Speed   */
-#define EMAC_SUPP_RES_RMII      0x00000800  	/**< Reset Reduced MII Logic           */
+//#define EMAC_SUPP_RES_RMII      0x00000800  	/**< Reset Reduced MII Logic           */
 
 /*********************************************************************//**
  * Macro defines for Test Register

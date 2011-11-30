@@ -23,7 +23,7 @@
 * warranty that such application will be suitable for the specified
 * use without further testing or modification.
 **********************************************************************/
-#include <stdio.h>
+#include <string.h>
 
 #include "lpc17xx_libcfg.h"
 #include "debug_frmwrk.h"
@@ -109,6 +109,13 @@ int c_entry (void)
 	 * – 1 stop bit
 	 * – No flow control
 	 */
+        void* des = (void *)VTOR_OFFSET;
+#if (__RAM_MODE__ == 0)
+        void* src = (void *)0x00000000;
+#else
+        void* src = (void *)0x10000000;
+#endif
+        
 	debug_frmwrk_init();
 
 	// print welcome screen
@@ -127,11 +134,7 @@ int c_entry (void)
 	 * Aligned: 256 words
 	 */
 
-#if(__RAM_MODE__==0)//Run in ROM mode
-	memcpy(VTOR_OFFSET, 0x00000000, 256*4);
-#else
-	memcpy(VTOR_OFFSET, 0x10000000, 256*4);
-#endif
+        memcpy(des, src, 256*4);
 
 	_DBG_("If Vector Table remapping is successful, LED P1.28 will blink by using SysTick interrupt");
 	//Initialize System Tick with 100ms time interval
@@ -142,7 +145,6 @@ int c_entry (void)
 	SYSTICK_Cmd(ENABLE);
 
 	while(1);
-	return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

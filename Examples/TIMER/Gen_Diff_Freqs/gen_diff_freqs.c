@@ -184,7 +184,6 @@ int c_entry(void)
 		TIM_DeInit(LPC_TIM0);
 		TIM_DeInit(LPC_TIM2);
 	}
-	return (1);
 }
 
 /* Support required entry point for other toolchain */

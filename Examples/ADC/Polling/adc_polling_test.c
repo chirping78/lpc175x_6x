@@ -157,8 +157,6 @@ int c_entry(void)
 		//delay
 		for(tmp = 0; tmp < 1000000; tmp++);
 	}
-	ADC_DeInit(LPC_ADC);
-	return 1;
 }
 
 /* Support required entry point for other toolchain */

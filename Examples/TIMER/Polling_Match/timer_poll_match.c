@@ -120,11 +120,9 @@ int c_entry(void)
 	{
 		// Wait for 1000 millisecond
 		while ( !(TIM_GetIntStatus(LPC_TIM0,TIM_MR0_INT)));
-		TIM_ClearIntPending(LPC_TIM0,0);
+		TIM_ClearIntPending(LPC_TIM0,TIM_MR0_INT);
 		_DBG_("Match interrupt occur..");
 	}
-	TIM_DeInit(LPC_TIM0);
-	return (1);
 }
 
 /* Support required entry point for other toolchain */

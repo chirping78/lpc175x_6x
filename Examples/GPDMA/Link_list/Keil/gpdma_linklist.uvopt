@@ -483,10 +483,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>13</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>260</TopLine>
+      <CurrentLine>270</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\link_list.c</PathWithFileName>
       <FilenameWithoutPath>link_list.c</FilenameWithoutPath>
@@ -504,10 +504,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>87</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>20</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\abstract.txt</PathWithFileName>
       <FilenameWithoutPath>abstract.txt</FilenameWithoutPath>
@@ -523,9 +523,9 @@
       <Documents>
         <Doc>
           <Name>..\abstract.txt</Name>
-          <ColumnNumber>87</ColumnNumber>
+          <ColumnNumber>55</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>20</CurrentLine>
+          <CurrentLine>28</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

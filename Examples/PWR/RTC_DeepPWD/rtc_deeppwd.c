@@ -130,7 +130,6 @@ int c_entry (void)
 	CLKPWR_DeepPowerDown();
 
 	while(1);
-	return 1;
 }
 
 

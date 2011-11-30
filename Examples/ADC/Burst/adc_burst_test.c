@@ -95,7 +95,9 @@ void EINT3_IRQHandler(void)
 	  if (GPIO_GetIntStatus(1, 10, 1))
 	  {
 		  GPIO_ClearInt(2,(1<<10));
-		  toggle=~toggle;
+		  if(toggle == TRUE) toggle = FALSE;
+		  else 
+		  	toggle = TRUE;
 #ifdef MCB_LPC_1768_ADC_BURST_MULTI
 		  if(toggle)
 		  {
@@ -230,8 +232,6 @@ int c_entry(void)
 		// Wait for a while
 		for(tmp = 0; tmp < 1500000; tmp++);
 	}
-	ADC_DeInit(LPC_ADC);
-	return (0);
 }
 
 /* Support required entry point for other toolchain */

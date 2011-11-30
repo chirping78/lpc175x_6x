@@ -94,8 +94,6 @@ int c_entry(void)
 
 	//infinite loop to wait chip reset from WDT
 	while(1);
-
-	return 0;
 }
 
 /* Support required entry point for other toolchain */

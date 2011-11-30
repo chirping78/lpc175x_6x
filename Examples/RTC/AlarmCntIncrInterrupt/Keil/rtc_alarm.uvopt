@@ -429,7 +429,7 @@
       <GroupNumber>3</GroupNumber>
       <FileNumber>6</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -466,10 +466,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>50</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>163</TopLine>
+      <CurrentLine>174</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\rtc_alarm_cntincr_int.c</PathWithFileName>
       <FilenameWithoutPath>rtc_alarm_cntincr_int.c</FilenameWithoutPath>
@@ -487,10 +487,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>70</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>14</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\abstract.txt</PathWithFileName>
       <FilenameWithoutPath>abstract.txt</FilenameWithoutPath>
@@ -506,9 +506,9 @@
       <Documents>
         <Doc>
           <Name>..\abstract.txt</Name>
-          <ColumnNumber>70</ColumnNumber>
+          <ColumnNumber>67</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>14</CurrentLine>
+          <CurrentLine>8</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

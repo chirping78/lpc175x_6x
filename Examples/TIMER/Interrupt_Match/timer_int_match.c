@@ -143,7 +143,7 @@ int c_entry(void)
 	TIM_Cmd(LPC_TIM0,ENABLE);
 
 	while (1);
-	return 1;
+
 
 }
 

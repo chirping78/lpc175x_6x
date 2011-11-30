@@ -521,7 +521,6 @@ int c_entry(void) { /* Main Program */
 	CAN_DeInit(LPC_CAN1);
 	CAN_DeInit(LPC_CAN2);
 	while (1);
-	return 0;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

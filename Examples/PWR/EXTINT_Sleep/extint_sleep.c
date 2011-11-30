@@ -84,7 +84,7 @@ void InitLED(void);
 void EINT0_IRQHandler(void)
 {
 	  //clear the EINT0 flag
-	  EXTI_ClearEXTIFlag(0);
+	  EXTI_ClearEXTIFlag(EXTI_EINT0);
 
 }
 #elif defined (IAR_LPC_1768)
@@ -96,7 +96,7 @@ void EINT0_IRQHandler(void)
 void EINT2_IRQHandler(void)
 {
 	  //clear the EINT2 flag
-	  EXTI_ClearEXTIFlag(2);
+	  EXTI_ClearEXTIFlag(EXTI_EINT2);
 }
 
 #endif

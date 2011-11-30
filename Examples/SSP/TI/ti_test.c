@@ -63,7 +63,7 @@
 #define SSPDEV_S LPC_SSP0
 #elif (USEDSSPDEV_S == 1)
 #define SSPDEV_S LPC_SSP1
-#elif
+#else
 #error "Slave SSP device not defined!"
 #endif
 
@@ -361,7 +361,6 @@ int32_t ssp_MasterReadWrite (LPC_SSP_TypeDef *SSPx,
 	                 void *wbuffer,
 	                 uint32_t length)
 {
-	uint16_t tmp;
 	pRdBuf_M = (uint8_t *) rbuffer;
     pWrBuf_M = (uint8_t *) wbuffer;
     DatLen_M = length;
@@ -374,7 +373,7 @@ int32_t ssp_MasterReadWrite (LPC_SSP_TypeDef *SSPx,
 	/* Clear all remaining data in RX FIFO */
 	while (SSP_GetStatus(SSPx, SSP_STAT_RXFIFO_NOTEMPTY))
 	{
-		tmp = SSP_ReceiveData(SSPx);
+		SSP_ReceiveData(SSPx);
 	}
 
 #if (USEDSSPDEV_M == 0)
@@ -407,7 +406,6 @@ int32_t ssp_SlaveReadWrite (LPC_SSP_TypeDef *SSPx,
 	                 void *wbuffer,
 	                 uint32_t length)
 {
-	uint16_t tmp;
 	pRdBuf_S = (uint8_t *) rbuffer;
     pWrBuf_S = (uint8_t *) wbuffer;
     DatLen_S = length;
@@ -417,13 +415,13 @@ int32_t ssp_SlaveReadWrite (LPC_SSP_TypeDef *SSPx,
     // wait for current SSP activity complete
     while (SSP_GetStatus(SSPx, SSP_STAT_BUSY))
     {
-    	tmp = SSP_ReceiveData(SSPx);
+    	SSP_ReceiveData(SSPx);
     }
 
 	/* Clear all remaining data in RX FIFO */
 	while (SSP_GetStatus(SSPx, SSP_STAT_RXFIFO_NOTEMPTY))
 	{
-		tmp = SSP_ReceiveData(SSPx);
+		SSP_ReceiveData(SSPx);
 	}
 #if (USEDSSPDEV_S == 0)
 	if (length != 0)
@@ -631,7 +629,6 @@ int c_entry(void)
 	_DBG_("Verify success!\n\r");
     /* Loop forever */
     while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

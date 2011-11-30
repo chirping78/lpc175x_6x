@@ -123,7 +123,6 @@ int c_entry (void)
 	debug_frmwrk_init();
 	_DBG_("\n\rSystem wake-up!\n\r");
 	while(1);
-	return 1;
 }
 
 

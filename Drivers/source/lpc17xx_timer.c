@@ -108,11 +108,11 @@ uint32_t converUSecToVal (uint32_t timernum, uint32_t usec)
  * 				- LPC_TIM1: TIMER1 peripheral
  * 				- LPC_TIM2: TIMER2 peripheral
  * 				- LPC_TIM3: TIMER3 peripheral
- * @return 		The timer number (0 to 3) or -1 if register pointer is bad
+ * @return 		The timer number (0 to 3) or 0xFFFF FFFF if register pointer is bad
  **********************************************************************/
 uint32_t converPtrToTimeNum (LPC_TIM_TypeDef *TIMx)
 {
-	uint32_t tnum = -1;
+	uint32_t tnum = 0xFFFFFFFF;
 
 	if (TIMx == LPC_TIM0)
 	{

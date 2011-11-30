@@ -83,7 +83,6 @@ int c_entry (void)
 	SYSTICK_Cmd(ENABLE);
 
 	while(1);
-	return 1;
 }
 
 

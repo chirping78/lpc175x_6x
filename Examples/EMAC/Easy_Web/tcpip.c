@@ -32,7 +32,7 @@ uint16_t _tickVal;
 #ifdef MCB_LPC_1768
 #define LED_PIN	(1<<6) // P2.6
 #define LED2_MASK	((1<<2) | (1<<3) | (1<<4) | (1<<5) | (1<<6))
-#define LED1_MASK	((1<<28) | (1<<29) | (1<<31))
+#define LED1_MASK	((1<<28) | (1<<29) | (0x80000000))
 #elif defined(IAR_LPC_1768)
 #define LED_PIN (1<<25)  //P1.25
 #define LED2_MASK ((1<<4))
@@ -1006,7 +1006,7 @@ void TCPHandleTimeout(void)
 void SysTick_Handler (void) {           /* SysTick Interrupt Handler (1ms)    */
 	ISNGenHigh++;                                  // upper 16 bits of initial sequence number
 	TCPTimer++;                                    // timer for retransmissions
-	_tickVal = (++_tickVal) & 0x03;
+	_tickVal = (_tickVal + 1) & 0x03;
 	if (!_tickVal){
 #ifdef MCB_LPC_1768
 		LPC_GPIO2->FIOPIN ^= LED_PIN;

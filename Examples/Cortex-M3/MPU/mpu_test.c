@@ -137,7 +137,7 @@ int c_entry(void)
 	_DBG(menu);
 
 	//Turn off all LEDs
-	GPIO_SetDir(1,(1<<28)|(1<<29)|(1<<31),1);
+	GPIO_SetDir(1,(1<<28)|(1<<29)|(0x80000000),1);
 	GPIO_SetDir(2,(1<<2)|(1<<3)|(1<<4)|(1<<5)|(1<<6),1);
 
 

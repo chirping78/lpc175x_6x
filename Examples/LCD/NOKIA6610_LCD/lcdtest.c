@@ -226,7 +226,6 @@ int c_entry(void)
 			}
 		}
 	}
-	return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

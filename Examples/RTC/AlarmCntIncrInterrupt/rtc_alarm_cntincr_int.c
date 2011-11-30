@@ -171,7 +171,6 @@ int c_entry(void)
 
     /* Loop forever */
     while(1);
-    return 1;
 }
 
 

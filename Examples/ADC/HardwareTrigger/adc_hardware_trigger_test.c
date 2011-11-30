@@ -163,8 +163,6 @@ int c_entry(void)
 		_DBD32(adc_value);
 		_DBG_("");
 	}
-	ADC_DeInit(LPC_ADC);
-	return (0);
 }
 
 /* Support required entry point for other toolchain */

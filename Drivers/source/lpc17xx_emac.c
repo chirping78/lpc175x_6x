@@ -52,7 +52,7 @@
  */
 
 /* MII Mgmt Configuration register - Clock divider setting */
-const uint8_t EMAC_clkdiv[] = { 4, 6, 8, 10, 14, 20, 28 };
+const uint8_t EMAC_clkdiv[] = { 4, 6, 8, 10, 14, 20, 28, 36, 40, 44, 48, 52, 56, 60, 64};
 
 /* EMAC local DMA Descriptors */
 
@@ -329,7 +329,7 @@ Status EMAC_Init(EMAC_CFG_Type *EMAC_ConfigStruct)
 	LPC_EMAC->Command = EMAC_CR_RMII | EMAC_CR_PASS_RUNT_FRM;
 
 	/* Reset Reduced MII Logic. */
-	LPC_EMAC->SUPP = EMAC_SUPP_RES_RMII;
+//	LPC_EMAC->SUPP = EMAC_SUPP_RES_RMII;
 
 	for (tout = 100; tout; tout--);
 	LPC_EMAC->SUPP = 0;

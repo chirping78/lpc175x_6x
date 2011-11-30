@@ -348,7 +348,7 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>1</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <FileNumber>1</FileNumber>
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -369,7 +369,7 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <FileNumber>2</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -505,7 +505,7 @@
         <Doc>
           <Name>..\Abstract.txt</Name>
           <ColumnNumber>61</ColumnNumber>
-          <TopLine>1</TopLine>
+          <TopLine>8</TopLine>
           <CurrentLine>19</CurrentLine>
         </Doc>
       </Documents>

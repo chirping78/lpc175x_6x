@@ -205,7 +205,7 @@
         </option>
         <option>
           <name>CCDiagSuppress</name>
-          <state>Pa050, Pe188, Pe111, Pa082, pe550, Pe186</state>
+          <state>Pa050, Pa082</state>
         </option>
         <option>
           <name>CCDiagRemark</name>
@@ -1104,7 +1104,7 @@
         </option>
         <option>
           <name>CCDiagSuppress</name>
-          <state>Pa050, Pe188, Pe111, Pa082, pe550, Pe186</state>
+          <state>Pa050, Pa082</state>
         </option>
         <option>
           <name>CCDiagRemark</name>

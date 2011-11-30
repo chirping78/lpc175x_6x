@@ -180,7 +180,6 @@ int c_entry(void) { /* Main Program */
 	_DBH32(temp); _DBG_("");
 
 	while (1);
-	return 0;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

@@ -66,9 +66,9 @@ void print_menu(void);
  **********************************************************************/
 void TIMER0_IRQHandler(void)
 {
-	if (TIM_GetIntCaptureStatus(LPC_TIM0,0))
+	if (TIM_GetIntCaptureStatus(LPC_TIM0,TIM_MR0_INT))
 	{
-		TIM_ClearIntCapturePending(LPC_TIM0,0);
+		TIM_ClearIntCapturePending(LPC_TIM0,TIM_MR0_INT);
 		if(first_capture==TRUE)
 		{
 			TIM_Cmd(LPC_TIM0,DISABLE);
@@ -81,7 +81,7 @@ void TIMER0_IRQHandler(void)
 		{
 			count=0; //reset count for next use
 			done=TRUE;
-			capture = TIM_GetCaptureValue(LPC_TIM0,0);
+			capture = TIM_GetCaptureValue(LPC_TIM0,TIM_COUNTER_INCAP0);
 		}
 	}
 }

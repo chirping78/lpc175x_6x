@@ -131,7 +131,7 @@ int c_entry(void)
     /* preemption = 1, sub-priority = 0 */
     NVIC_SetPriority(I2C0_IRQn, ((0x01<<3)|0x01));
     //enable I2C interrupt
-    I2C_IntCmd(LPC_I2C0, ENABLE);
+    I2C_IntCmd(LPC_I2C0, TRUE);
 
 	/* Enable I2C operation */
 	I2C_Cmd(I2CDEV, ENABLE);
@@ -199,7 +199,6 @@ int c_entry(void)
 		}
 
 	}
-	return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

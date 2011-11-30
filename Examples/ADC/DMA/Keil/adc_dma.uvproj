@@ -208,7 +208,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -340,7 +340,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>1</wLevel>
+            <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
@@ -907,11 +907,11 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>1</wLevel>
+            <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>__BUILD_WITH_EXAMPLE__=1,__RAM_MODE__=1</Define>
+              <Define>__BUILD_WITH_EXAMPLE__=1, __RAM_MODE__=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Drivers\include;..\..\DMA;..\..\..\..\Core\Device\NXP\LPC17xx\Include</IncludePath>
             </VariousControls>

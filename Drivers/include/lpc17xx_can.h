@@ -532,7 +532,7 @@ extern "C"
 ||(n==GROUP_EXTEND_ENTRY))
 
 /** Macro to check position */
-#define PARAM_POSITION(n)	((n>=0)&&(n<512))
+#define PARAM_POSITION(n)	(n<512)
 
 /**
  * @}

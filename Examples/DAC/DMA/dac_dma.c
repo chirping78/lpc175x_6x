@@ -168,8 +168,6 @@ int c_entry(void)
 		// Re-setup channel
 		GPDMA_Setup(&GPDMACfg);
 	}
-
-	return 1;
 }
 /* With ARM and GHS toolsets, the entry point is main() - this will
    allow the linker to generate wrapper code to setup stacks, allocate

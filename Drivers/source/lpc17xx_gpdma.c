@@ -55,7 +55,7 @@
  * @brief Lookup Table of Connection Type matched with
  * Peripheral Data (FIFO) register base address
  */
-#ifdef __IAR_SYSTEMS_ICC__
+//#ifdef __IAR_SYSTEMS_ICC__
 volatile const void *GPDMA_LUTPerAddr[] = {
 		(&LPC_SSP0->DR),				// SSP0 Tx
 		(&LPC_SSP0->DR),				// SSP0 Rx
@@ -82,34 +82,34 @@ volatile const void *GPDMA_LUTPerAddr[] = {
 		(&LPC_TIM3->MR0),				// MAT3.0
 		(&LPC_TIM3->MR1)				// MAT3.1
 };
-#else
-const uint32_t GPDMA_LUTPerAddr[] = {
-		((uint32_t)&LPC_SSP0->DR),				// SSP0 Tx
-		((uint32_t)&LPC_SSP0->DR),				// SSP0 Rx
-		((uint32_t)&LPC_SSP1->DR),				// SSP1 Tx
-		((uint32_t)&LPC_SSP1->DR),				// SSP1 Rx
-		((uint32_t)&LPC_ADC->ADGDR),			// ADC
-		((uint32_t)&LPC_I2S->I2STXFIFO), 		// I2S Tx
-		((uint32_t)&LPC_I2S->I2SRXFIFO), 		// I2S Rx
-		((uint32_t)&LPC_DAC->DACR),				// DAC
-		((uint32_t)&LPC_UART0->/*RBTHDLR.*/THR),	// UART0 Tx
-		((uint32_t)&LPC_UART0->/*RBTHDLR.*/RBR),	// UART0 Rx
-		((uint32_t)&LPC_UART1->/*RBTHDLR.*/THR),	// UART1 Tx
-		((uint32_t)&LPC_UART1->/*RBTHDLR.*/RBR),	// UART1 Rx
-		((uint32_t)&LPC_UART2->/*RBTHDLR.*/THR),	// UART2 Tx
-		((uint32_t)&LPC_UART2->/*RBTHDLR.*/RBR),	// UART2 Rx
-		((uint32_t)&LPC_UART3->/*RBTHDLR.*/THR),	// UART3 Tx
-		((uint32_t)&LPC_UART3->/*RBTHDLR.*/RBR),	// UART3 Rx
-		((uint32_t)&LPC_TIM0->MR0),				// MAT0.0
-		((uint32_t)&LPC_TIM0->MR1),				// MAT0.1
-		((uint32_t)&LPC_TIM1->MR0),				// MAT1.0
-		((uint32_t)&LPC_TIM1->MR1),				// MAT1.1
-		((uint32_t)&LPC_TIM2->MR0),				// MAT2.0
-		((uint32_t)&LPC_TIM2->MR1),				// MAT2.1
-		((uint32_t)&LPC_TIM3->MR0),				// MAT3.0
-		((uint32_t)&LPC_TIM3->MR1)				// MAT3.1
-};
-#endif
+//#else
+//const uint32_t GPDMA_LUTPerAddr[] = {
+//		((uint32_t)&LPC_SSP0->DR), 				// SSP0 Tx
+//		((uint32_t)&LPC_SSP0->DR), 				// SSP0 Rx
+//		((uint32_t)&LPC_SSP1->DR),				// SSP1 Tx
+//		((uint32_t)&LPC_SSP1->DR),				// SSP1 Rx
+//		((uint32_t)&LPC_ADC->ADGDR),			// ADC
+//		((uint32_t)&LPC_I2S->I2STXFIFO), 		// I2S Tx
+//		((uint32_t)&LPC_I2S->I2SRXFIFO), 		// I2S Rx
+//		((uint32_t)&LPC_DAC->DACR),				// DAC
+//		((uint32_t)&LPC_UART0->/*RBTHDLR.*/THR),	// UART0 Tx
+//		((uint32_t)&LPC_UART0->/*RBTHDLR.*/RBR),	// UART0 Rx
+//		((uint32_t)&LPC_UART1->/*RBTHDLR.*/THR),	// UART1 Tx
+//		((uint32_t)&LPC_UART1->/*RBTHDLR.*/RBR),	// UART1 Rx
+//		((uint32_t)&LPC_UART2->/*RBTHDLR.*/THR),	// UART2 Tx
+//		((uint32_t)&LPC_UART2->/*RBTHDLR.*/RBR),	// UART2 Rx
+//		((uint32_t)&LPC_UART3->/*RBTHDLR.*/THR),	// UART3 Tx
+//		((uint32_t)&LPC_UART3->/*RBTHDLR.*/RBR),	// UART3 Rx
+//		((uint32_t)&LPC_TIM0->MR0),				// MAT0.0
+//		((uint32_t)&LPC_TIM0->MR1),				// MAT0.1
+//		((uint32_t)&LPC_TIM1->MR0),				// MAT1.0
+//		((uint32_t)&LPC_TIM1->MR1),				// MAT1.1
+//		((uint32_t)&LPC_TIM2->MR0),				// MAT2.0
+//		((uint32_t)&LPC_TIM2->MR1),				// MAT2.1
+//		((uint32_t)&LPC_TIM3->MR0),				// MAT3.0
+//		((uint32_t)&LPC_TIM3->MR1)				// MAT3.1
+//};
+//#endif
 /**
  * @brief Lookup Table of GPDMA Channel Number matched with
  * GPDMA channel pointer

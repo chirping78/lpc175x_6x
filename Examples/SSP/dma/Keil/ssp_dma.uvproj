@@ -340,10 +340,10 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>1</wLevel>
+            <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--no_strict</MiscControls>
               <Define>__BUILD_WITH_EXAMPLE__=1,__RAM_MODE__=0</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Drivers\include;..\..\dma;..\..\..\..\Core\Device\NXP\LPC17xx\Include</IncludePath>
@@ -907,7 +907,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>1</wLevel>
+            <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>

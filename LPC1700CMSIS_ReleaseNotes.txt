@@ -1,4 +1,20 @@
 
+RELEASE: LPC1700CMSIS_111130
+
+1./ Fix bug in Emac driver files:
+	+ Add some new values to EMAC_clkdiv:
+		const uint8_t EMAC_clkdiv[] = { 4, 6, 8, 10, 14, 20, 28, 36, 40, 44, 48, 52, 56, 60, 64 };
+	+ Remove code line: LPC_EMAC->SUPP = EMAC_SUPP_RES_RMII;
+		and definition: EMAC_SUPP_RES_RMII in header file (they are unnecessary)
+2./ Change include file name "LPC17xx.h" instead of "lpc17xx.h"
+	in: lpc17xx_clkpwr.h 
+		lpc17xx_pinsel.h
+	The incompatible include file name will cause error compile when run on Linux enviroment
+3./ Remove remain warnings in all project (GNU, IAR, Keil)
+4./ Update CHM document file 
+
+*******************************************************************************************************************************
+
 RELEASE: LPC1700CMSIS_111031
 
 1./ Added casts to eliminate warnings in LPCXpresso in:
@@ -7,8 +23,7 @@ RELEASE: LPC1700CMSIS_111031
 2./ Eliminate redefinition warnings by checking for previous definitions of MAX and MIN in: lpc_types.h 
 		
 *******************************************************************************************************************************
-	
-	
+		
 RELEASE: LPC1700CMSIS_111029
 
 1./ Update to new CMSIS verision (2.1)
@@ -110,6 +125,7 @@ RELEASE: LPC1700CMSIS_31Mar2011
 3./ Update .chm file 	
 
 *******************************************************************************************************************************
+
 RELEASE: LPC1700CMSIS_10March2011
 
 1./Fix TIM bug (Customer feedback: Case 00001479): TIM clear pending functions will clear all interrupt pending instead of 
@@ -131,6 +147,7 @@ RELEASE: LPC1700CMSIS_09March2011
 		+ CAN_LoadGroupEntry()		
 
 *******************************************************************************************************************************
+
 RELEASE: LPC1700CMSIS_26Jan2011
 
 1./ Fix bugs:

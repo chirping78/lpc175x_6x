@@ -183,8 +183,6 @@ int c_entry(void)
 		_DBG_("");
 		for(tmp = 0; tmp < 1000000; tmp++);
 	}
-	ADC_DeInit(LPC_ADC);
-	return (0);
 }
 
 /* Support required entry point for other toolchain */

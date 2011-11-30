@@ -92,7 +92,7 @@
 #define KB_LED_PIN		(1<<3)
 #define BLINK_LED_PIN	(1<<2)
 #define LED2_MASK		((1<<2) | (1<<3) | (1<<4) | (1<<5) | (1<<6))
-#define LED1_MASK		((1<<28) | (1<<29) | (1<<31))
+#define LED1_MASK		((1<<28) | (1<<29) | (0x80000000))
 
 
 /* INTERNAL MACROS ----------------------------------------------- */
@@ -720,7 +720,6 @@ while( 1 )
 		for ( j = 0; j < 0x200000; j++ );	/* delay */
 	}
 #endif	/* endif TX_ONLY */
-  return 0;
 }
 
 

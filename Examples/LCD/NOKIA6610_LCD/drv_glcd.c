@@ -28,293 +28,293 @@ static const GLCD_CmdCtrl_t GLCD_Cmd_Iss0[GLCD_CMD_NUMB] =
 {
 // (ISS=0)
 // NOP - No Operation
-  {0x00, GLCD_WRITE, 0, 0},
+  {0x00, GLCD_WRITE, FALSE, 0},
 // SLPIN - Sleep in & booster off
-  {0x10, GLCD_WRITE, 0, 0},
+  {0x10, GLCD_WRITE, FALSE, 0},
 // SLPOUT - Sleep out & booster on
-  {0x11, GLCD_WRITE, 0, 0},
+  {0x11, GLCD_WRITE, FALSE, 0},
 // PTLOUT (NORON) - Partial off (Normal)
-  {0x13, GLCD_WRITE, 0, 0},
+  {0x13, GLCD_WRITE, FALSE, 0},
 // INVOFF - Display inversion off (normal)
-  {0x20, GLCD_WRITE, 0, 0},
+  {0x20, GLCD_WRITE, FALSE, 0},
 // INVON - Display inversion on
-  {0x21, GLCD_WRITE, 0, 0},
+  {0x21, GLCD_WRITE, FALSE, 0},
 // DISPOFF - Display off
-  {0x28, GLCD_WRITE, 0, 0},
+  {0x28, GLCD_WRITE, FALSE, 0},
 // DISPON - Display on
-  {0x29, GLCD_WRITE, 0, 0},
+  {0x29, GLCD_WRITE, FALSE, 0},
 // CASET - Column address set
 // X_ADR start: 0h <= XS <= 83h
 // X_ADR end: 0h <= XS <= 83h
-  {0x2A, GLCD_WRITE, 0, 2},
+  {0x2A, GLCD_WRITE, FALSE, 2},
 // RASET - Row address set
 // Y_ADR start: 0h <= YS <= 83h
 // Y_ADR end: 0h <= YS <= 83h
-  {0x2B, GLCD_WRITE, 0, 2},
+  {0x2B, GLCD_WRITE, FALSE, 2},
 // RAMWR - Memory write
-  {0x2C, GLCD_WRITE, 0, (uint32_t)-1},
+  {0x2C, GLCD_WRITE, FALSE, (uint32_t)-1},
 // RGBSET - Color set for 256 color display
-  {0x2D, GLCD_WRITE, 0, 20},
+  {0x2D, GLCD_WRITE, FALSE, 20},
 // VSCSAD - Scroll start address of RAM
 // SSA = 0, 1, 2, … , 131
-  {0x37, GLCD_WRITE, 0, 1},
+  {0x37, GLCD_WRITE, FALSE, 1},
 // IDMOFF - Idle mode off
-  {0x38, GLCD_WRITE, 0, 0},
+  {0x38, GLCD_WRITE, FALSE, 0},
 // IDMON - Idle mode on
-  {0x39, GLCD_WRITE, 0, 0},
+  {0x39, GLCD_WRITE, FALSE, 0},
 // RDID1 - Interface pixel format
-  {0xDA, GLCD_READ,  0, 1},
+  {0xDA, GLCD_READ,  FALSE, 1},
 // RDID2 - Interface pixel format
-  {0xDB, GLCD_READ,  0, 1},
+  {0xDB, GLCD_READ,  FALSE, 1},
 // RDID3 - Interface pixel format
-  {0xDC, GLCD_READ,  0, 1},
+  {0xDC, GLCD_READ,  FALSE, 1},
 // FRMSEL - External oscillator select
 // Frame frequency in Temp range A
 // Frame frequency in Temp range B
 // Frame frequency in Temp range C
 // Frame frequency in Temp range D
-  {0xB4, GLCD_WRITE, 0, 4},
+  {0xB4, GLCD_WRITE, FALSE, 4},
 // FRM8SEL - External oscillator select
 // Frame frequency in Temp range A
 // Frame frequency in Temp range B
 // Frame frequency in Temp range C
 // Frame frequency in Temp range D
-  {0xB5, GLCD_WRITE, 0, 4},
+  {0xB5, GLCD_WRITE, FALSE, 4},
 // TMPRNG - External oscillator select
 // Temp range A
 // Temp range B
 // Temp range C
 // Temp range D
-  {0xB6, GLCD_WRITE, 0, 4},
+  {0xB6, GLCD_WRITE, FALSE, 4},
 // TMPHIS - Temp range set
-  {0xB8, GLCD_WRITE, 0, 1},
+  {0xB8, GLCD_WRITE, FALSE, 1},
 // TMPREAD - Temperature read back
-  {0xB7, GLCD_READ,  0, 1},
+  {0xB7, GLCD_READ,  FALSE, 1},
 // EPWRIN - EEPROM write start
-  {0xD1, GLCD_WRITE, 0, 0},
+  {0xD1, GLCD_WRITE, FALSE, 0},
 // EPWROUT - EEPROM write end
-  {0xD0, GLCD_WRITE, 0, 0},
+  {0xD0, GLCD_WRITE, FALSE, 0},
 // RDEV - Read internal contrast (EV_IN)
-  {0xD4, GLCD_WRITE, 0, 1},
+  {0xD4, GLCD_WRITE, FALSE, 1},
 // RDRR - Read internal resistor ratio (RR_IN)
-  {0xD5, GLCD_READ,  0, 1},
+  {0xD5, GLCD_READ,  FALSE, 1},
 // Adapted commands
 // PTIN - adapted command (PTLAR + PTIN)
-  {0x00, GLCD_WRITE, 0, 0},
+  {0x00, GLCD_WRITE, FALSE, 0},
 // SCRLAR - Scroll area set (2-line unit)
 // TFA = 0,1,2, … , 132
 // VSA = 0,1,2, … , 132
 // BFA = 0,1,2, … , 132
-  {0x33, GLCD_WRITE, 0, 3},
+  {0x33, GLCD_WRITE, FALSE, 3},
 // DATCTR - adapted command (MADCTR + COLMOD)
-  {0x00, GLCD_WRITE, 0, 0},
+  {0x00, GLCD_WRITE, FALSE, 0},
 // SETCON - Write contrast 0 - 127
-  {0x25, GLCD_WRITE, 0, 1},
+  {0x25, GLCD_WRITE, FALSE, 1},
 // Commands applicable only when ISS=1
 // OSCON
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // OSCOFF
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // RMWIN
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // RMWOUT
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // VOLUP
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // VOLDOWN
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // ASCSET
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // DISCTR
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // PWRCTR
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // VOLCTR
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // Commands applicable only when ISS=0
 // CLKINT - Internal oscillator select
-  {0xB0, GLCD_WRITE, 0, 0},
+  {0xB0, GLCD_WRITE, FALSE, 0},
 // CLKEXT - External oscillator select
-  {0xB1, GLCD_WRITE, 0, 0},
+  {0xB1, GLCD_WRITE, FALSE, 0},
 // RDDST - Read Display Status
-  {0x09, GLCD_READ,  1, 4},
+  {0x09, GLCD_READ,  TRUE, 4},
 // SWRESET - Software reset
-  {0x01, GLCD_WRITE, 0, 0},
+  {0x01, GLCD_WRITE, FALSE, 0},
 // RDDID - Read Display ID
-  {0x04, GLCD_READ,  1, 3},
+  {0x04, GLCD_READ,  TRUE, 3},
 // PTLAR - Partial start/end address set
 // Start address (0,1,2, …, 131)
 // End address (0,1,2, …, 131)
-  {0x30, GLCD_WRITE, 0, 2},
+  {0x30, GLCD_WRITE, FALSE, 2},
 // PTLON - Partial mode on
-  {0x12, GLCD_WRITE, 0, 0},
+  {0x12, GLCD_WRITE, FALSE, 0},
 // MADCTR - Tearing effect mode set & on
-  {0x36, GLCD_WRITE, 0, 1},
+  {0x36, GLCD_WRITE, FALSE, 1},
 // COLMOD - Interface pixel format
 // Interface format
-  {0x3A, GLCD_WRITE, 0, 1},
+  {0x3A, GLCD_WRITE, FALSE, 1},
 // APOFF - All pixel off (only for test purpose)
-  {0x22, GLCD_WRITE, 0, 0},
+  {0x22, GLCD_WRITE, FALSE, 0},
 // APON - All pixel on (only for test purpose)
-  {0x23, GLCD_WRITE, 0, 0},
+  {0x23, GLCD_WRITE, FALSE, 0},
 // BSTROFF - Booster off (only for test purpose)
-  {0x02, GLCD_WRITE, 0, 0},
+  {0x02, GLCD_WRITE, FALSE, 0},
 // BSTRON - Booster on (only for test purpose)
-  {0x03, GLCD_WRITE, 0, 0},
+  {0x03, GLCD_WRITE, FALSE, 0},
 };
 
 static const GLCD_CmdCtrl_t GLCD_Cmd_Iss1[GLCD_CMD_NUMB] =
 {
 // (ISS=1)
 // NOP - No Operation
-  {0x25, GLCD_WRITE, 0, 0},
+  {0x25, GLCD_WRITE, FALSE, 0},
 // SLPIN - Sleep in & booster off
-  {0x95, GLCD_WRITE, 0, 0},
+  {0x95, GLCD_WRITE, FALSE, 0},
 // SLPOUT - Sleep out & booster on
-  {0x94, GLCD_WRITE, 0, 0},
+  {0x94, GLCD_WRITE, FALSE, 0},
 // PTLOUT (NORON) - Partial off (Normal)
-  {0xA9, GLCD_WRITE, 0, 0},
+  {0xA9, GLCD_WRITE, FALSE, 0},
 // INVOFF - Display inversion off (normal)
-  {0xA6, GLCD_WRITE, 0, 0},
+  {0xA6, GLCD_WRITE, FALSE, 0},
 // INVON - Display inversion on
-  {0xA7, GLCD_WRITE, 0, 0},
+  {0xA7, GLCD_WRITE, FALSE, 0},
 // DISPOFF - Display off
-  {0xAE, GLCD_WRITE, 0, 0},
+  {0xAE, GLCD_WRITE, FALSE, 0},
 // DISPON - Display on
-  {0xAF, GLCD_WRITE, 0, 0},
+  {0xAF, GLCD_WRITE, FALSE, 0},
 // CASET - Column address set
 // X_ADR start: 0h <= XS <= 83h
 // X_ADR end: 0h <= XS <= 83h
-  {0x15, GLCD_WRITE, 0, 2},
+  {0x15, GLCD_WRITE, FALSE, 2},
 // RASET - Row address set
 // Y_ADR start: 0h <= YS <= 83h
 // Y_ADR end: 0h <= YS <= 83h
-  {0x75, GLCD_WRITE, 0, 2},
+  {0x75, GLCD_WRITE, FALSE, 2},
 // RAMWR - Memory write
-  {0x5C, GLCD_WRITE, 0, (uint32_t)-1},
+  {0x5C, GLCD_WRITE, FALSE, (uint32_t)-1},
 // RGBSET - Color set for 256 color display
-  {0xCE, GLCD_WRITE, 0, 20},
+  {0xCE, GLCD_WRITE, FALSE, 20},
 // VSCSAD - Scroll start address of RAM
 // SSA = 0, 1, 2, … , 131
-  {0xAB, GLCD_WRITE, 0, 1},
+  {0xAB, GLCD_WRITE, FALSE, 1},
 // IDMOFF - Idle mode off
-  {0x38, GLCD_WRITE, 0, 0},
+  {0x38, GLCD_WRITE, FALSE, 0},
 // IDMON - Idle mode on
-  {0x39, GLCD_WRITE, 0, 0},
+  {0x39, GLCD_WRITE, FALSE, 0},
 // RDID1 - Interface pixel format
-  {0xDA, GLCD_READ,  0, 1},
+  {0xDA, GLCD_READ,  FALSE, 1},
 // RDID2 - Interface pixel format
-  {0xDB, GLCD_READ,  0, 1},
+  {0xDB, GLCD_READ,  FALSE, 1},
 // RDID3 - Interface pixel format
-  {0xDC, GLCD_READ,  0, 1},
+  {0xDC, GLCD_READ,  FALSE, 1},
 // FRMSEL - External oscillator select
 // Frame frequency in Temp range A
 // Frame frequency in Temp range B
 // Frame frequency in Temp range C
 // Frame frequency in Temp range D
-  {0xB4, GLCD_WRITE, 0, 4},
+  {0xB4, GLCD_WRITE, FALSE, 4},
 // FRM8SEL - External oscillator select
 // Frame frequency in Temp range A
 // Frame frequency in Temp range B
 // Frame frequency in Temp range C
 // Frame frequency in Temp range D
-  {0xB5, GLCD_WRITE, 0, 4},
+  {0xB5, GLCD_WRITE, FALSE, 4},
 // TMPRNG - External oscillator select
 // Temp range A
 // Temp range B
 // Temp range C
 // Temp range D
-  {0xB6, GLCD_WRITE, 0, 4},
+  {0xB6, GLCD_WRITE, FALSE, 4},
 // TMPHIS - Temp hysteresis range set
-  {0xB8, GLCD_WRITE, 0, 1},
+  {0xB8, GLCD_WRITE, FALSE, 1},
 // TMPREAD - Temperature read back
-  {0xB7, GLCD_READ,  0, 1},
+  {0xB7, GLCD_READ,  FALSE, 1},
 // EPWRIN - EEPROM write start
-  {0xCD, GLCD_WRITE, 0, 0},
+  {0xCD, GLCD_WRITE, FALSE, 0},
 // EPWROUT - EEPROM write end
-  {0xCC, GLCD_WRITE, 0, 0},
+  {0xCC, GLCD_WRITE, FALSE, 0},
 // RDEV - Read internal contrast (EV_IN)
-  {0x7C, GLCD_WRITE, 0, 1},
+  {0x7C, GLCD_WRITE, FALSE, 1},
 // RDRR - Read internal resistor ratio (RR_IN)
-  {0x7D, GLCD_READ,  0, 1},
+  {0x7D, GLCD_READ,  FALSE, 1},
 // Adapted commands
 // PTIN - Partial area set & on
 // Partial start line address
 // PSL7-0 Partial start line address
 // PEL7-0 Partial end line address
-  {0xA8, GLCD_WRITE, 0, 2},
+  {0xA8, GLCD_WRITE, FALSE, 2},
 // SCRLAR(ASCSET) - Scroll area set (2-line unit) Mode-0
 // SSL7-0 - Scroll start line
 // SEL7-0 - Scroll end line
 // SFL7-0 - Scroll specified line
 // SMD2-0 - Area scroll mode
-  {0xAA, GLCD_WRITE, 0, 4},
+  {0xAA, GLCD_WRITE, FALSE, 4},
 // DATCTR - adapted command (MADCTR + COLMOD)
 // MV MX MY	 		- Row/column address control
 // MRGB					- RGB
 // GS2 GS1 GS0	- Gray-scale setup
-  {0xBC, GLCD_WRITE, 0, 3},
+  {0xBC, GLCD_WRITE, FALSE, 3},
 // SETCON - Write contrast 0 - 127
-  {0x00, GLCD_WRITE, 0, 1},
+  {0x00, GLCD_WRITE, FALSE, 1},
 // Commands applicable only when ISS=1
 // OSCON - Oscillator on
-  {0xD1, GLCD_WRITE, 0, 0},
+  {0xD1, GLCD_WRITE, FALSE, 0},
 // OSCOFF - Oscillator off
-  {0xD2, GLCD_WRITE, 0, 0},
+  {0xD2, GLCD_WRITE, FALSE, 0},
 // RMWIN - Read & modify write on
-  {0xE0, GLCD_WRITE, 0, 0},
+  {0xE0, GLCD_WRITE, FALSE, 0},
 // RMWOUT - Read & modify write off
-  {0xEE, GLCD_WRITE, 0, 0},
+  {0xEE, GLCD_WRITE, FALSE, 0},
 // VOLUP - EV increment
-  {0xD6, GLCD_WRITE, 0, 0},
+  {0xD6, GLCD_WRITE, FALSE, 0},
 // VOLDOWN - EV decrement
-  {0xD7, GLCD_WRITE, 0, 0},
+  {0xD7, GLCD_WRITE, FALSE, 0},
 // ASCSET - Scroll area set
 // SSL7-0 - Scroll start line
 // SEL7-0 - Scroll end line
 // SFL7-0 - Scroll specified line
 // SMD1-0 - Area scroll mode
-  {0xAA, GLCD_WRITE, 0, 4},
+  {0xAA, GLCD_WRITE, FALSE, 4},
 // DISCTR - Display control
 // P1
 // P2
 // P3
-  {0xCA, GLCD_WRITE, 0, 3},
+  {0xCA, GLCD_WRITE, FALSE, 3},
 // PWRCTR - Power control set
 // P13-P10
-  {0x20, GLCD_WRITE, 0, 1},
+  {0x20, GLCD_WRITE, FALSE, 1},
 // VOLCTR
-  {0x81, GLCD_WRITE, 0, 2},
+  {0x81, GLCD_WRITE, FALSE, 2},
 // Commands applicable only when ISS=0
 // CLKINT - Internal oscillator select
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // CLKEXT - External oscillator select
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // RDDST - Read Display Status
-  {GLCD_INV_CMD, GLCD_READ,  0, 0},
+  {GLCD_INV_CMD, GLCD_READ,  FALSE, 0},
 // SWRESET - Software reset
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // RDDID - Read Display ID
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // PTLAR - Partial start/end address set
 // Start address (0,1,2, …, 131)
 // End address (0,1,2, …, 131)
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // PTLON - Partial mode on
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // MADCTR - Tearing effect mode set & on
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // COLMOD - Interface pixel format
 // Interface format
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // APOFF - All pixel off (only for test purpose)
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // APON - All pixel on (only for test purpose)
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // BSTROFF - Booster off (only for test purpose)
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 // BSTRON - Booster on (only for test purpose)
-  {GLCD_INV_CMD, GLCD_WRITE, 0, 0},
+  {GLCD_INV_CMD, GLCD_WRITE, FALSE, 0},
 };
 
 static GLCD_ISS_t Glcd_Iss;
@@ -362,7 +362,7 @@ GLCD_Status_t GLCD_SendCmd (GLCD_Cmd_t Cmd, unsigned char *pData, uint32_t Size)
 	if(Write2_DRAM)
 	{
 		// Select LCD
-		GLCD_SPI_ChipSelect(1);
+		GLCD_SPI_ChipSelect(TRUE);
 		if(Cmd != RAMWR)
 		{
 			Write2_DRAM = FALSE;
@@ -372,7 +372,7 @@ GLCD_Status_t GLCD_SendCmd (GLCD_Cmd_t Cmd, unsigned char *pData, uint32_t Size)
 				GLCD_SPI_TranserByte(PixelHold);
 			}
 			// Release CS
-			GLCD_SPI_ChipSelect(0);
+			GLCD_SPI_ChipSelect(FALSE);
 		}
 		else
 		{
@@ -402,7 +402,7 @@ GLCD_Status_t GLCD_SendCmd (GLCD_Cmd_t Cmd, unsigned char *pData, uint32_t Size)
 				Size -= 2;
 			}
 			// Release CS
-			GLCD_SPI_ChipSelect(0);
+			GLCD_SPI_ChipSelect(FALSE);
 			return(GLCD_OK);
 		}
 	}
@@ -470,7 +470,7 @@ GLCD_Status_t GLCD_SendCmd (GLCD_Cmd_t Cmd, unsigned char *pData, uint32_t Size)
 	}
 
 	// Select LCD
-	GLCD_SPI_ChipSelect(1);
+	GLCD_SPI_ChipSelect(TRUE);
 
 	GLCD_SPI_TranserByte(pGLCD_CmdCtrl->Cmd);
 	if(Cmd == RAMWR)
@@ -506,7 +506,7 @@ GLCD_Status_t GLCD_SendCmd (GLCD_Cmd_t Cmd, unsigned char *pData, uint32_t Size)
 	}
 
 	// Release CS
-	GLCD_SPI_ChipSelect(0);
+	GLCD_SPI_ChipSelect(FALSE);
 	if(pGLCD_CmdCtrl->Dir == GLCD_READ)
 	{
 		GLCD_SPI_SetWordWidth(9);
@@ -536,9 +536,9 @@ GLCD_Status_t GLCD_PowerUpInit (unsigned char *pInitData)
 
 	// H/W Reset
 	// Rest L > 10us H
-	GLCD_SetReset(0);
+	GLCD_SetReset(FALSE);
 	for(i = GLCD_DLY_10US; i ; --i);
-	GLCD_SetReset(1);
+	GLCD_SetReset(TRUE);
 
 	// Wait 5 ms
 	Dly100us((void *)GLCD_RESET_DLY);

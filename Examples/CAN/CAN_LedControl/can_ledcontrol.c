@@ -50,13 +50,13 @@ uint8_t menu[]=
 /** CAN variable definition **/
 CAN_MSG_Type TXMsg, RXMsg; // messages for test Bypass mode
 uint8_t LED_Value;
-uint32_t LED[8] = {(1<<6),(1<<5),(1<<4),(1<<3),(1<<2),(1<<31),(1<<29),(1<<28)};
+uint32_t LED[8] = {(1<<6),(1<<5),(1<<4),(1<<3),(1<<2),(0x80000000),(1<<29),(1<<28)};
 
 /************************** PRIVATE FUNCTIONS *************************/
 void CAN_IRQHandler(void);
 
 void CAN_InitMessage(void);
-void print_menu();
+void print_menu(void);
 
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/
 /*********************************************************************//**
@@ -152,7 +152,7 @@ int c_entry(void) { /* Main Program */
 	print_menu();
 
 	/* LED setting */
-	GPIO_SetDir(1,(1<<28)|(1<<29)|(1<<31),1);
+	GPIO_SetDir(1,(1<<28)|(1<<29)|(0x80000000),1);
 	GPIO_SetDir(2,(1<<2)|(1<<3)|(1<<4)|(1<<5)|(1<<6),1);
 
 	/* Pin configuration
@@ -254,7 +254,6 @@ loop:
 		TXMsg.dataA[0] = LED_Value;
 		CAN_SendMsg(LPC_CAN1, &TXMsg);
 	}
-	return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

@@ -100,9 +100,9 @@ void SetOutReport (void) {
 	//LED5 (P1.31)
 	led_num = OutReport & (1<<5);
 	if(led_num == 0)
-		LPC_GPIO1 -> FIOCLR |= (1<<31);
+		LPC_GPIO1 -> FIOCLR |= (0x80000000);
 	else
-		LPC_GPIO1 -> FIOSET |= (1<<31);
+		LPC_GPIO1 -> FIOSET |= (0x80000000);
 	//LED6 (P1.29)
 	led_num = OutReport & (1<<6);
 	if(led_num == 0)

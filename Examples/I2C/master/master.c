@@ -245,7 +245,6 @@ int c_entry(void)
 	I2C_DeInit(I2CDEV_M);
     /* Loop forever */
     while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

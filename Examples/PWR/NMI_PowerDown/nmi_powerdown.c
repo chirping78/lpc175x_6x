@@ -104,7 +104,7 @@ int c_entry (void)
 	PinCfg.Pinnum = 10;
 	PINSEL_ConfigPin(&PinCfg);
 
-	SCB->ICSR |=(1<<31); 	//changes NMI exception state to pending
+	SCB->ICSR |=(0x80000000); 	//changes NMI exception state to pending
 
 	_DBG_("Press '1' to enter system in PowerDown mode");
 	while(_DG !='1');
@@ -132,7 +132,6 @@ int c_entry (void)
 	debug_frmwrk_init();
 	_DBG_("\n\rSystem waked-up!");
 	while(1);
-	return 1;
 }
 
 

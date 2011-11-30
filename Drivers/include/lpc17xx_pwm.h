@@ -126,7 +126,7 @@ extern "C"
 #define PARAM_PWMx(n)	(((uint32_t *)n)==((uint32_t *)LPC_PWM1))
 
 /** Macro check PWM1 match channel value */
-#define PARAM_PWM1_MATCH_CHANNEL(n)		((n>=0) && (n<=6))
+#define PARAM_PWM1_MATCH_CHANNEL(n)		(n<=6)
 
 /** Macro check PWM1 channel value */
 #define PARAM_PWM1_CHANNEL(n)			((n>=1) && (n<=6))

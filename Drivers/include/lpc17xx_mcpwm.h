@@ -116,9 +116,9 @@ extern "C"
 #define MCPWM_CON_POLAR(n)		((n<=2) ? ((uint32_t)(1<<((n*8)+2))) : (0))		/**< Select polarity of the MCOAn and MCOBn pin */
 #define MCPWM_CON_DTE(n)		((n<=2) ? ((uint32_t)(1<<((n*8)+3))) : (0))		/**< Control the dead-time feature for channel n */
 #define MCPWM_CON_DISUP(n)		((n<=2) ? ((uint32_t)(1<<((n*8)+4))) : (0))		/**< Enable/Disable update of functional register for channel n */
-#define MCPWM_CON_INVBDC		((uint32_t)(1<<29))										/**< Control the polarity for all 3 channels */
-#define MCPWM_CON_ACMODE		((uint32_t)(1<<30))										/**< 3-phase AC mode select */
-#define MCPWM_CON_DCMODE		((uint32_t)(1<<31))										/**< 3-phase DC mode select */
+#define MCPWM_CON_INVBDC		((uint32_t)(1<<29))								/**< Control the polarity for all 3 channels */
+#define MCPWM_CON_ACMODE		((uint32_t)(1<<30))								/**< 3-phase AC mode select */
+#define MCPWM_CON_DCMODE		((uint32_t)(0x80000000))						/**< 3-phase DC mode select */
 
 /*********************************************************************//**
  * Macro defines for MCPWM Capture Control register
@@ -169,9 +169,9 @@ extern "C"
  * - MCPWM Count Control clear address
  */
 /** Counter(tc) advances on a rising edge on MCI(mci) pin */
-#define MCPWM_CNTCON_TCMCI_RE(tc,mci)	(((tc>=0)&&(tc<=2)&&(mci>=0)&&(mci<=2)) ? ((uint32_t)(1<<((6*tc)+(2*mci)+0))) : (0))
+#define MCPWM_CNTCON_TCMCI_RE(tc,mci)	(((tc<=2)&&(mci<=2)) ? ((uint32_t)(1<<((6*tc)+(2*mci)+0))) : (0))
 /** Counter(cnt) advances on a falling edge on MCI(mci) pin */
-#define MCPWM_CNTCON_TCMCI_FE(tc,mci)	(((tc>=0)&&(tc<=2)&&(mci>=0)&&(mci<=2)) ? ((uint32_t)(1<<((6*tc)+(2*mci)+1))) : (0))
+#define MCPWM_CNTCON_TCMCI_FE(tc,mci)	(((tc<=2)&&(mci<=2)) ? ((uint32_t)(1<<((6*tc)+(2*mci)+1))) : (0))
 /** Channel (n) is in counter mode */
 #define MCPWM_CNTCON_CNTR(n)			((n<=2) ? ((uint32_t)(1<<(29+n))) : (0))
 

@@ -483,10 +483,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>25</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>244</TopLine>
+      <CurrentLine>266</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\gpdma_sleep.c</PathWithFileName>
       <FilenameWithoutPath>gpdma_sleep.c</FilenameWithoutPath>
@@ -504,10 +504,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>52</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>11</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\abstract.txt</PathWithFileName>
       <FilenameWithoutPath>abstract.txt</FilenameWithoutPath>
@@ -523,9 +523,9 @@
       <Documents>
         <Doc>
           <Name>..\abstract.txt</Name>
-          <ColumnNumber>52</ColumnNumber>
+          <ColumnNumber>47</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>11</CurrentLine>
+          <CurrentLine>9</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

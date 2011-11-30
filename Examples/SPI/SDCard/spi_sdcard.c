@@ -207,7 +207,8 @@ sd_connect_status SD_GetCardConnectStatus(void)
  **********************************************************************/
 uint8_t crc_7(uint8_t old_crc, uint8_t data)
 {
-  uint8_t new_crc,x;
+  uint8_t new_crc;
+  int8_t x;
 
   new_crc = old_crc;
   for (x = 7; x >= 0; x--) {
@@ -574,7 +575,6 @@ int c_entry(void)
 		SPI_DeInit(LPC_SPI);
     /* Loop forever */
     while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

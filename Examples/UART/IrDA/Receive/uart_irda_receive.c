@@ -189,16 +189,6 @@ int c_entry(void)
     		GPIO_ClearValue(2, 0x0000007C);
     	}
     }
-
-    // wait for current transmission complete - THR must be empty
-    //while (UART_CheckBusy(TEST_UART) == SET);
-
-    // DeInitialize UART0 peripheral
-    //UART_DeInit(TEST_UART);
-
-    /* Loop forever */
-    //while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

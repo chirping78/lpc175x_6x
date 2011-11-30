@@ -174,7 +174,6 @@ int c_entry(void)
 			PWM_MatchUpdate(LPC_PWM1, 1, long_duty, PWM_MATCH_UPDATE_NOW);
 		}
 	}
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

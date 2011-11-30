@@ -254,7 +254,6 @@ int c_entry(void)			/* Main Program */
 	}
 	_DBG_("Demo terminate!");
 	while (1);
-	return 0;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

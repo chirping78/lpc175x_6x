@@ -71,7 +71,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
     	// Calculate TC in WDT
     	tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
     	// Check if it valid
-    	if ((tempval >= WDT_TIMEOUT_MIN) && (tempval <= WDT_TIMEOUT_MAX))
+    	if (tempval >= WDT_TIMEOUT_MIN)
     	{
     		LPC_WDT->WDTC = tempval;
     		return	SUCCESS;
@@ -86,7 +86,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
 		// Calculate TC in WDT
 		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
 
-		if ((tempval >= WDT_TIMEOUT_MIN) && (tempval <= WDT_TIMEOUT_MAX))
+		if (tempval >= WDT_TIMEOUT_MIN)
 		{
 			CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_WDT, CLKPWR_PCLKSEL_CCLK_DIV_4);
 			LPC_WDT->WDTC = (uint32_t) tempval;
@@ -98,7 +98,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
 		// Calculate TC in WDT
 		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
 
-		if ((tempval >= WDT_TIMEOUT_MIN) && (tempval <= WDT_TIMEOUT_MAX))
+		if (tempval >= WDT_TIMEOUT_MIN)
 		{
 			CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_WDT, CLKPWR_PCLKSEL_CCLK_DIV_2);
 			LPC_WDT->WDTC = (uint32_t) tempval;
@@ -110,7 +110,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
 		// Calculate TC in WDT
 		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
 
-		if ((tempval >= WDT_TIMEOUT_MIN) && (tempval <= WDT_TIMEOUT_MAX))
+		if (tempval >= WDT_TIMEOUT_MIN)
 		{
 			CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_WDT, CLKPWR_PCLKSEL_CCLK_DIV_1);
 			LPC_WDT->WDTC = (uint32_t) tempval;
@@ -124,7 +124,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
 		// Calculate TC in WDT
 		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
 		// Check if it valid
-		if ((tempval >= WDT_TIMEOUT_MIN) && (tempval <= WDT_TIMEOUT_MAX))
+		if (tempval >= WDT_TIMEOUT_MIN)
 		{
 			LPC_WDT->WDTC = (uint32_t) tempval;
 			return	SUCCESS;

@@ -388,7 +388,6 @@ int c_entry(void)
 	}
 	I2S_DeInit(LPC_I2S);
 	while(1);
-	return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

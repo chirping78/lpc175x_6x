@@ -423,8 +423,6 @@ int c_entry(void)
 		// long delay here
 		for (len = 0; len < 10000000; len++);
 	}
-
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

@@ -100,10 +100,6 @@ void print_menu(void)
  **********************************************************************/
 void Error_Loop(uint32_t ErrorCode)
 {
-	uint32_t test;
-
-	// for testing purpose
-	test = ErrorCode;
 	/*
 	 * Insert your code here...
 	 */
@@ -294,7 +290,6 @@ int c_entry(void)
     I2C_DeInit(I2CDEV);
     /* Loop forever */
     while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

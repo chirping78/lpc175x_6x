@@ -19,7 +19,7 @@
 
 #define LED_PIN 	(1<<6)
 #define LED2_MASK	((1<<2) | (1<<3) | (1<<4) | (1<<5) | (1<<6))
-#define LED1_MASK	((1<<28) | (1<<29) | (1<<31))
+#define LED1_MASK	((1<<28) | (1<<29) | (0x80000000))
 
 
 /* For debugging... */
@@ -234,8 +234,6 @@ int c_entry(void)
     }
   }
 #endif
-
-  while (1);
 }
 
 int main(void)

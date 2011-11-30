@@ -214,7 +214,7 @@ extern "C"
 #define PARAM_RTC_CALIB_DIR(n)	((n==RTC_CALIB_DIR_FORWARD) || (n==RTC_CALIB_DIR_BACKWARD))
 
 /* Macro check RTC GPREG type */
-#define PARAM_RTC_GPREG_CH(n)	((n>=0) && (n<=4))
+#define PARAM_RTC_GPREG_CH(n)	(n<=4)
 
 /**
  * @}

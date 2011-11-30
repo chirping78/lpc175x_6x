@@ -284,13 +284,6 @@ int c_entry(void)
 			}
         }
     }
-
-    // DeInitialize UART0 peripheral
-    UART_DeInit(LPC_UART0);
-
-    /* Loop forever */
-    while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

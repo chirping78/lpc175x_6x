@@ -53,7 +53,7 @@ void CAN_IRQHandler(void);
 
 void CAN_InitMessage(void);
 void PrintMessage(CAN_MSG_Type* msg);
-void print_menu();
+void print_menu(void);
 
 
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/

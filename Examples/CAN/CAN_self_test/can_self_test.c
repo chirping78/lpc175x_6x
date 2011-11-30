@@ -52,7 +52,7 @@ void CAN_IRQHandler(void);
 
 void CAN_InitMessage(void);
 void PrintMessage(CAN_MSG_Type* msg);
-void print_menu();
+void print_menu(void);
 Bool Check_Message(CAN_MSG_Type* TX_Msg, CAN_MSG_Type* RX_Msg);
 
 

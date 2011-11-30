@@ -241,7 +241,7 @@ extern "C"
 
 /* ---------------- CHECK PARAMETER DEFINITIONS ---------------------------- */
 /* Macros check GPDMA channel */
-#define PARAM_GPDMA_CHANNEL(n)	((n>=0) && (n<=7))
+#define PARAM_GPDMA_CHANNEL(n)	(n<=7)
 
 /* Macros check GPDMA connection type */
 #define PARAM_GPDMA_CONN(n)		((n==GPDMA_CONN_SSP0_Tx) || (n==GPDMA_CONN_SSP0_Rx) \

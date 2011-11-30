@@ -65,7 +65,7 @@ void GLCD_LLInit (void)
 	// LCD Reset output
 	LPC_GPIO3->FIODIR |= (1UL<<25);
 
-	GLCD_SetReset(0);
+	GLCD_SetReset(FALSE);
 
 	// LCD backlight PWM 8bit init
 	LPC_PINCON->PINSEL7 |= (3<<20) ;    // assign P3.26 to PWM1.3

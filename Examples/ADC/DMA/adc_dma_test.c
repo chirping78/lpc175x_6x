@@ -176,8 +176,8 @@ int c_entry(void)
 	 * 	ADC conversion rate = 200KHz
 	 */
 	ADC_Init(LPC_ADC, 200000);
-	ADC_IntConfig(LPC_ADC,_ADC_INT,SET);
-	ADC_ChannelCmd(LPC_ADC,_ADC_CHANNEL,SET);
+	ADC_IntConfig(LPC_ADC,_ADC_INT,ENABLE);
+	ADC_ChannelCmd(LPC_ADC,_ADC_CHANNEL,ENABLE);
 
 	/* GPDMA block section -------------------------------------------- */
 	/* Disable GPDMA interrupt */
@@ -245,8 +245,6 @@ int c_entry(void)
 		/* Reset Error counter */
 		Channel0_Err = 0;
 	}
-	ADC_DeInit(LPC_ADC);
-	return 1;
 }
 
 /* Support required entry point for other toolchain */

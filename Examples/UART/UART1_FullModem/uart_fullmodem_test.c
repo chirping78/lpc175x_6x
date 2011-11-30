@@ -262,12 +262,8 @@ void UART1_IntTransmit(void)
  **********************************************************************/
 void UART1_IntErr(uint8_t bLSErrType)
 {
-	uint8_t test;
-	// Loop forever
-	while (1){
-		// For testing purpose
-		test = bLSErrType;
-	}
+
+	while(1);
 }
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
@@ -574,7 +570,6 @@ int c_entry(void)
 
     /* Loop forever */
     while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

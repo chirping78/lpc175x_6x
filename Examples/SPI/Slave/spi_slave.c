@@ -223,7 +223,6 @@ int c_entry(void)
     /* Loop forever */
 	SPI_DeInit(LPC_SPI);
     while(1);
-    return 1;
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will

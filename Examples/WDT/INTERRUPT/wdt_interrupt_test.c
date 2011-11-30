@@ -189,7 +189,6 @@ int c_entry(void)
 			}
 		}
 	}
-	return 1;
 }
 
 /* Support required entry point for other toolchain */
