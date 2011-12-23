@@ -60,7 +60,7 @@ typedef struct __CDC_BUF_T {
   unsigned int rdIdx;
 } CDC_BUF_T;
 
-CDC_BUF_T  CDC_OutBuf;                                 // buffer for all CDC Out data
+volatile CDC_BUF_T  CDC_OutBuf;                                 // buffer for all CDC Out data
 
 /*----------------------------------------------------------------------------
   read data from CDC_OutBuf
@@ -68,13 +68,13 @@ CDC_BUF_T  CDC_OutBuf;                                 // buffer for all CDC Out
 int CDC_RdOutBuf (char *buffer, const int *length) {
   int bytesToRead, bytesRead;
 
-  /* Read *length bytes, block if *bytes are not avaialable	*/
+  /* Read *length bytes, block if *bytes are not available	*/
   bytesToRead = *length;
   bytesToRead = (bytesToRead < (*length)) ? bytesToRead : (*length);
   bytesRead = bytesToRead;
 
 
-  // ... add code to check for underrun
+  // ... add code to check for under run
 
   while (bytesToRead--) {
     *buffer++ = CDC_BUF_RD(CDC_OutBuf);

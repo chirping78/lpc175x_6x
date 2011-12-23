@@ -1,7 +1,7 @@
 /**********************************************************************
-* $Id$		lpc17xx_dac.c				2010-05-21
+* $Id$		lpc17xx_emac.c				2010-05-21
 *//**
-* @file		lpc17xx_dac.c
+* @file		lpc17xx_emac.c
 * @brief	Contains all functions support for Ethernet MAC firmware
 * 			library on LPC17xx
 * @version	2.0
@@ -860,13 +860,21 @@ Bool EMAC_CheckReceiveIndex(void)
  **********************************************************************/
 Bool EMAC_CheckTransmitIndex(void)
 {
-	uint32_t tmp = LPC_EMAC->TxConsumeIndex -1;
-	if (LPC_EMAC->TxProduceIndex == tmp) {
-		return FALSE;
-	} else {
-		return TRUE;
-	}
+    uint32_t tmp = LPC_EMAC->TxConsumeIndex;
+    if (LPC_EMAC->TxProduceIndex == ( tmp - 1 ))
+    {
+        return FALSE;
+    }
+    else if( ( tmp == 0 ) && ( LPC_EMAC->TxProduceIndex == ( EMAC_NUM_TX_FRAG - 1 ) ) )
+    {
+        return FALSE;
+    }
+    else
+    {
+        return TRUE;
+    }
 }
+
 
 
 /*********************************************************************//**
