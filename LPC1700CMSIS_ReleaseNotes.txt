@@ -1,3 +1,12 @@
+RELEASE: LPC1700CMSIS_111230
+
+1./ Update EMAC_CheckTransmitIndex () to check the case of wrapping index.
+2./ Fix EMAC driver issue: using wrong index in function EMAC_NExtPacketToSend().
+3./ Add volatile desciption for global variable CDC_OutBuf , adc_value.
+4./ Update example I2S_Dma: Call Buffer_Verify after receiving data.
+5./ Update example EXTINT so that the LED1 is blinked while waiting for user presses '1'.
+		
+*******************************************************************************************************************************
 
 RELEASE: LPC1700CMSIS_111130
 
