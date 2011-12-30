@@ -65,7 +65,7 @@
 //#define _SSP1
 
 /* SYSTICK --------------------------- */
-//#define _SYSTICK
+#define _SYSTICK
 
 /* I2C ------------------------------- */
 //#define _I2C

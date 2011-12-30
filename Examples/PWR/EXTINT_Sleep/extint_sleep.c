@@ -30,6 +30,7 @@
 #include "lpc17xx_clkpwr.h"
 #include "lpc17xx_libcfg.h"
 #include "debug_frmwrk.h"
+#include "lpc17xx_systick.h"
 
 
 /* Example group ----------------------------------------------------------- */
@@ -62,7 +63,7 @@ uint8_t menu[]=
 	"This example used to enter system in sleep mode and wake up it by using external \n\r"
 	"interrupt\n\r"
 	"********************************************************************************\n\r";
-
+__IO uint8_t toggle_led;
 /* Interrupt service routines */
 #ifdef MCB_LPC_1768
 void EINT0_IRQHandler(void);
@@ -100,6 +101,43 @@ void EINT2_IRQHandler(void)
 }
 
 #endif
+/*********************************************************************//**
+ * @brief 		SysTick interrupt handler
+ * @param		None
+ * @return 		None
+ ***********************************************************************/
+void SysTick_Handler(void)
+{
+	//Clear System Tick counter flag
+	SYSTICK_ClearCounterFlag();
+	
+    toggle_led = (toggle_led) ? 0:1;
+    //Togle led
+    if(toggle_led)
+    {
+#ifdef MCB_LPC_1768
+		//blink LED P1.28
+		GPIO_SetValue(1, (1<<28));
+		delay();
+#elif defined (IAR_LPC_1768)
+		//blink LED1 (P1.25)
+		GPIO_SetValue(1, (1<<25));
+		delay();
+#endif
+    }
+    else
+    {
+ #ifdef MCB_LPC_1768
+		//blink LED P1.28
+		GPIO_ClearValue(1, (1<<28));
+		delay();
+#elif defined (IAR_LPC_1768)
+		//blink LED1 (P1.25)
+		GPIO_ClearValue(1, (1<<25));
+		delay();
+#endif
+    }
+}
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
@@ -176,6 +214,13 @@ int c_entry (void)
 	 */
 	InitLED();
 
+     //Initialize System Tick with 10ms time interval
+	SYSTICK_InternalInit(100);
+	//Enable System Tick interrupt
+	SYSTICK_IntCmd(ENABLE);
+	//Enable System Tick Counter
+	SYSTICK_Cmd(ENABLE);
+
 	/* Initialize EXT pin and registers
 	 * - If using MCB1700 board: EXTI0 is configured
 	 * - If using IAR1700 board: EXTI2 is configured
@@ -216,23 +261,12 @@ int c_entry (void)
 		  "If you want to wake-up the system, press INT/WAKE-UP button.");
 	while(_DG !='1')
 	{
-		//Blink first LED
-#ifdef MCB_LPC_1768
-		//blink LED P1.28
-		GPIO_SetValue(1, (1<<28));
-		delay();
-		GPIO_ClearValue(1, (1<<28));
-		delay();
-#elif defined (IAR_LPC_1768)
-		//blink LED1 (P1.25)
-		GPIO_SetValue(1, (1<<25));
-		delay();
-		GPIO_ClearValue(1, (1<<25));
-		delay();
-#endif
+		
 	}
 
 	_DBG_("Sleeping...");
+    //Disable System Tick Counter
+	SYSTICK_Cmd(DISABLE);
 	// Enter target power down mode
 	CLKPWR_Sleep();
 

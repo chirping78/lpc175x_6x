@@ -386,6 +386,12 @@ int c_entry(void)
 	 }
 	 else _DBG_("");
 	}
+
+    if(Buffer_Verify())
+        _DBG_("Verify Buffer: OK");
+    else
+        _DBG_("Verify Buffer: ERROR");
+
 	I2S_DeInit(LPC_I2S);
 	while(1);
 }

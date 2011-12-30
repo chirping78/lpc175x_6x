@@ -490,6 +490,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Drivers\source\lpc17xx_uart.c</FilePath>
             </File>
+            <File>
+              <FileName>lpc17xx_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Drivers\source\lpc17xx_systick.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -997,6 +1002,11 @@
               <FileName>lpc17xx_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Drivers\source\lpc17xx_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17xx_systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Drivers\source\lpc17xx_systick.c</FilePath>
             </File>
           </Files>
         </Group>

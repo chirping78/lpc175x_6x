@@ -59,7 +59,7 @@ uint8_t menu1[] =
 " Turn the potentiometer to see how ADC value changes\n\r"
 "********************************************************************************\n\r";
 
-uint32_t adc_value;
+__IO uint32_t adc_value;
 
 /************************** PRIVATE FUNCTION *************************/
 void ADC_IRQHandler(void);
@@ -75,19 +75,11 @@ void print_menu(void);
 void ADC_IRQHandler(void)
 {
 	adc_value = 0;
-#ifdef MCB_LPC_1768
-	if (ADC_ChannelGetStatus(LPC_ADC,ADC_CHANNEL_2,ADC_DATA_DONE))
+	if (ADC_ChannelGetStatus(LPC_ADC,_ADC_CHANNEL,ADC_DATA_DONE))
 	{
-		adc_value =  ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2);
+		adc_value =  ADC_ChannelGetData(LPC_ADC,_ADC_CHANNEL);
 		NVIC_DisableIRQ(ADC_IRQn);
 	}
-#elif defined(IAR_LPC_1768)
-	if (ADC_ChannelGetStatus(LPC_ADC,ADC_CHANNEL_5,ADC_DATA_DONE))
-	{
-		adc_value =  ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_5);
-		NVIC_DisableIRQ(ADC_IRQn);
-	}
-#endif
 }
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/

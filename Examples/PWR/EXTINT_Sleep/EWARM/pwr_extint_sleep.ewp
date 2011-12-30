@@ -1824,6 +1824,9 @@
       <name>$PROJ_DIR$\..\..\..\..\Drivers\source\lpc17xx_pinsel.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\Drivers\source\lpc17xx_systick.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\Drivers\source\lpc17xx_uart.c</name>
     </file>
   </group>
