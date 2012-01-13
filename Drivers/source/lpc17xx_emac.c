@@ -338,7 +338,7 @@ Status EMAC_Init(EMAC_CFG_Type *EMAC_ConfigStruct)
 	write_PHY (EMAC_PHY_REG_BMCR, EMAC_PHY_BMCR_RESET);
 
 	/* Wait for hardware reset to end. */
-	for (tout = EMAC_PHY_RESP_TOUT; tout; tout--) {
+	for (tout = EMAC_PHY_RESP_TOUT; tout>=0; tout--) {
 		regv = read_PHY (EMAC_PHY_REG_BMCR);
 		if (!(regv & (EMAC_PHY_BMCR_RESET | EMAC_PHY_BMCR_POWERDOWN))) {
 			/* Reset complete, device not Power Down. */
@@ -490,16 +490,8 @@ int32_t EMAC_SetPHYMode(uint32_t ulPHYMode)
 //			write_PHY (EMAC_PHY_REG_BMCR, EMAC_PHY_BMCR_AN);
 #endif
 			/* Wait to complete Auto_Negotiation */
-			for (tout = EMAC_PHY_RESP_TOUT; tout; tout--) {
-				regv = read_PHY (EMAC_PHY_REG_BMSR);
-				if (regv & EMAC_PHY_BMSR_AUTO_DONE) {
-					/* Auto-negotiation Complete. */
-					break;
-				}
-				if (tout == 0){
-					// Time out, return error
-					return (-1);
-				}
+			for (tout = EMAC_PHY_RESP_TOUT; tout>=0; tout--) {
+				
 			}
 			break;
 		case EMAC_MODE_10M_FULL:
@@ -554,7 +546,7 @@ int32_t EMAC_UpdatePHYStatus(void)
 
 	/* Check the link status. */
 #ifdef MCB_LPC_1768
-	for (tout = EMAC_PHY_RESP_TOUT; tout; tout--) {
+	for (tout = EMAC_PHY_RESP_TOUT; tout>=0; tout--) {
 		regv = read_PHY (EMAC_PHY_REG_STS);
 		if (regv & EMAC_PHY_SR_LINK) {
 			/* Link is on. */
@@ -583,7 +575,7 @@ int32_t EMAC_UpdatePHYStatus(void)
 		LPC_EMAC->SUPP = EMAC_SUPP_SPEED;
 	}
 #elif defined(IAR_LPC_1768)
-	for (tout = EMAC_PHY_RESP_TOUT; tout; tout--) {
+	for (tout = EMAC_PHY_RESP_TOUT; tout>=0; tout--) {
 		regv = read_PHY (EMAC_PHY_REG_BMSR);
 		if (regv & EMAC_PHY_BMSR_LINK_STATUS) {
 			/* Link is on. */
