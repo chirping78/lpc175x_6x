@@ -198,8 +198,8 @@ int c_entry(void)
 	/*
 	 * Init I2C pin connect
 	 */
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
+	PinCfg.OpenDrain = PINSEL_PINMODE_OPENDRAIN;
+	PinCfg.Pinmode = PINSEL_PINMODE_PULLUP;
 #if (USEDI2CDEV == 0)
 	PinCfg.Funcnum = 1;
 	PinCfg.Pinnum = 27;
@@ -221,7 +221,7 @@ int c_entry(void)
 	I2C_Init(I2CDEV, 200000);
 
 	/* Enable I2C1 operation */
-	I2C_Cmd(I2CDEV, ENABLE);
+	I2C_Cmd(I2CDEV, I2C_MASTER_MODE, ENABLE);
 
 	/* Transmit data ---------------------------------------------------------- */
 	_DBG_("Sending...");

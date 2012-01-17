@@ -66,6 +66,8 @@ extern "C"
 #define I2C_I2CONCLR_AAC			((1<<2))
 /** I2C interrupt Clear bit */
 #define I2C_I2CONCLR_SIC			((1<<3))
+/** I2C STOP Clear bit */
+#define I2C_I2CONCLR_STOC			((1<<4))
 /** START flag Clear bit */
 #define I2C_I2CONCLR_STAC			((1<<5))
 /** I2C interface Disable bit */
@@ -82,35 +84,50 @@ extern "C"
 /** No relevant information */
 #define I2C_I2STAT_NO_INF						((0xF8))
 
+/** Bus Error */
+#define I2C_I2STAT_BUS_ERROR					((0x00))
+
 /* Master transmit mode -------------------------------------------- */
 /** A start condition has been transmitted */
 #define I2C_I2STAT_M_TX_START					((0x08))
+
 /** A repeat start condition has been transmitted */
 #define I2C_I2STAT_M_TX_RESTART					((0x10))
+
 /** SLA+W has been transmitted, ACK has been received */
 #define I2C_I2STAT_M_TX_SLAW_ACK				((0x18))
+
 /** SLA+W has been transmitted, NACK has been received */
 #define I2C_I2STAT_M_TX_SLAW_NACK				((0x20))
+
 /** Data has been transmitted, ACK has been received */
 #define I2C_I2STAT_M_TX_DAT_ACK					((0x28))
+
 /** Data has been transmitted, NACK has been received */
 #define I2C_I2STAT_M_TX_DAT_NACK				((0x30))
+
 /** Arbitration lost in SLA+R/W or Data bytes */
 #define I2C_I2STAT_M_TX_ARB_LOST				((0x38))
 
 /* Master receive mode -------------------------------------------- */
 /** A start condition has been transmitted */
 #define I2C_I2STAT_M_RX_START					((0x08))
+
 /** A repeat start condition has been transmitted */
 #define I2C_I2STAT_M_RX_RESTART					((0x10))
+
 /** Arbitration lost */
 #define I2C_I2STAT_M_RX_ARB_LOST				((0x38))
+
 /** SLA+R has been transmitted, ACK has been received */
 #define I2C_I2STAT_M_RX_SLAR_ACK				((0x40))
+
 /** SLA+R has been transmitted, NACK has been received */
 #define I2C_I2STAT_M_RX_SLAR_NACK				((0x48))
+
 /** Data has been received, ACK has been returned */
 #define I2C_I2STAT_M_RX_DAT_ACK					((0x50))
+
 /** Data has been received, NACK has been return */
 #define I2C_I2STAT_M_RX_DAT_NACK				((0x58))
 
@@ -120,29 +137,29 @@ extern "C"
 
 /** Arbitration lost in SLA+R/W as master */
 #define I2C_I2STAT_S_RX_ARB_LOST_M_SLA			((0x68))
-/** Own SLA+W has been received, ACK returned */
-//#define I2C_I2STAT_S_RX_SLAW_ACK				((0x68))
 
 /** General call address has been received, ACK has been returned */
 #define I2C_I2STAT_S_RX_GENCALL_ACK				((0x70))
 
 /** Arbitration lost in SLA+R/W (GENERAL CALL) as master */
 #define I2C_I2STAT_S_RX_ARB_LOST_M_GENCALL		((0x78))
-/** General call address has been received, ACK has been returned */
-//#define I2C_I2STAT_S_RX_GENCALL_ACK				((0x78))
 
 /** Previously addressed with own SLV address;
  * Data has been received, ACK has been return */
 #define I2C_I2STAT_S_RX_PRE_SLA_DAT_ACK			((0x80))
+
 /** Previously addressed with own SLA;
  * Data has been received and NOT ACK has been return */
 #define I2C_I2STAT_S_RX_PRE_SLA_DAT_NACK		((0x88))
+
 /** Previously addressed with General Call;
  * Data has been received and ACK has been return */
 #define I2C_I2STAT_S_RX_PRE_GENCALL_DAT_ACK		((0x90))
+
 /** Previously addressed with General Call;
  * Data has been received and NOT ACK has been return */
 #define I2C_I2STAT_S_RX_PRE_GENCALL_DAT_NACK	((0x98))
+
 /** A STOP condition or repeated START condition has
  * been received while still addressed as SLV/REC
  * (Slave Receive) or SLV/TRX (Slave Transmit) */
@@ -154,13 +171,13 @@ extern "C"
 
 /** Arbitration lost in SLA+R/W as master */
 #define I2C_I2STAT_S_TX_ARB_LOST_M_SLA			((0xB0))
-/** Own SLA+R has been received, ACK has been returned */
-//#define I2C_I2STAT_S_TX_SLAR_ACK				((0xB0))
 
 /** Data has been transmitted, ACK has been received */
 #define I2C_I2STAT_S_TX_DAT_ACK					((0xB8))
+
 /** Data has been transmitted, NACK has been received */
 #define I2C_I2STAT_S_TX_DAT_NACK				((0xC0))
+
 /** Last data byte in I2DAT has been transmitted (AA = 0);
  ACK has been received */
 #define I2C_I2STAT_S_TX_LAST_DAT_ACK			((0xC8))
@@ -198,6 +215,7 @@ extern "C"
  *********************************************************************/
 /** General Call enable bit */
 #define I2C_I2ADR_GC				((1<<0))
+
 /** I2C Slave Address registers bit mask */
 #define I2C_I2ADR_BITMASK			((0xFF))
 
@@ -218,6 +236,7 @@ extern "C"
  *********************************************************************/
 /** I2C SCL LOW duty cycle Register bit mask */
 #define I2C_I2SCLL_BITMASK			((0xFFFF))
+
 
 /* I2C status values */
 #define I2C_SETUP_STATUS_ARBF   (1<<8)	/**< Arbitration false */
@@ -242,6 +261,20 @@ extern "C"
 /* Macros check I2C monitor configuration type */
 #define PARAM_I2C_MONITOR_CFG(n) ((n==I2C_MONITOR_CFG_SCL_OUTPUT) || (I2C_MONITOR_CFG_MATCHALL))
 
+/* I2C state handle return values */
+#define I2C_OK					0x00
+#define I2C_BYTE_SENT				0x01
+#define I2C_BYTE_RECV				0x02
+#define I2C_LAST_BYTE_RECV		0x04
+#define I2C_SEND_END				0x08
+#define I2C_RECV_END 				0x10
+#define I2C_STA_STO_RECV			0x20
+
+#define I2C_ERR				        (0x10000000)
+#define I2C_NAK_RECV				(0x10000000 |0x01)
+
+#define I2C_CheckError(ErrorCode)	(ErrorCode & 0x10000000)
+
 /**
  * @}
  */
@@ -253,6 +286,19 @@ extern "C"
  * @{
  */
 
+typedef enum
+{
+	I2C_0 = 0,
+	I2C_1,
+	I2C_2
+} en_I2C_unitId;
+
+typedef enum
+{
+	I2C_MASTER_MODE,
+	I2C_SLAVE_MODE,
+	I2C_GENERAL_MODE,
+} en_I2C_Mode;
 /**
  * @brief I2C Own slave address setting structure
  */
@@ -283,19 +329,19 @@ typedef struct {
 typedef struct
 {
   uint32_t          sl_addr7bit;				/**< Slave address in 7bit mode */
-  uint8_t*          tx_data;					/**< Pointer to Transmit data - NULL if data transmit
+  __IO uint8_t*     tx_data;					/**< Pointer to Transmit data - NULL if data transmit
 													  is not used */
   uint32_t          tx_length;					/**< Transmit data length - 0 if data transmit
 													  is not used*/
-  uint32_t          tx_count;					/**< Current Transmit data counter */
-  uint8_t*          rx_data;					/**< Pointer to Receive data - NULL if data receive
+  __IO uint32_t     tx_count;					/**< Current Transmit data counter */
+  __IO uint8_t*     rx_data;					/**< Pointer to Receive data - NULL if data receive
 													  is not used */
   uint32_t          rx_length;					/**< Receive data length - 0 if data receive is
 													   not used */
-  uint32_t          rx_count;					/**< Current Receive data counter */
+  __IO uint32_t     rx_count;					/**< Current Receive data counter */
   uint32_t          retransmissions_max;		/**< Max Re-Transmission value */
   uint32_t          retransmissions_count;		/**< Current Re-Transmission counter */
-  uint32_t          status;						/**< Current status of I2C activity */
+  __IO uint32_t     status;						/**< Current status of I2C activity */
   void 				(*callback)(void);			/**< Pointer to Call back function when transmission complete
 													used in interrupt transfer mode */
 } I2C_M_SETUP_Type;
@@ -306,13 +352,13 @@ typedef struct
  */
 typedef struct
 {
-  uint8_t*          tx_data;
-  uint32_t          tx_length;
-  uint32_t          tx_count;
-  uint8_t*          rx_data;
-  uint32_t          rx_length;
-  uint32_t          rx_count;
-  uint32_t          status;
+  __IO uint8_t*         tx_data;
+  uint32_t              tx_length;
+  __IO uint32_t         tx_count;
+  __IO uint8_t*         rx_data;
+  uint32_t              rx_length;
+  __IO uint32_t         rx_count;
+  __IO uint32_t         status;
   void 				(*callback)(void);
 } I2C_S_SETUP_Type;
 
@@ -338,8 +384,7 @@ typedef enum {
 /* I2C Init/DeInit functions ---------- */
 void I2C_Init(LPC_I2C_TypeDef *I2Cx, uint32_t clockrate);
 void I2C_DeInit(LPC_I2C_TypeDef* I2Cx);
-//void I2C_SetClock (LPC_I2C_TypeDef *I2Cx, uint32_t target_clock);
-void I2C_Cmd(LPC_I2C_TypeDef* I2Cx, FunctionalState NewState);
+void I2C_Cmd(LPC_I2C_TypeDef* I2Cx, en_I2C_Mode Mode, FunctionalState NewState);
 
 /* I2C transfer data functions -------- */
 Status I2C_MasterTransferData(LPC_I2C_TypeDef *I2Cx, \

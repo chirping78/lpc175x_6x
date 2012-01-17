@@ -113,8 +113,8 @@ int c_entry(void)
 	/*
 	 * Init I2C pin connect
 	 */
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
+	PinCfg.OpenDrain = PINSEL_PINMODE_OPENDRAIN;
+	PinCfg.Pinmode = PINSEL_PINMODE_TRISTATE;
 	PinCfg.Funcnum = 1;
 	PinCfg.Pinnum = 27;
 	PinCfg.Portnum = 0;
@@ -134,7 +134,7 @@ int c_entry(void)
     I2C_IntCmd(LPC_I2C0, TRUE);
 
 	/* Enable I2C operation */
-	I2C_Cmd(I2CDEV, ENABLE);
+	I2C_Cmd(I2CDEV, I2C_GENERAL_MODE, ENABLE);
 
 	while(1)
 	{

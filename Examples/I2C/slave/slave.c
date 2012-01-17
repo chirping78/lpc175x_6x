@@ -35,7 +35,7 @@
 
 /************************** PRIVATE DEFINITIONS *************************/
 /** Used I2C device as slave definition */
-#define USEDI2CDEV_S		0
+#define USEDI2CDEV_S		(0)
 /** Own Slave address in Slave I2C device */
 #define I2CDEV_S_OWN_ADDR	(0x90>>1)
 
@@ -139,8 +139,8 @@ int c_entry(void)
 	/*
 	 * Init I2C pin connect
 	 */
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
+	PinCfg.OpenDrain = PINSEL_PINMODE_OPENDRAIN;
+	PinCfg.Pinmode = PINSEL_PINMODE_TRISTATE;
 #if ((USEDI2CDEV_S == 0))
 	PinCfg.Funcnum = 1;
 	PinCfg.Pinnum = 27;
@@ -169,7 +169,7 @@ int c_entry(void)
 	I2C_SetOwnSlaveAddr(I2CDEV_S, &OwnSlavAdr);
 
 	/* Enable Slave I2C operation */
-	I2C_Cmd(I2CDEV_S, ENABLE);
+	I2C_Cmd(I2CDEV_S, I2C_SLAVE_MODE, ENABLE);
 
 	_DBG_("Press '1' to start");
 	while (_DG != '1');
