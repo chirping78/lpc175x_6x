@@ -469,7 +469,7 @@ int32_t EMAC_CheckPHYStatus(uint32_t ulPHYState)
  **********************************************************************/
 int32_t EMAC_SetPHYMode(uint32_t ulPHYMode)
 {
-	int32_t id1, id2, tout, regv;
+	int32_t id1, id2, tout;
 
 	/* Check if this is a DP83848C PHY. */
 	id1 = read_PHY (EMAC_PHY_REG_IDR1);
