@@ -1,13 +1,13 @@
-RELEASE: LPC1700CMSIS_111230
+RELEASE: LPC1700CMSIS_120131
 
-1./ Update EMAC_CheckTransmitIndex () to check the case of wrapping index.
-2./ Fix EMAC driver issue: using wrong index in function EMAC_NExtPacketToSend().
-3./ Add volatile desciption for global variable CDC_OutBuf , adc_value.
-4./ Update example I2S_Dma: Call Buffer_Verify after receiving data.
-5./ Update example EXTINT so that the LED1 is blinked while waiting for user presses '1'.
-		
+1./ Fix bug in Emac driver files:
+	+ the loop condition when checking the status of PHY is incorrect.
+	+ Remove waiting for auto-negotiation while configuring PHY.
+2./ Update I2C Driver & examples:
+        + The I2C pins should be configured as no pull-up, no pull-down resistor, open-drain mode.
+	+ Create a common functions to handle I2C Master States, I2C Slave States.
+
 *******************************************************************************************************************************
-
 RELEASE: LPC1700CMSIS_111130
 
 1./ Fix bug in Emac driver files:
