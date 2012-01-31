@@ -21,6 +21,12 @@
 * notification. NXP Semiconductors also make no representation or
 * warranty that such application will be suitable for the specified
 * use without further testing or modification.
+* Permission to use, copy, modify, and distribute this software and its
+* documentation is hereby granted, under NXP Semiconductors'
+* relevant copyright in the software, without fee, provided that it
+* is used in conjunction with NXP Semiconductors microcontrollers.  This
+* copyright, permission, and disclaimer notice must appear in all copies of
+* this code.
 **********************************************************************/
 #include "lpc17xx_spi.h"
 #include "lpc17xx_libcfg.h"
@@ -151,7 +157,7 @@ void Buffer_Verify(void)
 #if (DATA_SIZE==8)
 	uint8_t *src_addr = (uint8_t *) &Tx_Buf[0];
 	uint8_t *dest_addr = (uint8_t *) &Rx_Buf[0];
-	for ( i = 0; i < SPI_DATABIT_SIZE; i++ )
+	for ( i = 0; i < BUFFER_SIZE; i++ )
 	{
 		if ( *src_addr++ != *dest_addr++ )
 		{
@@ -163,7 +169,7 @@ void Buffer_Verify(void)
 #else
 	uint16_t *src_addr = (uint16_t *) &Tx_Buf[0];
 	uint16_t *dest_addr = (uint16_t *) &Rx_Buf[0];
-	for ( i = 0; i < SPI_DATABIT_SIZE/2; i++ )
+	for ( i = 0; i < BUFFER_SIZE/2; i++ )
 	{
 		if ( *src_addr++ != *dest_addr++ )
 		{

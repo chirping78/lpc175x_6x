@@ -115,7 +115,7 @@ unsigned int GetAD7Val(void)
 	ADC_startCnv();
 	val = ADC_getCnv();
 	ADC_stopCnv();
-	return (val/40);
+	return ((val*100)/0xFFF);
 }
 
 // samples and returns AD-converter value of channel 1

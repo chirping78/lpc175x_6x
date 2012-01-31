@@ -42,7 +42,7 @@ LS			= dir
 MKDIR		= $(TOOLS_PATH)/mkdir
 RM			= $(TOOLS_PATH)/rm -f
 RMREC		= $(TOOLS_PATH)/rm -f -r
-RMDIR		= $(TOOLS_PATH)/rmdir
+RMDIR		= $(TOOLS_PATH)/rm -f -r
 
 ASTYLE		= astyle --options=$(BUILD_ROOT)/makesection/tools/astyle.cfg 
 
