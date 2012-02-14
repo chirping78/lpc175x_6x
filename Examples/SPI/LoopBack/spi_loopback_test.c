@@ -47,7 +47,7 @@
 #define CS_PORT_NUM		0
 // PIN number that  /CS pin assigned on
 #define CS_PIN_NUM		16
-#define SPI_DATABIT_SIZE 		10
+#define SPI_DATABIT_SIZE 		14
 /** Max buffer length */
 #define BUFFER_SIZE			0x40
 
@@ -89,18 +89,11 @@ void Buffer_Verify(void);
  **********************************************************************/
 void Buffer_Init(void)
 {
-	uint8_t i;
-#if (SPI_DATABIT_SIZE == 8)
-	for (i = 0; i < BUFFER_SIZE; i++) {
-		Tx_Buf[i] = i;
-		Rx_Buf[i] = 0;
-	}
-#else
-	for (i = 0; i < BUFFER_SIZE/2; i++) {
-		Tx_Buf[i] = i;
-		Rx_Buf[i] = 0;
-	}
-#endif
+	uint32_t i;
+    for (i = 0; i < BUFFER_SIZE; i++) {
+    		Tx_Buf[i] = i;
+    		Rx_Buf[i] = 0;
+    }
 }
 
 /*********************************************************************//**
@@ -121,33 +114,16 @@ void Error_Loop(void)
  **********************************************************************/
 void Buffer_Verify(void)
 {
-	uint8_t i;
-#if (SPI_DATABIT_SIZE==8)
-	uint8_t *src_addr = (uint8_t *) &Tx_Buf[0];
-	uint8_t *dest_addr = (uint8_t *) &Rx_Buf[0];
-	for ( i = 0; i < SPI_DATABIT_SIZE; i++ )
+	uint32_t i;
+	for ( i = 0; i < BUFFER_SIZE; i++ )
 	{
-		if ( *src_addr++ != *dest_addr++ )
+		if ( Tx_Buf[i] != Rx_Buf[i] )
 		{
 			/* Call Error Loop */
 			_DBG_("Verify error");
 			Error_Loop();
 		}
 	}
-#else
-	uint16_t *src_addr = (uint16_t *) &Tx_Buf[0];
-	uint16_t *dest_addr = (uint16_t *) &Rx_Buf[0];
-	for ( i = 0; i < SPI_DATABIT_SIZE/2; i++ )
-	{
-		if ( *src_addr++ != *dest_addr++ )
-		{
-			/* Call Error Loop */
-			_DBG_("Verify error");
-			Error_Loop();
-		}
-	}
-#endif
-
 }
 
 /*********************************************************************//**
@@ -208,7 +184,27 @@ int c_entry(void)
 	SPI_ConfigStruct.CPOL = SPI_CPOL_LO;
 	SPI_ConfigStruct.ClockRate = 2000000;
 	SPI_ConfigStruct.DataOrder = SPI_DATA_MSB_FIRST;
-	SPI_ConfigStruct.Databit = SPI_DATABIT_SIZE;
+    #if (SPI_DATABIT_SIZE == 8)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_8;
+    #elif (SPI_DATABIT_SIZE == 9)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_9;
+    #elif (SPI_DATABIT_SIZE == 10)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_10;
+    #elif (SPI_DATABIT_SIZE == 11)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_11;
+    #elif (SPI_DATABIT_SIZE == 12)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_12;
+    #elif (SPI_DATABIT_SIZE == 13)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_13;
+    #elif (SPI_DATABIT_SIZE == 14)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_14;
+    #elif (SPI_DATABIT_SIZE == 15)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_15;
+    #elif (SPI_DATABIT_SIZE == 16)
+	    SPI_ConfigStruct.Databit = SPI_DATABIT_16;
+    #else
+        while(1);
+    #endif
 	SPI_ConfigStruct.Mode = SPI_MASTER_MODE;
 	// Initialize SPI peripheral with parameter given in structure above
 	SPI_Init(LPC_SPI, &SPI_ConfigStruct);
@@ -218,7 +214,7 @@ int c_entry(void)
 
 	xferConfig.tx_data = Tx_Buf;
 	xferConfig.rx_data = Rx_Buf;
-	xferConfig.length = BUFFER_SIZE;
+	xferConfig.length = sizeof(Tx_Buf);
 	SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
 
 	// Verify buffer after transferring
