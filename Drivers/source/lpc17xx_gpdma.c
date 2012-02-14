@@ -138,7 +138,7 @@ const uint8_t GPDMA_LUTPerBurst[] = {
 		GPDMA_BSIZE_4,				// SSP0 Rx
 		GPDMA_BSIZE_4,				// SSP1 Tx
 		GPDMA_BSIZE_4,				// SSP1 Rx
-		GPDMA_BSIZE_4,				// ADC
+		GPDMA_BSIZE_1,				// ADC
 		GPDMA_BSIZE_32, 			// I2S channel 0
 		GPDMA_BSIZE_32, 			// I2S channel 1
 		GPDMA_BSIZE_1,				// DAC
