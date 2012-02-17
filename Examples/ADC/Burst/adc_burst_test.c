@@ -87,7 +87,7 @@ uint8_t menu1[] =
 "********************************************************************************\n\r";
 
 #ifdef MCB_LPC17XX_ADC_INJECT_TEST
-static BOOL_8 toggle=FALSE;
+static BOOL_8 toggle=TRUE;
 #endif
 #if __DMA_USED__
 // Terminal Counter flag for Channel 0
@@ -109,7 +109,7 @@ void EINT3_IRQHandler(void);
 #ifdef MCB_LPC17XX_ADC_INJECT_TEST
 void EINT3_IRQHandler(void)
 {
-	  if (GPIO_GetIntStatus(1, 10, 1))
+	  if (GPIO_GetIntStatus(2, 10, 1))
 	  {
 		  GPIO_ClearInt(2,(1<<10));
 		  if(toggle == TRUE) toggle = FALSE;
