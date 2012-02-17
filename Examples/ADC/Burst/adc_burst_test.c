@@ -34,6 +34,7 @@
 #include "lpc17xx_pinsel.h"
 #include "debug_frmwrk.h"
 #include "lpc17xx_gpio.h"
+#include "lpc17xx_gpdma.h"
 
 /* Example group ----------------------------------------------------------- */
 /** @defgroup ADC_Burst		Burst
@@ -45,6 +46,7 @@
 #define MCB_LPC_1768
 //#define IAR_LPC_1768
 #define MCB_LPC17XX_ADC_INJECT_TEST
+#define __DMA_USED__            (0)
 
 #ifdef MCB_LPC_1768
 #define MCB_LPC_1768_ADC_BURST_MULTI
@@ -87,6 +89,15 @@ uint8_t menu1[] =
 #ifdef MCB_LPC17XX_ADC_INJECT_TEST
 static BOOL_8 toggle=FALSE;
 #endif
+#if __DMA_USED__
+// Terminal Counter flag for Channel 0
+__IO uint32_t Channel0_TC;
+
+// Error Counter flag for Channel 0
+__IO uint32_t Channel0_Err;
+
+__IO uint32_t s_buf[DMA_SIZE];
+#endif /*__DMA_USED__*/
 /************************** PRIVATE FUNCTION *************************/
 void print_menu(void);
 
@@ -130,7 +141,38 @@ void print_menu(void)
 	_DBG(menu1);
 }
 
+#if __DMA_USED__
+/*********************************************************************//**
+ * @brief		GPDMA interrupt handler sub-routine
+ * @param[in]	None
+ * @return 		None
+ **********************************************************************/
+void DMA_IRQHandler (void)
+{
+	// check GPDMA interrupt on channel 0
+	if (GPDMA_IntGetStatus(GPDMA_STAT_INT, 0))
+	{
+		// Check counter terminal status
+		if(GPDMA_IntGetStatus(GPDMA_STAT_INTTC, 0))
+		{
+			// Clear terminate counter Interrupt pending
+			GPDMA_ClearIntPending (GPDMA_STATCLR_INTTC, 0);
 
+			Channel0_TC++;
+		}
+
+		// Check error terminal status
+		if (GPDMA_IntGetStatus(GPDMA_STAT_INTERR, 0))
+		{
+			// Clear error counter Interrupt pending
+			GPDMA_ClearIntPending (GPDMA_STATCLR_INTERR, 0);
+
+			Channel0_Err++;
+		}
+	}
+}
+
+#endif /*__DMA_USED__*/
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
  * @brief		c_entry: Main ADC program body
@@ -144,14 +186,21 @@ int c_entry(void)
 	PINSEL_CFG_Type PinCfg1;
 #endif
 	uint32_t tmp;
+#if !__DMA_USED__
 	uint32_t adc_value;
+#endif
+#if __DMA_USED__
+    GPDMA_Channel_CFG_Type GPDMACfg;
+#endif
+	
+
 	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
+	* – 115200bps
+	* – 8 data bit
+	* – No parity
+	* – 1 stop bit
+	* – No flow control
+	*/
 	debug_frmwrk_init();
 
 	// print welcome screen
@@ -216,6 +265,65 @@ int c_entry(void)
 	NVIC_EnableIRQ(EINT3_IRQn);
 #endif
 
+#if __DMA_USED__
+     /* Initialize GPDMA controller */
+	GPDMA_Init();
+
+	// Setup GPDMA channel --------------------------------
+	// channel 0
+	GPDMACfg.ChannelNum = 0;
+	// Source memory - unused
+	GPDMACfg.SrcMemAddr = 0;
+	// Destination memory
+	GPDMACfg.DstMemAddr = (uint32_t)s_buf;
+	// Transfer size
+	GPDMACfg.TransferSize = DMA_SIZE;
+	// Transfer width - unused
+	GPDMACfg.TransferWidth = 0;
+	// Transfer type
+	GPDMACfg.TransferType = GPDMA_TRANSFERTYPE_P2M;
+	// Source connection
+	GPDMACfg.SrcConn = GPDMA_CONN_ADC;
+	// Destination connection - unused
+	GPDMACfg.DstConn = 0;
+	// Linker List Item - unused
+	GPDMACfg.DMALLI = 0;
+	
+	/* Enable GPDMA interrupt */
+	NVIC_EnableIRQ(DMA_IRQn);
+
+    while(1)
+    {      
+         for(tmp = 0; tmp < 0x1000; tmp++);
+
+        /* Reset terminal counter */
+	    Channel0_TC = 0;
+	    /* Reset Error counter */
+	    Channel0_Err = 0;
+        for(tmp = 0; tmp < DMA_SIZE; tmp++)
+        {
+            s_buf[tmp] = 0;
+        }
+         //Start burst conversion
+        ADC_BurstCmd(LPC_ADC,ENABLE);
+
+        GPDMA_Setup(&GPDMACfg);
+        // Enable GPDMA channel 0
+        GPDMA_ChannelCmd(0, ENABLE);
+         /* Wait for GPDMA processing complete */
+    	while ((Channel0_TC == 0));
+        GPDMA_ChannelCmd(0, DISABLE);
+        
+         for(tmp = 0; tmp < DMA_SIZE; tmp++)
+          {
+                if(s_buf[tmp] & ADC_GDR_DONE_FLAG)
+                {
+                    _DBG("ADC value on channel "); _DBD(ADC_GDR_CH(s_buf[tmp])); _DBG(": ");
+                    _DBD32(ADC_GDR_RESULT(s_buf[tmp]));_DBG_("");
+                }
+          }
+    }
+#else
 	//Start burst conversion
 	ADC_BurstCmd(LPC_ADC,ENABLE);
 	while(1)
@@ -238,6 +346,8 @@ int c_entry(void)
 		// Wait for a while
 		for(tmp = 0; tmp < 1500000; tmp++);
 	}
+#endif /*__DMA_USED__*/
+
 }
 
 /* Support required entry point for other toolchain */
