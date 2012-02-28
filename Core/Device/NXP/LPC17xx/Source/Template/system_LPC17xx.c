@@ -498,6 +498,9 @@ void SystemCoreClockUpdate (void)            /* Get Core Clock Frequency      */
  */
 void SystemInit (void)
 {
+  const uint32_t PLL0_CONNECT_FLG = (1<<25) | (1<<24);
+  const uint32_t PLL1_CONNECT_FLG = (1<<8) | (1<<9);
+  
 #if (CLOCK_SETUP)                       /* Clock Setup                        */
   LPC_SC->SCS       = SCS_Val;
   if (LPC_SC->SCS & (1 << 5)) {             /* If Main Oscillator is enabled  */
@@ -526,7 +529,7 @@ void SystemInit (void)
   LPC_SC->PLL0CON   = 0x03;             /* PLL0 Enable & Connect              */
   LPC_SC->PLL0FEED  = 0xAA;
   LPC_SC->PLL0FEED  = 0x55;
-  while (!(LPC_SC->PLL0STAT & ((1<<25) | (1<<24))));/* Wait for PLLC0_STAT & PLLE0_STAT */
+  while ((LPC_SC->PLL0STAT & PLL0_CONNECT_FLG) != PLL0_CONNECT_FLG);/* Wait for PLLC0_STAT & PLLE0_STAT */
 #endif
 
 #if (PLL1_SETUP)
@@ -542,7 +545,7 @@ void SystemInit (void)
   LPC_SC->PLL1CON   = 0x03;             /* PLL1 Enable & Connect              */
   LPC_SC->PLL1FEED  = 0xAA;
   LPC_SC->PLL1FEED  = 0x55;
-  while (!(LPC_SC->PLL1STAT & ((1<< 9) | (1<< 8))));/* Wait for PLLC1_STAT & PLLE1_STAT */
+  while ((LPC_SC->PLL1STAT & PLL1_CONNECT_FLG) != PLL1_CONNECT_FLG);/* Wait for PLLC1_STAT & PLLE1_STAT */
 #else
   LPC_SC->USBCLKCFG = USBCLKCFG_Val;    /* Setup USB Clock Divider            */
 #endif
