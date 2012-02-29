@@ -45,7 +45,7 @@ include $(PROJ_ROOT)/makesection/makerule/$(DEVICE)/make.$(DEVICE).$(TOOL)
 # Included Cortex-Mx core files  
 #
 ########################################################################
-include $(PROJ_ROOT)\makesection\makerule\common\make.rules.ftypes
+include $(PROJ_ROOT)/makesection/makerule/common/make.rules.ftypes
 #ADDOBJS     += $(PROJ_ROOT)/Core/$(CMCORE_TYPE)/CoreSupport/core_cm3.o 
 #ADDOBJS     += $(PROJ_ROOT)/Core/$(CMCORE_TYPE)/DeviceSupport/$(MANUFACTURE)/$(DEVICE)/system_$(DEVICE).o
 ADDOBJS     += $(PROJ_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Template/system_$(DEVICE).o  
@@ -159,26 +159,34 @@ ifeq ($(TOOL), gnu)
 rom: LDSCRIPT=$(LDSCRIPTIROM)
 rom: AFLAGS += --defsym RAM_MODE=0 
 rom: CFLAGS += -D__RAM_MODE__=0
-rom: cleanall debug_status  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS) 
+rom: clean_rom debug_status  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS) 
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \
 	$(MAPFILE)$(MEXT) $(LDESC) $(LDSCRIPT) -o $(EXECNAME)$(EXT)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
-	$(CODESIZE) $(EXECNAME)$(EXT)
 #	$(ELFTOBIN) $(EXECNAME)$(EXT) $(EFLTBINOPT) $(EXECNAME).bin
+	$(MKDIR) GCC\Flash
+	$(MV) $(MAPFILE)$(MEXT) GCC\Flash\$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC\Flash\$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC\Flash\$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC\Flash\$(EXECNAME)$(REC)
+	$(CODESIZE) GCC\Flash\$(EXECNAME)$(EXT)
 
 ram: LDSCRIPT=$(LDSCRIPTIRAM) 
 ram: AFLAGS += --defsym RAM_MODE=1
 ram: CFLAGS += -D__RAM_MODE__=1 
-ram: cleanall debug_status $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS) 
+ram: clean_ram debug_status $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS) 
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \
 	$(MAPFILE)$(MEXT) $(LDESC) $(LDSCRIPT) -o $(EXECNAME)$(EXT)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
-	$(CODESIZE) $(EXECNAME)$(EXT)
 #	$(ELFTOBIN) $(EXECNAME)$(EXT) $(EFLTBINOPT) $(EXECNAME).bin
-
-
+	$(MKDIR) GCC\Ram
+	$(MV) $(MAPFILE)$(MEXT) GCC\Ram\$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC\Ram\$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC\Ram\$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC\Ram\$(EXECNAME)$(REC)
+	$(CODESIZE) GCC\Ram\$(EXECNAME)$(EXT)
 # Following used for Chip Revision V00 only! --------------------------------------
 ram_v00: LDSCRIPT=$(LDSCRIPTIRAM_V00) 
 ram_v00: AFLAGS += --defsym RAM_MODE=1
@@ -188,7 +196,12 @@ ram_v00: debug_status $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS)
 	$(MAPFILE)$(MEXT) $(LDESC) $(LDSCRIPT) -o $(EXECNAME)$(EXT)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
-	$(CODESIZE) $(EXECNAME)$(EXT)
+	$(MKDIR) GCC\Ram_v00
+	$(MV) $(MAPFILE)$(MEXT) GCC\Ram_v00\$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC\Ram_v00\$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC\Ram_v00\$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC\Ram_v00\$(EXECNAME)$(REC)
+	$(CODESIZE) GCC\Ram_v00\$(EXECNAME)$(EXT)
 	
 rom_v00: LDSCRIPT=$(LDSCRIPTIROM_V00)
 rom_v00: AFLAGS += --defsym RAM_MODE=0  
@@ -198,20 +211,34 @@ rom_v00: debug_status $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS)
 	$(MAPFILE)$(MEXT) $(LDESC) $(LDSCRIPT) -o $(EXECNAME)$(EXT)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
-	$(CODESIZE) $(EXECNAME)$(EXT)
+	$(MKDIR) GCC\Rom_v00
+	$(MV) $(MAPFILE)$(MEXT) GCC\Rom_v00\$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC\Rom_v00\$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC\Rom_v00\$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC\Rom_v00\$(EXECNAME)$(REC)
+	$(CODESIZE) GCC\Rom_v00\$(EXECNAME)$(EXT)
 	
 endif
+
 
 
 # Print DEBUG MODE Status
 debug_status:
 	$(ECHO) "DEBUG MODE Status -->" $(DEBUG_MODE)
 
+clean_objs: realclean lpc_clean
+	@$(RM) $(ADDOBJS)
+	@$(RM) $(ADDOBJSS)
+	@$(RM) $(FWOBJS)
 	
+clean_ram: clean_objs
+	@$(RMDIR) "GCC\Ram"	
+
+clean_rom: clean_objs
+	@$(RMDIR) "GCC\Flash"
 	
-cleanall: realclean lpc_clean
-	-@$(RM) $(ADDOBJS)
-	-@$(RM) $(ADDOBJSS)
+cleanall: clean_ram clean_rom
+	@$(RMDIR) "GCC"	
 
 ########################################################################
 #
