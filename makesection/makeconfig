@@ -17,9 +17,10 @@ DEVICE				=LPC17xx
 MANUFACTURE			=NXP
 TOOL 				=gnu
 DEBUG_MODE			=1
+TOOLS_PATH 			=$(PROJ_ROOT)/makesection/tools/
 
 
-GNU_INSTALL_ROOT	=C:/Program Files/CodeSourcery/Sourcery G++ Lite
+GNU_INSTALL_ROOT	=C:/Program Files (x86)/CodeSourcery/Sourcery G++ Lite
 GNU_VERSION			=4.3.3
-IAR_INSTALL_ROOT	=C:/Program Files/IAR Systems/Embedded Workbench 5.0 Kickstart
+IAR_INSTALL_ROOT	=C:/Program Files (x86)/IAR Systems/Embedded Workbench 5.0 Kickstart
 KEIL_INSTALL_ROOT	=C:/Keil
