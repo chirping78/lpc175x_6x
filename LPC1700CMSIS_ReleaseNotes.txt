@@ -1,3 +1,15 @@
+RELEASE: LPC1700CMSIS_120229
+
+1./ Set the burst size of ADC to 1 instead of 4.
+2./ Update ADC_Burst Example: 
+	+ Add DMA Support Option through __DMA_USED__ macro.
+	+ Fix problem: injection test works improperly.
+3./ Update SPI Master/Slave examples: 
+	+ Use macro SPI_DATABIT_8~16 to set value for SPI_ConfigStruct.Databit.
+	+ Update Buffer Initialization and Verification. 
+4./ Fix the condition of waiting for PLL0/1 connected in SystemInit function.
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120131
 
 1./ Fix bug in Emac driver files:
