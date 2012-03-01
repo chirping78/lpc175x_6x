@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =vt_relocation
-EXDIR		=NVIC/VecTable_Relocation
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=NVIC/VecTable_Relocation
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

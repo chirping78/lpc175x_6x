@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =timer_int_match
-EXDIR		=TIMER/Interrupt_Match
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=TIMER/Interrupt_Match
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

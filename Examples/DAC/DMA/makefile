@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =dac_dma
-EXDIR		=DAC/DMA
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=DAC/DMA
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

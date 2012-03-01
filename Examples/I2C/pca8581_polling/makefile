@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =pca8581_test
-EXDIR		=I2C/pca8581_polling
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=I2C/pca8581_polling
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

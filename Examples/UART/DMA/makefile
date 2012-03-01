@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =uart_dma_test
-EXDIR		=UART/DMA
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=UART/DMA
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

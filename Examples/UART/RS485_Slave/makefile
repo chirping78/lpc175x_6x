@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =rs485_slave
-EXDIR		=UART/RS485_Slave
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=UART/RS485_Slave
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

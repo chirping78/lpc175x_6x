@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =adc_hardware_trigger_test
-EXDIR		=ADC/HardwareTrigger
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=ADC/HardwareTrigger
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

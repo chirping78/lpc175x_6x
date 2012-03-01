@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =flash_2_ram
-EXDIR		=GPDMA/Flash_2_Ram_Test
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=GPDMA/Flash_2_Ram_Test
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

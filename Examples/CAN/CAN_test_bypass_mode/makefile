@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =can_test_bypass_mode
-EXDIR		=CAN/CAN_test_bypass_mode
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=CAN/CAN_test_bypass_mode
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =timer_poll_match
-EXDIR		=TIMER/Polling_Match
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=TIMER/Polling_Match
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

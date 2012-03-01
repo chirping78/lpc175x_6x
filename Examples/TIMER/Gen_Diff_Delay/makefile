@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =gen_diff_delay
-EXDIR		=TIMER/Gen_Diff_Delay
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=TIMER/Gen_Diff_Delay
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

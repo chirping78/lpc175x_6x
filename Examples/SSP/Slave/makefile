@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =ssp_slave
-EXDIR		=SSP/Slave
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=SSP/Slave
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =adc_dma_test
-EXDIR		=ADC/DMA
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=ADC/DMA
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

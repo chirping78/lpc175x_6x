@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =link_list
-EXDIR		=GPDMA/Link_list
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=GPDMA/Link_list
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =uart_fullmodem_test
-EXDIR		=UART/UART1_FullModem
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=UART/UART1_FullModem
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

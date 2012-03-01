@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =uart_polling_test
-EXDIR		=UART/Polling
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=UART/Polling
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

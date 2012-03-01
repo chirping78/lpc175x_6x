@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =wdt_deepsleep
-EXDIR		=PWR/WDT_DeepSleep
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=PWR/WDT_DeepSleep
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

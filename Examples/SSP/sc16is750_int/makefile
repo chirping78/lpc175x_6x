@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =sc16is750_int
-EXDIR		=SSP/sc16is750_int
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=SSP/sc16is750_int
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

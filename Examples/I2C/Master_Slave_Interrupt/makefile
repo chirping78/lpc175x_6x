@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =i2c_master_slave_int_test
-EXDIR		=I2C/Master_Slave_Interrupt
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=I2C/Master_Slave_Interrupt
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

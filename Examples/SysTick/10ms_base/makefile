@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =10ms_base
-EXDIR		=SysTick/10ms_base
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=SysTick/10ms_base
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

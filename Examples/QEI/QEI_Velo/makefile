@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =qei_test_velo
-EXDIR		=QEI/QEI_Velo
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=QEI/QEI_Velo
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

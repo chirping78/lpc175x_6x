@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =template
-EXDIR		=Project_Template/Eclipse_GNU
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=Project_Template/Eclipse_GNU
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

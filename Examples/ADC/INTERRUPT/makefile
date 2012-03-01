@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =adc_interrupt_test
-EXDIR		=ADC/INTERRUPT
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=ADC/INTERRUPT
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

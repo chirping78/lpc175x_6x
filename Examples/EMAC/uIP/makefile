@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =uIPport
-EXDIR		=EMAC/uIP
 
 ########################################################################
 #
@@ -34,7 +33,7 @@ EXDIR		=EMAC/uIP
 ########################################################################
 include ../../../makesection/makeconfig 
 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 
 # Include directory
 TMPPATH 		+= -I"$(EXDIRINC)/apps/webserver" \

@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =i2c_monitor
-EXDIR		=I2C/Monitor
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=I2C/Monitor
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

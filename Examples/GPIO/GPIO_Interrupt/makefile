@@ -25,8 +25,6 @@
 ########################################################################
 
 EXECNAME    =gpio_int
-EXDIR		=GPIO/GPIO_Interrupt
-
 
 
 ########################################################################
@@ -35,5 +33,5 @@ EXDIR		=GPIO/GPIO_Interrupt
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

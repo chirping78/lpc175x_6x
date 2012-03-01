@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =uart_interrupt_test
-EXDIR		=UART/Interrupt
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=UART/Interrupt
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

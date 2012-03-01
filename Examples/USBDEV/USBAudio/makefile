@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =usbdmain
-EXDIR		=USBDEV/USBAudio
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=USBDEV/USBAudio
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =uart_hw_flow_control
-EXDIR		=UART/HWFlowControl
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=UART/HWFlowControl
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

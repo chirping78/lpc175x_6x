@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =i2s_mclk
-EXDIR		=I2S/I2S_MCLK
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=I2S/I2S_MCLK
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

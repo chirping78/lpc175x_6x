@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =pwm_dual_edge
-EXDIR		=PWM/Dual_Edge
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=PWM/Dual_Edge
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

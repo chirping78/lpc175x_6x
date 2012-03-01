@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =i2c_interrupt_test
-EXDIR		=I2C/sc16is750_int
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=I2C/sc16is750_int
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

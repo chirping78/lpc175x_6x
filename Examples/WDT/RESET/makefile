@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =wdt_reset_test
-EXDIR		=WDT/RESET
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=WDT/RESET
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

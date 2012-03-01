@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =spi_slave
-EXDIR		=SPI/Master
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=SPI/Master
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

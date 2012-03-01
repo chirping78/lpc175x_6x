@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =pwm_match_int
-EXDIR		=PWM/Match_Interrupt
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=PWM/Match_Interrupt
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex

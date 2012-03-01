@@ -25,7 +25,6 @@
 ########################################################################
 
 EXECNAME    =easyweb
-EXDIR		=EMAC/Easy_Web
 
 
 
@@ -35,5 +34,5 @@ EXDIR		=EMAC/Easy_Web
 #
 ########################################################################
 include ../../../makesection/makeconfig 
-EXDIRINC	=$(PROJ_ROOT)/Examples/$(EXDIR)
+EXDIRINC	=$(CURDIR)
 include $(PROJ_ROOT)/makesection/makerule/example/makefile.ex
