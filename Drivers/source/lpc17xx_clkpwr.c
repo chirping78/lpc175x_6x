@@ -304,7 +304,7 @@ void CLKPWR_DeepSleep(void)
 {
     /* Deep-Sleep Mode, set SLEEPDEEP bit */
 	SCB->SCR = 0x4;
-	LPC_SC->PCON = 0x8;
+	LPC_SC->PCON = 0x00;
 	/* Deep Sleep Mode*/
 	__WFI();
 }
@@ -319,7 +319,7 @@ void CLKPWR_PowerDown(void)
 {
     /* Deep-Sleep Mode, set SLEEPDEEP bit */
 	SCB->SCR = 0x4;
-	LPC_SC->PCON = 0x09;
+	LPC_SC->PCON = 0x01;
 	/* Power Down Mode*/
 	__WFI();
 }
