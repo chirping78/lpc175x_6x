@@ -61,7 +61,7 @@
 #define SSPDEV_M LPC_SSP0
 #elif (USEDSSPDEV_M == 1)
 #define SSPDEV_M LPC_SSP1
-#elif
+#else
 #error "Master SSP device not defined!"
 #endif
 

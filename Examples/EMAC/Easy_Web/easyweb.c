@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "adc.h"
+#include "ADC.h"
 #include "lpc17xx_libcfg.h"
 #include "EMAC.h"         // Keil: *.c -> *.h    // ethernet packet driver
 #define extern            // Keil: Line added for modular project management
