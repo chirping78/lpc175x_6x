@@ -165,12 +165,12 @@ rom: clean_rom debug_status  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
 #	$(ELFTOBIN) $(EXECNAME)$(EXT) $(EFLTBINOPT) $(EXECNAME).bin
-	$(MKDIR) GCC\Flash
-	$(MV) $(MAPFILE)$(MEXT) GCC\Flash\$(MAPFILE)$(MEXT)
-	$(MV) $(EXECNAME)$(EXT) GCC\Flash\$(EXECNAME)$(EXT)
-	$(MV) $(EXECNAME)$(HEX) GCC\Flash\$(EXECNAME)$(HEX)
-	$(MV) $(EXECNAME)$(REC) GCC\Flash\$(EXECNAME)$(REC)
-	$(CODESIZE) GCC\Flash\$(EXECNAME)$(EXT)
+	$(MKDIR) GCC/Flash
+	$(MV) $(MAPFILE)$(MEXT) GCC/Flash/$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC/Flash/$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC/Flash/$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC/Flash/$(EXECNAME)$(REC)
+	$(CODESIZE) GCC/Flash/$(EXECNAME)$(EXT)
 
 ram: LDSCRIPT=$(LDSCRIPTIRAM) 
 ram: AFLAGS += --defsym RAM_MODE=1
@@ -181,12 +181,12 @@ ram: clean_ram debug_status $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
 #	$(ELFTOBIN) $(EXECNAME)$(EXT) $(EFLTBINOPT) $(EXECNAME).bin
-	$(MKDIR) GCC\Ram
-	$(MV) $(MAPFILE)$(MEXT) GCC\Ram\$(MAPFILE)$(MEXT)
-	$(MV) $(EXECNAME)$(EXT) GCC\Ram\$(EXECNAME)$(EXT)
-	$(MV) $(EXECNAME)$(HEX) GCC\Ram\$(EXECNAME)$(HEX)
-	$(MV) $(EXECNAME)$(REC) GCC\Ram\$(EXECNAME)$(REC)
-	$(CODESIZE) GCC\Ram\$(EXECNAME)$(EXT)
+	$(MKDIR) GCC/Ram
+	$(MV) $(MAPFILE)$(MEXT) GCC/Ram/$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC/Ram/$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC/Ram/$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC/Ram/$(EXECNAME)$(REC)
+	$(CODESIZE) GCC/Ram/$(EXECNAME)$(EXT)
 # Following used for Chip Revision V00 only! --------------------------------------
 ram_v00: LDSCRIPT=$(LDSCRIPTIRAM_V00) 
 ram_v00: AFLAGS += --defsym RAM_MODE=1
@@ -196,12 +196,12 @@ ram_v00: debug_status $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS)
 	$(MAPFILE)$(MEXT) $(LDESC) $(LDSCRIPT) -o $(EXECNAME)$(EXT)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
-	$(MKDIR) GCC\Ram_v00
-	$(MV) $(MAPFILE)$(MEXT) GCC\Ram_v00\$(MAPFILE)$(MEXT)
-	$(MV) $(EXECNAME)$(EXT) GCC\Ram_v00\$(EXECNAME)$(EXT)
-	$(MV) $(EXECNAME)$(HEX) GCC\Ram_v00\$(EXECNAME)$(HEX)
-	$(MV) $(EXECNAME)$(REC) GCC\Ram_v00\$(EXECNAME)$(REC)
-	$(CODESIZE) GCC\Ram_v00\$(EXECNAME)$(EXT)
+	$(MKDIR) GCC/Ram_v00
+	$(MV) $(MAPFILE)$(MEXT) GCC/Ram_v00/$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC/Ram_v00/$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC/Ram_v00/$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC/Ram_v00/$(EXECNAME)$(REC)
+	$(CODESIZE) GCC/Ram_v00/$(EXECNAME)$(EXT)
 	
 rom_v00: LDSCRIPT=$(LDSCRIPTIROM_V00)
 rom_v00: AFLAGS += --defsym RAM_MODE=0  
@@ -211,12 +211,12 @@ rom_v00: debug_status $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(FWOBJS)
 	$(MAPFILE)$(MEXT) $(LDESC) $(LDSCRIPT) -o $(EXECNAME)$(EXT)
 	$(ELFTOHEX) $(EXECNAME)$(EXT) $(EXECNAME)$(HEX)
 	$(ELFTOREC) $(EXECNAME)$(EXT) $(EXECNAME)$(REC)
-	$(MKDIR) GCC\Rom_v00
-	$(MV) $(MAPFILE)$(MEXT) GCC\Rom_v00\$(MAPFILE)$(MEXT)
-	$(MV) $(EXECNAME)$(EXT) GCC\Rom_v00\$(EXECNAME)$(EXT)
-	$(MV) $(EXECNAME)$(HEX) GCC\Rom_v00\$(EXECNAME)$(HEX)
-	$(MV) $(EXECNAME)$(REC) GCC\Rom_v00\$(EXECNAME)$(REC)
-	$(CODESIZE) GCC\Rom_v00\$(EXECNAME)$(EXT)
+	$(MKDIR) GCC/Rom_v00
+	$(MV) $(MAPFILE)$(MEXT) GCC/Rom_v00/$(MAPFILE)$(MEXT)
+	$(MV) $(EXECNAME)$(EXT) GCC/Rom_v00/$(EXECNAME)$(EXT)
+	$(MV) $(EXECNAME)$(HEX) GCC/Rom_v00/$(EXECNAME)$(HEX)
+	$(MV) $(EXECNAME)$(REC) GCC/Rom_v00/$(EXECNAME)$(REC)
+	$(CODESIZE) GCC/Rom_v00/$(EXECNAME)$(EXT)
 	
 endif
 
@@ -232,10 +232,10 @@ clean_objs: realclean lpc_clean
 	@$(RM) $(FWOBJS)
 	
 clean_ram: clean_objs
-	@$(RMDIR) "GCC\Ram"	
+	@$(RMDIR) "GCC/Ram"	
 
 clean_rom: clean_objs
-	@$(RMDIR) "GCC\Flash"
+	@$(RMDIR) "GCC/Flash"
 	
 cleanall: clean_ram clean_rom
 	@$(RMDIR) "GCC"	
