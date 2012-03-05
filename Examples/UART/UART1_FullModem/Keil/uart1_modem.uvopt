@@ -294,7 +294,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Core\Device\NXP\LPC17xx\Source\Template\ARM\startup_LPC17xx.s</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\ARM\startup_LPC17xx.s</PathWithFileName>
       <FilenameWithoutPath>startup_LPC17xx.s</FilenameWithoutPath>
     </File>
   </Group>
@@ -315,7 +315,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\Core\Device\NXP\LPC17xx\Source\Template\system_LPC17xx.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\system_LPC17xx.c</PathWithFileName>
       <FilenameWithoutPath>system_LPC17xx.c</FilenameWithoutPath>
     </File>
   </Group>

@@ -48,7 +48,7 @@ include $(PROJ_ROOT)/makesection/makerule/$(DEVICE)/make.$(DEVICE).$(TOOL)
 include $(PROJ_ROOT)/makesection/makerule/common/make.rules.ftypes
 #ADDOBJS     += $(PROJ_ROOT)/Core/$(CMCORE_TYPE)/CoreSupport/core_cm3.o 
 #ADDOBJS     += $(PROJ_ROOT)/Core/$(CMCORE_TYPE)/DeviceSupport/$(MANUFACTURE)/$(DEVICE)/system_$(DEVICE).o
-ADDOBJS     += $(PROJ_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Template/system_$(DEVICE).o  
+ADDOBJS     += $(PROJ_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Templates/system_$(DEVICE).o  
 
 ########################################################################
 #
@@ -84,7 +84,7 @@ MEXT        =.map
 MAPFILE     =$(EXECNAME)
 #CFLAGS      +=-gdwarf-2
 AFLAGS 		+=-gdwarf-2
-ADDOBJSS    += $(PROJ_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Template/GCC/startup_$(DEVICE).o
+ADDOBJSS    += $(PROJ_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Templates/GCC/startup_$(DEVICE).o
 
 
 # Define Required Linker script file in each build mode

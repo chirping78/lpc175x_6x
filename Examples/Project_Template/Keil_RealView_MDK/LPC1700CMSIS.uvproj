@@ -389,7 +389,7 @@
             <File>
               <FileName>startup_LPC17xx.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Template\ARM\startup_LPC17xx.s</FilePath>
+              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\ARM\startup_LPC17xx.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -399,7 +399,7 @@
             <File>
               <FileName>system_LPC17xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Template\system_LPC17xx.c</FilePath>
+              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\system_LPC17xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1031,7 +1031,7 @@
             <File>
               <FileName>startup_LPC17xx.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Template\ARM\startup_LPC17xx.s</FilePath>
+              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\ARM\startup_LPC17xx.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -1041,7 +1041,7 @@
             <File>
               <FileName>system_LPC17xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Template\system_LPC17xx.c</FilePath>
+              <FilePath>..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\system_LPC17xx.c</FilePath>
             </File>
           </Files>
         </Group>

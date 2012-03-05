@@ -297,7 +297,7 @@
           <state>$PROJ_DIR$\..</state>
           <state>$PROJ_DIR$\..\..\..\..\Core\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\..\..\Core\Device\NXP\LPC17xx\Include</state>
-          <state>$PROJ_DIR$\..\..\..\..\Core\Device\NXP\LPC17xx\Source\Template\IAR</state>
+          <state>$PROJ_DIR$\..\..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\IAR</state>
           <state>$PROJ_DIR$\..\..\..\..\Drivers\include</state>
         </option>
         <option>
@@ -904,7 +904,7 @@
   <group>
     <name>CMSIS-CM3</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Core\Device\NXP\LPC17xx\Source\Template\system_LPC17xx.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\system_LPC17xx.c</name>
     </file>
   </group>
   <group>
@@ -952,7 +952,7 @@
   <group>
     <name>Startup</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Core\Device\NXP\LPC17xx\Source\Template\IAR\startup_LPC17xx.s</name>
+      <name>$PROJ_DIR$\..\..\..\..\Core\Device\NXP\LPC17xx\Source\Templates\IAR\startup_LPC17xx.s</name>
     </file>
   </group>
 </project>

@@ -115,7 +115,7 @@ CMCORE_INC_DIR =$(CMCORE_DIR)
 # 
 ########################################################################
 
-DEVICE_DIR     =$(BUILD_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Template
+DEVICE_DIR     =$(BUILD_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Templates
 DEVICE_INC_DIR =$(BUILD_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Include
 
 ########################################################################

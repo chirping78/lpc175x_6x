@@ -21,9 +21,9 @@
 
 include $(PROJ_ROOT)/makesection/makerule/common/make.rules.environment
 
-GNUTOOLS		='$(GNU_INSTALL_ROOT)/bin'
-THUMB2GNULIB 	='$(GNU_INSTALL_ROOT)/lib/gcc/arm-none-eabi/$(GNU_VERSION)/thumb2'
-THUMB2GNULIB2	='$(GNU_INSTALL_ROOT)/arm-none-eabi/lib/thumb2'
+GNUTOOLS		=$(GNU_INSTALL_ROOT)/bin
+THUMB2GNULIB 	="$(GNU_INSTALL_ROOT)/lib/gcc/arm-none-eabi/$(GNU_VERSION)/thumb2"
+THUMB2GNULIB2	="$(GNU_INSTALL_ROOT)/arm-none-eabi/lib/thumb2"
 
 CPU       		= cortex-m3
 OPTIM			= 0
@@ -76,16 +76,16 @@ AFLAGS   		+= -I$(FWLIB_INC_DIR) -I$(CMCORE_INC_DIR) -I$(DEVICE_INC_DIR) -gdwarf
 
 
 
-#CC		 		= $(GNUTOOLS)/arm-none-eabi-gcc
-CC       		= $(GNUTOOLS)/arm-none-eabi-gcc-$(GNU_VERSION)
-AS       		= $(GNUTOOLS)/arm-none-eabi-as
-AR       		= $(GNUTOOLS)/arm-none-eabi-ar -r
-LD       		= $(GNUTOOLS)/arm-none-eabi-gcc
-NM       		= $(GNUTOOLS)/arm-none-eabi-nm
-OBJDUMP  		= $(GNUTOOLS)/arm-none-eabi-objdump
-OBJCOPY  		= $(GNUTOOLS)/arm-none-eabi-objcopy
-READELF  		= $(GNUTOOLS)/arm-none-eabi-readelf
-CODESIZE 		= $(GNUTOOLS)/arm-none-eabi-size
+#CC		 		= "$(GNUTOOLS)/arm-none-eabi-gcc"
+CC       		= "$(GNUTOOLS)/arm-none-eabi-gcc-$(GNU_VERSION)"
+AS       		= "$(GNUTOOLS)/arm-none-eabi-as"
+AR       		= "$(GNUTOOLS)/arm-none-eabi-ar -r"
+LD       		= "$(GNUTOOLS)/arm-none-eabi-gcc"
+NM       		= "$(GNUTOOLS)/arm-none-eabi-nm"
+OBJDUMP  		= "$(GNUTOOLS)/arm-none-eabi-objdump"
+OBJCOPY  		= "$(GNUTOOLS)/arm-none-eabi-objcopy"
+READELF  		= "$(GNUTOOLS)/arm-none-eabi-readelf"
+CODESIZE 		= "$(GNUTOOLS)/arm-none-eabi-size"
 
 
 #================ LD flag ========================
