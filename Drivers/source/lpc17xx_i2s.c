@@ -1,7 +1,7 @@
 /**********************************************************************
 * $Id$		lpc17xx_i2s.c				2010-09-23
 *//**
-* @file		lpc17xx_gpio.c
+* @file		lpc17xx_i2s.c
 * @brief	Contains all functions support for I2S firmware
 * 			library on LPC17xx
 * @version	3.1
@@ -324,17 +324,23 @@ void I2S_Stop(LPC_I2S_TypeDef *I2Sx, uint8_t TRMode) {
  *********************************************************************/
 Status I2S_FreqConfig(LPC_I2S_TypeDef *I2Sx, uint32_t Freq, uint8_t TRMode) {
 
-	uint32_t i2sMclk;
-	uint8_t bitrate, channel, wordwidth;
+	uint32_t i2s_clk;
+	uint8_t channel, wordwidth;
+	uint32_t x, y;
+	uint64_t divider;
+	uint16_t dif;
+	uint16_t x_divide, y_divide;
+	uint16_t err, ErrorOptimal = 0xFFFF;
+	
+	uint32_t N;
 
 	CHECK_PARAM(PARAM_I2Sx(I2Sx));
 	CHECK_PARAM(PRAM_I2S_FREQ(Freq));
 	CHECK_PARAM(PARAM_I2S_TRX(TRMode));
 
-	//set i2s reference is i2s_pclk/2 as default
-	i2sMclk = CLKPWR_GetPCLK(CLKPWR_PCLKSEL_I2S)/2;
-	I2Sx->I2STXRATE = 1  | (1<<8);
-	I2Sx->I2SRXRATE = 1  | (1<<8);
+	//Get the frequency of PCLK_I2S
+	i2s_clk = CLKPWR_GetPCLK(CLKPWR_PCLKSEL_I2S);
+
 	if(TRMode == I2S_TX_MODE)
 	{
 		channel = i2s_GetChannel(I2Sx,I2S_TX_MODE);
@@ -345,13 +351,63 @@ Status I2S_FreqConfig(LPC_I2S_TypeDef *I2Sx, uint32_t Freq, uint8_t TRMode) {
 		channel = i2s_GetChannel(I2Sx,I2S_RX_MODE);
 		wordwidth = i2s_GetWordWidth(I2Sx,I2S_RX_MODE);
 	}
-	bitrate = i2sMclk/(Freq * channel * wordwidth) - 1;
+
+	/* Calculate X and Y divider
+	 * The MCLK rate for the I2S transmitter is determined by the value
+	 * in the I2STXRATE/I2SRXRATE register. The required I2STXRATE/I2SRXRATE
+	 * setting depends on the desired audio sample rate desired, the format
+	 * (stereo/mono) used, and the data size.
+	 * The formula is:
+	 * 		I2S_MCLK = PCLK_I2S * (X/Y) / 2
+     * In that, Y must be greater than or equal to X. X should divides evenly
+     * into Y. 
+	 * We have:
+	 * 		I2S_MCLK = Freq * channel*wordwidth * (I2STXBITRATE+1);
+	 * So: (X/Y) = (Freq * channel*wordwidth * (I2STXBITRATE+1))*2/PCLK_I2S
+	 * We use a loop function to chose the most suitable X,Y value
+	 */
+
+	/* divider is a fixed point number with 16 fractional bits */
+    divider = (((uint64_t)Freq *channel*wordwidth * 2)<<16) / i2s_clk;
+
+	/* find N that make x/y <= 1 -> divider <= 2^16 */
+	for(N=64;N>0;N--){
+		if((divider*N) < (1<<16)) break;
+	}
+
+	if(N == 0) return ERROR;
+
+	divider *= N;
+
+	for (y = 255; y > 0; y--) {
+		x = y * divider;
+		if(x & (0xFF000000)) continue;
+		dif = x & 0xFFFF;
+		if(dif>0x8000) err = 0x10000-dif;
+		else err = dif;
+		if (err == 0)
+		{
+			y_divide = y;
+			break;
+		}
+		else if (err < ErrorOptimal)
+		{
+			ErrorOptimal = err;
+			y_divide = y;
+		}
+	}
+	x_divide = ((uint64_t)y_divide * Freq *(channel*wordwidth)* N * 2)/i2s_clk;
+	if(x_divide >= 256) x_divide = 0xFF;
+	if(x_divide == 0) x_divide = 1;
+
 	if (TRMode == I2S_TX_MODE)// Transmitter
 	{
-		I2Sx->I2STXBITRATE = bitrate;
+		I2Sx->I2STXBITRATE = N-1;
+		I2Sx->I2STXRATE = y_divide | (x_divide << 8);
 	} else //Receiver
 	{
-		I2Sx->I2SRXBITRATE = bitrate;
+		I2Sx->I2SRXBITRATE = N-1;
+		I2Sx->I2STXRATE = y_divide | (x_divide << 8);
 	}
 	return SUCCESS;
 }
