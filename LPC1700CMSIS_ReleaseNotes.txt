@@ -1,3 +1,11 @@
+RELEASE: LPC1700CMSIS_120330
+
+1./ Update example code to compile OK in Linux.
+2./ Change the folder name from "Template" to "Templates" (in Core/Device/Source path) to match CMSISv2.1.
+3./ Remove disabling BOD in  CLKPWR_DeepSleep function and CLKPWR_PowerDown function.
+4./ Remove file libnosys_gnu.c from EmacRaw Example.
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120229
 
 1./ Set the burst size of ADC to 1 instead of 4.
