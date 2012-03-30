@@ -20,7 +20,7 @@
 #include "lpc17xx_libcfg.h"
 #include "lpc17xx_pinsel.h"
 //#include "lpc17xx_emac.h"
-#include "adc.h"
+#include "ADC.h"
 
 /* For debugging... */
 #include "debug_frmwrk.h"

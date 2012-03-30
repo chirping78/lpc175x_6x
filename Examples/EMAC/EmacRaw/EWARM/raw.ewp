@@ -933,9 +933,6 @@
     <file>
       <name>$PROJ_DIR$\..\emactest.c</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\..\libnosys_gnu.c</name>
-    </file>
   </group>
   <group>
     <name>Readme</name>

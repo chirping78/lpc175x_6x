@@ -34,8 +34,8 @@
           <BinPath></BinPath>
           <IncludePath></IncludePath>
           <LibPath></LibPath>
-          <RegisterFilePath>ÿNXP\</RegisterFilePath>
-          <DBRegisterFilePath>ÿNXP\</DBRegisterFilePath>
+          <RegisterFilePath>NXP\</RegisterFilePath>
+          <DBRegisterFilePath>NXP\</DBRegisterFilePath>
           <TargetStatus>
             <Error>0</Error>
             <ExitCodeStop>0</ExitCodeStop>
@@ -442,19 +442,14 @@
           <GroupName>Source Files</GroupName>
           <Files>
             <File>
-              <FileName>crc32.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\crc32.c</FilePath>
-            </File>
-            <File>
               <FileName>emactest.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\emactest.c</FilePath>
             </File>
             <File>
-              <FileName>libnosys_gnu.c</FileName>
+              <FileName>crc32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\libnosys_gnu.c</FilePath>
+              <FilePath>..\crc32.c</FilePath>
             </File>
           </Files>
         </Group>
