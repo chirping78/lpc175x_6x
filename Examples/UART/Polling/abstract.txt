@@ -86,7 +86,7 @@
 	Step to run:
 		- Step 1: Build example.
 		- Step 2: Burn hex file into board (if run on ROM mode)
-		- Step 3: Connect UART0 on this board to COM port on your computer
+		- Step 3: Connect UART0/1 on this board to COM port on your computer
 		- Step 4: Configure hardware and serial display as above instruction 
 		- Step 5: Run example, use serial display to control UART0 as the guide on screen
 		

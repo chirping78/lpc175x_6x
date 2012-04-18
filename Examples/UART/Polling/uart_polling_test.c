@@ -44,13 +44,15 @@
 #if (UART_PORT == 0)
 #define TEST_UART LPC_UART0
 #elif (UART_PORT == 1)
-#define TEST_UART (LPC_UART_TypeDef *)UART1
+#define TEST_UART (LPC_UART_TypeDef *)LPC_UART1
 #endif
 
+#define MCB_LPC_1768
+//#define IAR_LPC_1768
 
 /************************** PRIVATE VARIABLES *************************/
 uint8_t menu1[] = "Hello NXP Semiconductors \n\r";
-uint8_t menu2[] = "UART polling mode demo \n\r\t MCU LPC17xx - ARM Cortex-M3 \n\r\t UART0 - 9600bps \n\r";
+uint8_t menu2[] = "UART polling mode demo \n\r\t MCU LPC17xx - ARM Cortex-M3 \n\r\t UART - 9600bps \n\r";
 uint8_t menu3[] = "UART demo terminated!";
 
 /************************** PRIVATE FUNCTIONS *************************/
@@ -106,7 +108,8 @@ int c_entry(void)
 #if (UART_PORT == 1)
 	/*
 	 * Initialize UART1 pin connect
-	 */
+	 */	
+#ifdef MCB_LPC_1768
 	PinCfg.Funcnum = 2;
 	PinCfg.OpenDrain = 0;
 	PinCfg.Pinmode = 0;
@@ -115,6 +118,16 @@ int c_entry(void)
 	PINSEL_ConfigPin(&PinCfg);
 	PinCfg.Pinnum = 1;
 	PINSEL_ConfigPin(&PinCfg);
+#elif defined(IAR_LPC_1768)
+	PinCfg.Funcnum = 1;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Portnum = 0;
+    PinCfg.Pinnum = 15;
+    PINSEL_ConfigPin(&PinCfg);
+	PinCfg.Pinnum = 16;
+	PINSEL_ConfigPin(&PinCfg);
+#endif
 #endif
 
 	/* Initialize UART Configuration parameter structure to default state:

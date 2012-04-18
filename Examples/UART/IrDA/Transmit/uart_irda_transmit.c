@@ -44,7 +44,7 @@
 #if (UART_PORT == 0)
 #define TEST_UART LPC_UART0
 #elif (UART_PORT == 1)
-#define TEST_UART (LPC_UART_TypeDef *)UART1
+#define TEST_UART (LPC_UART_TypeDef *)LPC_UART1
 #endif
 #define TEST_IRDA LPC_UART3
 
