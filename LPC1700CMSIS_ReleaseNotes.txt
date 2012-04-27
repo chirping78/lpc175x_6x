@@ -1,3 +1,12 @@
+RELEASE: LPC1700CMSIS_120427
+
+1./ Update ADC Driver:
+    + Stop conversion before disabling a channel.
+	+ Disable all channels before de-initialize ADC.
+2./ Fix compile errors when selecting UART_PORT=1 in UART/Polling , IrDA/Transmit & IrDA/Receive example.
+3./ Add IAP_Demo example.
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120330
 
 1./ Update example code to compile OK in Linux.
