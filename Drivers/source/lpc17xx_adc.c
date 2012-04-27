@@ -103,7 +103,10 @@ void ADC_Init(LPC_ADC_TypeDef *ADCx, uint32_t rate)
 void ADC_DeInit(LPC_ADC_TypeDef *ADCx)
 {
 	CHECK_PARAM(PARAM_ADCx(ADCx));
-
+    if (ADCx->ADCR & ADC_CR_START_MASK) //need to stop START bits before DeInit
+        ADCx->ADCR &= ~ADC_CR_START_MASK;
+     // Clear SEL bits
+    ADCx->ADCR &= ~0xFF;
 	// Clear PDN bit
 	ADCx->ADCR &= ~ADC_CR_PDN;
 	// Turn on power and clock
@@ -247,6 +250,8 @@ void ADC_ChannelCmd (LPC_ADC_TypeDef *ADCx, uint8_t Channel, FunctionalState New
 	if (NewState == ENABLE) {
 		ADCx->ADCR |= ADC_CR_CH_SEL(Channel);
 	} else {
+        if (ADCx->ADCR & ADC_CR_START_MASK) //need to stop START bits before disable channel
+		   ADCx->ADCR &= ~ADC_CR_START_MASK;
 		ADCx->ADCR &= ~ADC_CR_CH_SEL(Channel);
 	}
 }
