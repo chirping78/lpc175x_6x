@@ -75,7 +75,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
     case WDT_CLKSRC_IRC:
     	pclk_wdt = 4000000;
     	// Calculate TC in WDT
-    	tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
+    	tempval  = ((((uint64_t)pclk_wdt * (uint64_t)timeout / 4) / (uint64_t)WDT_US_INDEX));
     	// Check if it valid
     	if (tempval >= WDT_TIMEOUT_MIN)
     	{
@@ -90,7 +90,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
     	// Get WDT clock with CCLK divider = 4
 		pclk_wdt = SystemCoreClock / 4;
 		// Calculate TC in WDT
-		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
+		tempval  = ((((uint64_t)pclk_wdt * (uint64_t)timeout / 4) / (uint64_t)WDT_US_INDEX));
 
 		if (tempval >= WDT_TIMEOUT_MIN)
 		{
@@ -102,7 +102,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
 		// Get WDT clock with CCLK divider = 2
 		pclk_wdt = SystemCoreClock / 2;
 		// Calculate TC in WDT
-		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
+		tempval  = ((((uint64_t)pclk_wdt * (uint64_t)timeout / 4) / (uint64_t)WDT_US_INDEX));
 
 		if (tempval >= WDT_TIMEOUT_MIN)
 		{
@@ -114,7 +114,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
 		// Get WDT clock with CCLK divider = 1
 		pclk_wdt = SystemCoreClock;
 		// Calculate TC in WDT
-		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
+		tempval  = ((((uint64_t)pclk_wdt * (uint64_t)timeout / 4) / (uint64_t)WDT_US_INDEX));
 
 		if (tempval >= WDT_TIMEOUT_MIN)
 		{
@@ -128,7 +128,7 @@ static uint8_t WDT_SetTimeOut (uint8_t clk_source, uint32_t timeout)
     case WDT_CLKSRC_RTC:
 		pclk_wdt = 32768;
 		// Calculate TC in WDT
-		tempval  = (((pclk_wdt) / WDT_US_INDEX) * (timeout / 4));
+		tempval  = ((((uint64_t)pclk_wdt * (uint64_t)timeout / 4) / (uint64_t)WDT_US_INDEX));
 		// Check if it valid
 		if (tempval >= WDT_TIMEOUT_MIN)
 		{
