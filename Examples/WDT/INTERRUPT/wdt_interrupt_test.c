@@ -127,7 +127,7 @@ void LED_Init (void)
  **********************************************************************/
 int c_entry(void)
 {
-	uint32_t delay;
+	volatile uint32_t delay;
 	// Init LED port
 	LED_Init();
 

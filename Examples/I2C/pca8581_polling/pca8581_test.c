@@ -186,7 +186,7 @@ void Error_Loop(uint32_t ErrorCode)
 int c_entry(void)
 {
 	PINSEL_CFG_Type PinCfg;
-	uint32_t tmp;
+	volatile uint32_t tmp;
 	uint8_t *dp, *sp;
 
 	/* Initialize debug via UART0

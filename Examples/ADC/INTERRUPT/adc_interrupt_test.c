@@ -109,7 +109,7 @@ void print_menu(void)
 int c_entry(void)
 {
 	PINSEL_CFG_Type PinCfg;
-	uint32_t tmp;
+	volatile uint32_t tmp;
 
 	/* Initialize debug via UART0
 	 * – 115200bps

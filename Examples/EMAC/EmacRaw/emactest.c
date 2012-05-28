@@ -420,7 +420,7 @@ void LED_Init (void)
  **********************************************************************/
 void LED_Blink( uint32_t pattern )
 {
-	uint32_t j;
+	volatile uint32_t j;
 
 	LPC_GPIO2->FIOSET = pattern;
 	for ( j = 0; j < 0x100000; j++ );
@@ -510,7 +510,7 @@ void Usr_Init_Emac(void)
 	EMAC_CFG_Type Emac_Config;
 	/* pin configuration */
 	PINSEL_CFG_Type PinCfg;
-	uint32_t i;
+	volatile uint32_t i;
 	/*
 	 * Enable P1 Ethernet Pins:
 	 * P1.0 - ENET_TXD0
@@ -588,7 +588,7 @@ int c_entry (void)
 	uint32_t i = 0;
 
 #if TX_ONLY
-	uint32_t j;
+	volatile uint32_t j;
 #endif
 
 #if BOUNCE_RX

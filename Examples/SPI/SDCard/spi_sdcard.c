@@ -307,7 +307,7 @@ void SD_SendCommand(uint8_t cmd, uint8_t *arg)
  **********************************************************************/
 sd_error SD_WaitR1(uint8_t *buffer, uint32_t length, uint32_t timeout)
 {
-    uint32_t j;
+    volatile uint32_t j;
 	uint8_t dummy[2];
 	uint8_t wait_idle;
 
@@ -393,7 +393,7 @@ sd_error SD_Init(uint8_t retries)
 {
 	uint8_t rxdata,errors;
 	uint8_t SD_arg[4]={0,0,0,0};
-	uint16_t i;
+	volatile uint16_t i;
 
 	// initialize SPI configuration structure to default
 	SPI_ConfigStructInit(&SPI_ConfigStruct);

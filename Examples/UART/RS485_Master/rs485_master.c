@@ -251,7 +251,8 @@ int c_entry(void)
 	// RS485 configuration
 	UART1_RS485_CTRLCFG_Type rs485cfg;
 	// Temp. data
-	uint32_t idx, len;
+	uint32_t idx;
+	volatile uint32_t len;
 	uint8_t buffer[10];
 	int32_t exit_flag, addr_toggle;
 

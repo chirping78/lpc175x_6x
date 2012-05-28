@@ -39,7 +39,7 @@ static unsigned short *pgBuf = (unsigned short *)LPC_AHBRAM1_BASE;
 // reset it and send the configuration-sequence
 void Init_EMAC(void)
 {
-	uint32_t delay;
+	volatile uint32_t delay;
 
 	/* EMAC configuration type */
 	EMAC_CFG_Type Emac_Config;

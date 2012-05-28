@@ -124,11 +124,9 @@ void SysTick_Handler(void)
 #ifdef MCB_LPC_1768
 		//blink LED P1.28
 		GPIO_SetValue(1, (1<<28));
-		delay();
 #elif defined (IAR_LPC_1768)
 		//blink LED1 (P1.25)
 		GPIO_SetValue(1, (1<<25));
-		delay();
 #endif
     }
     else
@@ -136,11 +134,9 @@ void SysTick_Handler(void)
  #ifdef MCB_LPC_1768
 		//blink LED P1.28
 		GPIO_ClearValue(1, (1<<28));
-		delay();
 #elif defined (IAR_LPC_1768)
 		//blink LED1 (P1.25)
 		GPIO_ClearValue(1, (1<<25));
-		delay();
 #endif
     }
 }
@@ -161,7 +157,7 @@ void print_menu(void)
  * @return 		None
  **********************************************************************/
 void delay (void) {
-  unsigned int i;
+  volatile unsigned int i;
 
   for (i = 0; i < 0x100000; i++) {
   }

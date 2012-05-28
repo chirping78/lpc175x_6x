@@ -98,7 +98,7 @@ int c_entry(void)
 {
 	// MCPWM Channel configuration data
 	MCPWM_CHANNEL_CFG_Type channelsetup[3];
-	uint32_t i;
+	volatile uint32_t i;
 	PINSEL_CFG_Type PinCfg;
 
 	/* Initialize debug via UART0

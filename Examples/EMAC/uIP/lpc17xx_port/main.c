@@ -89,7 +89,8 @@ void uip_log (char *m)
  *************************************************************************/
 int c_entry(void)
 {
-	UNS_32 i, delay;
+	UNS_32 i;
+	volatile UNS_32 delay;
 	uip_ipaddr_t ipaddr;
 	struct timer periodic_timer, arp_timer;
 

@@ -92,7 +92,7 @@ int c_entry(void)
 	PINSEL_CFG_Type PinCfg;
 	DAC_CONVERTER_CFG_Type DAC_ConverterConfigStruct;
 	uint32_t dac_value =0;
-	uint32_t i;
+	volatile uint32_t i;
 	/*
 	 * Init DAC pin connect
 	 * AOUT on P0.26

@@ -107,7 +107,7 @@ void MemManage_Handler(void);
  **********************************************************************/
 void MemManage_Handler(void)
 {
-	uint32_t i;
+	volatile uint32_t i;
 	//Blink LED P1.28
 	if(Led_State == FALSE)
 	{
