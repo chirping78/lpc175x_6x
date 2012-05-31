@@ -1,3 +1,13 @@
+RELEASE: LPC1700CMSIS_120531
+
+1./ Update RTC driver: Don't minus 1 when program the value for Calibration Value Register.
+2./ Update SSP driver: Compare the return value of SSP_GetDataSize(SSPx) with  SSP_DATABIT_8 instead of 8.
+3./ Add volatile description for all loop counter variables so that the delay won't be removed when optimization
+is enabled.
+4./ Fix issue: cannot select PCLK/RTC as clock source of WDT.
+5./ Update USB_DEV example: use #pragma location directive instead of #pragma arm section directive in IAR.
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120427
 
 1./ Update ADC Driver:
