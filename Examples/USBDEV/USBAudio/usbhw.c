@@ -41,16 +41,35 @@
 
 
 #if USB_DMA
-
+#if defined (  __CC_ARM  )
 #pragma arm section zidata = "USB_RAM"
 uint32_t UDCA[USB_EP_NUM];                     /* UDCA in USB RAM */
-
 uint32_t DD_NISO_Mem[4*DD_NISO_CNT];           /* Non-Iso DMA Descriptor Memory */
 uint32_t DD_ISO_Mem [5*DD_ISO_CNT];            /* Iso DMA Descriptor Memory */
 #pragma arm section zidata
 uint32_t udca[USB_EP_NUM];                     /* UDCA saved values */
-
 uint32_t DDMemMap[2];                          /* DMA Descriptor Memory Usage */
+#endif
+
+#if defined (  __IAR_SYSTEMS_ICC__  )
+#pragma location = "USB_RAM"
+uint32_t UDCA[USB_EP_NUM];                     /* UDCA in USB RAM */
+#pragma location = "USB_RAM"
+uint32_t DD_NISO_Mem[4*DD_NISO_CNT];           /* Non-Iso DMA Descriptor Memory */
+#pragma location = "USB_RAM"
+uint32_t DD_ISO_Mem [5*DD_ISO_CNT];            /* Iso DMA Descriptor Memory */
+
+uint32_t udca[USB_EP_NUM];                     /* UDCA saved values */
+uint32_t DDMemMap[2];                          /* DMA Descriptor Memory Usage */
+#endif
+
+#if defined (  __GNUC__  )
+uint32_t UDCA[USB_EP_NUM] __attribute__((section("USB_RAM"))); 				/* UDCA in USB RAM */
+uint32_t DD_NISO_Mem[4*DD_NISO_CNT] __attribute__((section("USB_RAM")));    /* Non-Iso DMA Descriptor Memory */
+uint32_t DD_ISO_Mem [5*DD_ISO_CNT] __attribute__((section("USB_RAM")));     /* Iso DMA Descriptor Memory */
+uint32_t udca[USB_EP_NUM];                     								/* UDCA saved values */
+uint32_t DDMemMap[2];                          								/* DMA Descriptor Memory Usage */
+#endif
 
 #endif
 
@@ -479,7 +498,7 @@ const uint32_t DDSz [2] = { 16,          20         };
 
 uint32_t USB_DMA_Setup(uint32_t EPNum, USB_DMA_DESCRIPTOR *pDD) {
   uint32_t num, ptr, nxt, iso, n;
-  uint32_t *t;
+  uint32_t *tmp;
 
   iso = pDD->Cfg.Type.IsoEP;                /* Iso or Non-Iso Descriptor */
   num = EPAdr(EPNum);                       /* Endpoint's Physical Address */
@@ -514,16 +533,24 @@ uint32_t USB_DMA_Setup(uint32_t EPNum, USB_DMA_DESCRIPTOR *pDD) {
   }
 
   /* Fill in DMA Descriptor */
-  *(((uint32_t *)nxt)++) =  0;                 /* Next DD Pointer */
-  *(((uint32_t *)nxt)++) =  pDD->Cfg.Type.ATLE |
+  //*(((uint32_t *)nxt)++) =  0;                 /* Next DD Pointer */
+  tmp = (uint32_t *)nxt;
+  *tmp++ = 0;
+//  *(((uint32_t *)nxt)++) =  pDD->Cfg.Type.ATLE |
+//                       (pDD->Cfg.Type.IsoEP << 4) |
+//                       (pDD->MaxSize <<  5) |
+//                       (pDD->BufLen  << 16);
+  *tmp++ =  pDD->Cfg.Type.ATLE |
                        (pDD->Cfg.Type.IsoEP << 4) |
                        (pDD->MaxSize <<  5) |
                        (pDD->BufLen  << 16);
-  *(((uint32_t *)nxt)++) =  pDD->BufAdr;
-  *(((uint32_t *)nxt)++) =  pDD->Cfg.Type.LenPos << 8;
-
+//  *(((uint32_t *)nxt)++) =  pDD->BufAdr;
+  *tmp++ =  pDD->BufAdr;
+//  *(((uint32_t *)nxt)++) =  pDD->Cfg.Type.LenPos << 8;
+  *tmp++ =  pDD->Cfg.Type.LenPos << 8;
   if (iso) {
-    *((uint32_t *)nxt) =  pDD->InfoAdr;
+//    *((uint32_t *)nxt) =  pDD->InfoAdr;
+	  *tmp =  pDD->InfoAdr;
   }
 
   return (TRUE); /* Success */
