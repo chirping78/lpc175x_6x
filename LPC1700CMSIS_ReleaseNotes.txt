@@ -1,3 +1,10 @@
+RELEASE: LPC1700CMSIS_120629
+
+1./ Update .chm file
+    + Fix issue: No functions are described for module "CMSIS Core function Interface".
+
+*******************************************************************************************************************************
+
 RELEASE: LPC1700CMSIS_120531
 
 1./ Update RTC driver: Don't minus 1 when program the value for Calibration Value Register.
