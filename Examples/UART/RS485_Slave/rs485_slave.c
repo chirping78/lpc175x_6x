@@ -158,13 +158,13 @@ void UART1_IRQHandler(void)
 	uint32_t intsrc, tmp, tmp1;
 
 	/* Determine the interrupt source */
-	intsrc = UART_GetIntId(LPC_UART0);
+	intsrc = UART_GetIntId((LPC_UART_TypeDef*)LPC_UART1);
 	tmp = intsrc & UART_IIR_INTID_MASK;
 
 	// Receive Line Status
 	if (tmp == UART_IIR_INTID_RLS){
 		// Check line status
-		tmp1 = UART_GetLineStatus(LPC_UART0);
+		tmp1 = UART_GetLineStatus((LPC_UART_TypeDef*)LPC_UART1);
 		// Mask out the Receive Ready and Transmit Holding empty status
 		tmp1 &= (UART_LSR_OE | UART_LSR_PE | UART_LSR_FE \
 				| UART_LSR_BI | UART_LSR_RXFE);
@@ -433,7 +433,7 @@ int c_entry(void)
 	// print welcome screen
 	print_menu();
 
-
+#if 1
 	// UART1 - RS485 section -------------------------------------------------
 	/*
 	 * Initialize UART1 pin connect
@@ -451,8 +451,24 @@ int c_entry(void)
 	// DTR1 - P2.5
 	PinCfg.Pinnum = 5;
 	PINSEL_ConfigPin(&PinCfg);
-
-
+#else
+    /*
+        P0.15: TXD
+        P0.16: RXD
+        P0.17: CTS
+        P0.18: DCD
+        P0.19: DSR
+        P0.20: DTR
+        P0.21: RI
+        P0.22: RTS
+     */
+         
+    // P00.15 Funcnum = 1
+    LPC_PINCON->PINSEL0 = (LPC_PINCON->PINSEL0 & (~((uint32_t)0x03<<30))) | (0x01<<30);
+        
+    // P00.16~22: Funcnum = 1
+    LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & (~0x3FFF)) | 0x1555;
+#endif    
 	/* Initialize UART Configuration parameter structure to default state:
 	 * Baudrate = 9600 bps
 	 * 8 data bit
@@ -533,8 +549,8 @@ int c_entry(void)
 			if (buffer[idx] == 13){
 				for (tmp = 0; tmp < 1000000; tmp++);
 				UART_RS485SendData(LPC_UART1, ack_msg, sizeof(ack_msg));
-				UART_Send(LPC_UART0, nextline, sizeof(nextline), BLOCKING);
 				UART_RS485SendData(LPC_UART1, &terminator, 1);
+				UART_Send(LPC_UART0, nextline, sizeof(nextline), BLOCKING);
 			} else {
 				/* Echo it back */
 				UART_Send(LPC_UART0, &buffer[idx], 1, BLOCKING);

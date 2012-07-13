@@ -48,6 +48,8 @@
 /* buffer size definition */
 #define UART_RING_BUFSIZE 256
 
+#define NUM_OF_WAITING		0x100000
+
 /* Buf mask */
 #define __BUF_MASK (UART_RING_BUFSIZE-1)
 /* Check buf is full or not */
@@ -63,11 +65,13 @@
 /************************** PRIVATE VARIABLES *************************/
 uint8_t menu1[] = "Hello NXP Semiconductors \n\r";
 uint8_t menu2[] = "RS485 demo in Master mode \n\r";
-uint8_t send_menu[] = "Sending... \n\r";
+uint8_t send_menuA[] = "Sending to A... \n\r";
+uint8_t send_menuB[] = "Sending to B... \n\r";
 uint8_t recv_menu[] = "Receive: ";
 uint8_t p_err_menu[] = "Parity error \n\r";
 uint8_t f_err_menu[] = "Frame error \n\r";
-uint8_t nextline[] = "\n\r";
+uint8_t nextline[] =  "\n\r\n\r";
+uint8_t noreply[] =  "No Dev Reply";
 
 uint8_t slaveA_msg[] = "Msg A: Hello NXP";
 uint8_t slaveB_msg[] = "Msg B: Hello NXP";
@@ -110,13 +114,13 @@ void UART1_IRQHandler(void)
 	uint32_t intsrc, tmp, tmp1;
 
 	/* Determine the interrupt source */
-	intsrc = UART_GetIntId(LPC_UART0);
+	intsrc = UART_GetIntId((LPC_UART_TypeDef*)LPC_UART1);
 	tmp = intsrc & UART_IIR_INTID_MASK;
 
 	// Receive Line Status
 	if (tmp == UART_IIR_INTID_RLS){
 		// Check line status
-		tmp1 = UART_GetLineStatus(LPC_UART0);
+		tmp1 = UART_GetLineStatus((LPC_UART_TypeDef*)LPC_UART1);
 		// Mask out the Receive Ready and Transmit Holding empty status
 		tmp1 &= (UART_LSR_OE | UART_LSR_PE | UART_LSR_FE \
 				| UART_LSR_BI | UART_LSR_RXFE);
@@ -191,8 +195,8 @@ void UART_IntErr(uint8_t bLSErrType)
  **********************************************************************/
 uint32_t UARTReceive(LPC_UART_TypeDef *UARTPort, uint8_t *rxbuf, uint8_t buflen)
 {
-    uint8_t *data = (uint8_t *) rxbuf;
-    uint32_t bytes = 0;
+	uint8_t *data = (uint8_t *) rxbuf;
+	uint32_t bytes = 0;
 
 	/* Temporarily lock out UART receive interrupts during this
 	   read so the UART receive interrupt won't cause problems
@@ -252,9 +256,10 @@ int c_entry(void)
 	UART1_RS485_CTRLCFG_Type rs485cfg;
 	// Temp. data
 	uint32_t idx;
-	volatile uint32_t len;
+	volatile uint32_t len, total_len;
 	uint8_t buffer[10];
 	int32_t exit_flag, addr_toggle;
+	uint32_t retryCnt = 0;
 
 	// UART0 section ----------------------------------------------------
 	/*
@@ -304,6 +309,7 @@ int c_entry(void)
 	/*
 	 * Initialize UART1 pin connect
 	 */
+#if 1
 	PinCfg.Funcnum = 2;
 	PinCfg.OpenDrain = 0;
 	PinCfg.Pinmode = 0;
@@ -317,6 +323,23 @@ int c_entry(void)
 	// DTR1 - P2.5
 	PinCfg.Pinnum = 5;
 	PINSEL_ConfigPin(&PinCfg);
+#else
+	 /*
+        P0.15: TXD
+        P0.16: RXD
+        P0.17: CTS
+        P0.18: DCD
+        P0.19: DSR
+        P0.20: DTR
+        P0.21: RI
+        P0.22: RTS
+     */
+	 // P00.15 Funcnum = 1
+        LPC_PINCON->PINSEL0 = (LPC_PINCON->PINSEL0 & (~((uint32_t)0x03<<30))) | (0x01<<30);
+        
+        // P00.16~22: Funcnum = 1
+        LPC_PINCON->PINSEL1 = (LPC_PINCON->PINSEL1 & (~0x3FFF)) | 0x1555;
+#endif
 
 
 
@@ -382,11 +405,12 @@ int c_entry(void)
 	while (1){
 
 		// Send slave addr -----------------------------------------
-		UART_Send(LPC_UART0, send_menu, sizeof(send_menu), BLOCKING);
 		// Send slave addr on RS485 bus
 		if (addr_toggle){
+			UART_Send(LPC_UART0, send_menuA, sizeof(send_menuA), BLOCKING);
 			UART_RS485SendSlvAddr(LPC_UART1, SLAVE_ADDR_A);
 		} else {
+			UART_Send(LPC_UART0, send_menuB, sizeof(send_menuB), BLOCKING);
 			UART_RS485SendSlvAddr(LPC_UART1, SLAVE_ADDR_B);
 		}
 		// delay for a while
@@ -405,9 +429,11 @@ int c_entry(void)
 
 		 // Receive data from slave --------------------------------
 		UART_Send(LPC_UART0, recv_menu, sizeof(recv_menu), BLOCKING);
-		// If address 'A' required response...
-		if (addr_toggle){
+		retryCnt = 0;
+		// Get response...
+		{
 			exit_flag = 0;
+			total_len = 0;
 			while (!exit_flag){
 				len = UARTReceive((LPC_UART_TypeDef *)LPC_UART1, buffer, sizeof(buffer));
 				/* Got some data */
@@ -420,7 +446,21 @@ int c_entry(void)
 						/* Echo it back */
 						UART_Send(LPC_UART0, &buffer[idx], 1, BLOCKING);
 					}
+					
 					idx++;
+					retryCnt = 0;
+				}
+
+				retryCnt++;
+				total_len += len;
+				if(retryCnt >= NUM_OF_WAITING)
+				{
+					exit_flag = 1;
+                    if(total_len == 0)
+                    {
+                        // To clarify that there's no reply from Device B
+                        UART_Send(LPC_UART0, noreply, sizeof(noreply), BLOCKING);
+                    }
 				}
 			}
 		}
@@ -428,7 +468,7 @@ int c_entry(void)
 		UART_Send(LPC_UART0, nextline, sizeof(nextline), BLOCKING);
 		addr_toggle = (addr_toggle ? 0 : 1);
 		// long delay here
-		for (len = 0; len < 10000000; len++);
+		for (len = 0; len < 1000000; len++);
 	}
 }
 
