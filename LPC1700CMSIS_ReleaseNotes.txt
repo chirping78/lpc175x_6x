@@ -1,3 +1,19 @@
+RELEASE: LPC1700CMSIS_120731
+
+1./ Update I2C driver:
+   + Clear the STA bit after writing the slave address. 
+   + Clear all bit of CONSET register in I2C_DeInit function. 
+   + After receiving ACK for SLA+R, AA bit of CONSET register only be set if the expected receive length > 1.
+   + After master sends all data, it sends REPEAT START (instead of sending STOP and then START bit) to receive 
+         data from slave. 
+   + Update I2C_Start & I2C_Stop function:
+         - Add an argument to select the mode. 
+         - In polling mode, it will wait until the START/STOP is sent.
+         - In interrupt mode, the function exits after the relevant bit of CONSET register is set.
+   + Use I2C_Start function if master needs to send START bit. 
+2./ Update Rs485 examples: use the correct UART device in UART1_IRQHandler.
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120629
 
 1./ Update .chm file
