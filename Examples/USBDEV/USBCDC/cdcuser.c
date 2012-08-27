@@ -17,7 +17,8 @@
  *---------------------------------------------------------------------------*/
 
 #include "lpc_types.h"
-
+#include "lpc17xx.h"
+#include "usbreg.h"
 #include "usb.h"
 #include "usbhw.h"
 #include "usbcfg.h"
@@ -40,7 +41,7 @@ unsigned short  CDC_DepInEmpty  = 1;                   // Data IN EP is empty
   much faster than  UART transmits
  *---------------------------------------------------------------------------*/
 /* Buffer masks */
-#define CDC_BUF_SIZE               (64)               // Output buffer in bytes (power 2)
+#define CDC_BUF_SIZE               (2*64)               // Output buffer in bytes (power 2)
                                                        // large enough for file transfer
 #define CDC_BUF_MASK               (CDC_BUF_SIZE-1ul)
 
@@ -325,14 +326,14 @@ void CDC_BulkIn(void) {
 void CDC_BulkOut(void) {
   int numBytesRead;
 
-  // get data from USB into intermediate buffer
   numBytesRead = USB_ReadEP(CDC_DEP_OUT, &BulkBufOut[0]);
-
   // ... add code to check for overwrite
-
-  // store data in a buffer to transmit it over serial interface
-  CDC_WrOutBuf ((char *)&BulkBufOut[0], &numBytesRead);
-
+	CDC_BUF_RESET(CDC_OutBuf);
+	// store data in a buffer to transmit it over serial interface
+	CDC_WrOutBuf ((char *)&BulkBufOut[0], &numBytesRead);
+	/* Disable EP Interrupt */
+	LPC_USB->USBDevIntEn &= ~EP_SLOW_INT;
+	//NVIC_DisableIRQ(USB_IRQn);
 }
 
 
