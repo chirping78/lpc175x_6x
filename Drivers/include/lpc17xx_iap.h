@@ -1,12 +1,12 @@
 /**********************************************************************
-* $Id$		lpc17xx_iap.h			2012-04-18
+* $Id$      lpc17xx_iap.h           2012-04-18
 *//**
-* @file		lpc17xx_iap.h
-* @brief	Contains all functions support for IAP
-*			on lpc17xx
-* @version	1.0
-* @date		18. April. 2012
-* @author	NXP MCU SW Application Team
+* @file     lpc17xx_iap.h
+* @brief    Contains all functions support for IAP
+*           on lpc17xx
+* @version  1.0
+* @date     18. April. 2012
+* @author   NXP MCU SW Application Team
 * 
 * Copyright(C) 2011, NXP Semiconductor
 * All rights reserved.
@@ -34,7 +34,7 @@
 #define _LPC17xx_IAP_H
 #include "lpc_types.h"
 
-/** @defgroup IAP  	IAP (In Application Programming)
+/** @defgroup IAP   IAP (In Application Programming)
  * @ingroup LPC1700CMSIS_FwLib_Drivers
  * @{
  */
@@ -75,18 +75,18 @@ typedef enum
  */
 typedef enum
 {
-    CMD_SUCCESS,	             // Command is executed successfully.
+    CMD_SUCCESS,                 // Command is executed successfully.
     INVALID_COMMAND,             // Invalid command.
     SRC_ADDR_ERROR,              // Source address is not on a word boundary.
     DST_ADDR_ERROR,              // Destination address is not on a correct boundary.
     SRC_ADDR_NOT_MAPPED,         // Source address is not mapped in the memory map.
     DST_ADDR_NOT_MAPPED,         // Destination address is not mapped in the memory map.
-    COUNT_ERROR,	               // Byte count is not multiple of 4 or is not a permitted value.
-    INVALID_SECTOR,	           // Sector number is invalid.
-    SECTOR_NOT_BLANK,	           // Sector is not blank.
-    SECTOR_NOT_PREPARED_FOR_WRITE_OPERATION,	// Command to prepare sector for write operation was not executed.
+    COUNT_ERROR,                   // Byte count is not multiple of 4 or is not a permitted value.
+    INVALID_SECTOR,            // Sector number is invalid.
+    SECTOR_NOT_BLANK,              // Sector is not blank.
+    SECTOR_NOT_PREPARED_FOR_WRITE_OPERATION,    // Command to prepare sector for write operation was not executed.
     COMPARE_ERROR,               // Source and destination data is not same.
-    BUSY,		                   // Flash programming hardware interface is busy.
+    BUSY,                          // Flash programming hardware interface is busy.
 } IAP_STATUS_CODE;
 
 /**
@@ -129,7 +129,7 @@ IAP_STATUS_CODE EraseSector(uint32_t start_sec, uint32_t end_sec);
 /**  Blank check sectors */
 IAP_STATUS_CODE BlankCheckSector(uint32_t start_sec, uint32_t end_sec,
                                  uint32_t *first_nblank_loc, 
-								 uint32_t *first_nblank_val);
+                                 uint32_t *first_nblank_val);
 /**  Read part identification number */
 IAP_STATUS_CODE ReadPartID(uint32_t *partID);
 /**  Read boot code version */

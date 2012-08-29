@@ -6,29 +6,29 @@
 #include "uipopt.h"
 #include "lpc17xx_emac.h"
 
-#define EMAC_MAX_PACKET_SIZE (UIP_CONF_BUFFER_SIZE + 16)	// 1536 bytes
+#define EMAC_MAX_PACKET_SIZE (UIP_CONF_BUFFER_SIZE + 16)    // 1536 bytes
 
-#define ENET_DMA_DESC_NUMB   	3
-#define AUTO_NEGOTIATION_ENA 	1  		// Enable PHY Auto-negotiation
-#define PHY_TO               	200000  // ~10sec
-#define RMII					1		// If zero, it's a MII interface
+#define ENET_DMA_DESC_NUMB      3
+#define AUTO_NEGOTIATION_ENA    1       // Enable PHY Auto-negotiation
+#define PHY_TO                  200000  // ~10sec
+#define RMII                    1       // If zero, it's a MII interface
 
 /* This is the MAC address of LPC17xx */
 /* 0C 1D 12 E0 1F 10*/
 #ifdef MCB_LPC_1768
-#define EMAC_ADDR0		0x10
-#define EMAC_ADDR1		0x1F
-#define EMAC_ADDR2		0xE0
-#define EMAC_ADDR3		0x12
-#define EMAC_ADDR4		0x1D
-#define EMAC_ADDR5		0x0C
+#define EMAC_ADDR0      0x10
+#define EMAC_ADDR1      0x1F
+#define EMAC_ADDR2      0xE0
+#define EMAC_ADDR3      0x12
+#define EMAC_ADDR4      0x1D
+#define EMAC_ADDR5      0x0C
 #elif defined(IAR_LPC_1768)
-#define EMAC_ADDR0		0x00
-#define EMAC_ADDR1		0xFF
-#define EMAC_ADDR2		0xFF
-#define EMAC_ADDR3		0xFF
-#define EMAC_ADDR4		0xFF
-#define EMAC_ADDR5		0xFF
+#define EMAC_ADDR0      0x00
+#define EMAC_ADDR1      0xFF
+#define EMAC_ADDR2      0xFF
+#define EMAC_ADDR3      0xFF
+#define EMAC_ADDR4      0xFF
+#define EMAC_ADDR5      0xFF
 #endif
 
 

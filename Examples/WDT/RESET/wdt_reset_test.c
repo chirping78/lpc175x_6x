@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		wdt_reset_test.c			2010-05-21
+* $Id$      wdt_reset_test.c            2010-05-21
 *//**
-* @file		wdt_reset_test.c
-* @brief	This example describes how to use WDT in reset mode
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @file     wdt_reset_test.c
+* @brief    This example describes how to use WDT in reset mode
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -35,7 +35,7 @@
 #include "lpc17xx_gpio.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup WDT_RESET	RESET
+/** @defgroup WDT_RESET RESET
  * @ingroup WDT_Examples
  * @{
  */
@@ -45,7 +45,7 @@
 #define IAR_LPC_1768
 
 //Watchodog time out in 5 seconds
-#define WDT_TIMEOUT 	5000000
+#define WDT_TIMEOUT     5000000
 
 
 /************************** PRIVATE VARIABLES *************************/
@@ -66,62 +66,62 @@ uint8_t info2[] = "Last MCU reset caused by External!\n\r";
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main WDT program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main WDT program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	// print welcome screen
-	_DBG(menu1);
+    // print welcome screen
+    _DBG(menu1);
 
-	// Read back TimeOut flag to determine previous timeout reset
-	if (WDT_ReadTimeOutFlag()){
-		_DBG_(info1);
-		// Clear WDT TimeOut
-		WDT_ClrTimeOutFlag();
-	} else{
-		_DBG_(info2);
-	}
+    // Read back TimeOut flag to determine previous timeout reset
+    if (WDT_ReadTimeOutFlag()){
+        _DBG_(info1);
+        // Clear WDT TimeOut
+        WDT_ClrTimeOutFlag();
+    } else{
+        _DBG_(info2);
+    }
 
-	// Initialize WDT, IRC OSC, interrupt mode, timeout = 5000000us = 5s
-	WDT_Init(WDT_CLKSRC_IRC, WDT_MODE_RESET);
-	// Start watchdog with timeout given
-	WDT_Start(WDT_TIMEOUT);
+    // Initialize WDT, IRC OSC, interrupt mode, timeout = 5000000us = 5s
+    WDT_Init(WDT_CLKSRC_IRC, WDT_MODE_RESET);
+    // Start watchdog with timeout given
+    WDT_Start(WDT_TIMEOUT);
 
-	//infinite loop to wait chip reset from WDT
-	while(1);
+    //infinite loop to wait chip reset from WDT
+    while(1);
 }
 
 /* Support required entry point for other toolchain */
 int main (void)
 {
-	return c_entry();
+    return c_entry();
 }
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

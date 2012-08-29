@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		uart_irda_receive.c				2010-06-07
+* $Id$      uart_irda_receive.c             2010-06-07
 *//**
-* @file		uart_irda_receive.c
-* @brief	This example describes how to using UART in irDA mode
-* @version	2.0
-* @date		07. June. 2010
-* @author	NXP MCU SW Application Team
+* @file     uart_irda_receive.c
+* @brief    This example describes how to using UART in irDA mode
+* @version  2.0
+* @date     07. June. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -34,7 +34,7 @@
 #include "lpc17xx_gpio.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup UART_IrDA_Receive	Receive
+/** @defgroup UART_IrDA_Receive Receive
  * @ingroup UART_IrDA_Examples
  * @{
  */
@@ -58,142 +58,142 @@ void print_menu(void);
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Print Welcome menu
- * @param[in]	none
- * @return 		None
+ * @brief       Print Welcome menu
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	UART_Send(TEST_UART, menu1, sizeof(menu1), BLOCKING);
-	UART_Send(TEST_UART, menu2, sizeof(menu2), BLOCKING);
-	UART_Send(TEST_UART, menu3, sizeof(menu3), BLOCKING);
+    UART_Send(TEST_UART, menu1, sizeof(menu1), BLOCKING);
+    UART_Send(TEST_UART, menu2, sizeof(menu2), BLOCKING);
+    UART_Send(TEST_UART, menu3, sizeof(menu3), BLOCKING);
 }
 
 
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main UART program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main UART program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	// UART Configuration structure variable
-	UART_CFG_Type UARTConfigStruct;
-	// UART FIFO configuration Struct variable
-	UART_FIFO_CFG_Type UARTFIFOConfigStruct;
-	// Pin configuration for UART0
-	PINSEL_CFG_Type PinCfg;
-	uint32_t len;
-	uint32_t led_mask[] = { 1<<28, 1<<29, 1UL<<31, 1<<2, 1<<3, 1<<4, 1<<5, 1<<6 };
-	uint8_t buffer,i;
+    // UART Configuration structure variable
+    UART_CFG_Type UARTConfigStruct;
+    // UART FIFO configuration Struct variable
+    UART_FIFO_CFG_Type UARTFIFOConfigStruct;
+    // Pin configuration for UART0
+    PINSEL_CFG_Type PinCfg;
+    uint32_t len;
+    uint32_t led_mask[] = { 1<<28, 1<<29, 1UL<<31, 1<<2, 1<<3, 1<<4, 1<<5, 1<<6 };
+    uint8_t buffer,i;
 
-	//Initialize for 8 led bank
-	GPIO_SetDir(1, 0xB0000000, 1);           /* LEDs on PORT1 defined as Output    */
-	GPIO_SetDir(2, 0x0000007C, 1);           /* LEDs on PORT2 defined as Output    */
+    //Initialize for 8 led bank
+    GPIO_SetDir(1, 0xB0000000, 1);           /* LEDs on PORT1 defined as Output    */
+    GPIO_SetDir(2, 0x0000007C, 1);           /* LEDs on PORT2 defined as Output    */
 
-	GPIO_ClearValue(1, 0xB0000000);
-	GPIO_ClearValue(2, 0x0000007C);
+    GPIO_ClearValue(1, 0xB0000000);
+    GPIO_ClearValue(2, 0x0000007C);
 
 #if (UART_PORT == 0)
-	/*
-	 * Initialize UART0 pin connect
-	 */
-	PinCfg.Funcnum = 1;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 2;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);//P0.2 TXD0
+    /*
+     * Initialize UART0 pin connect
+     */
+    PinCfg.Funcnum = 1;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Pinnum = 2;
+    PinCfg.Portnum = 0;
+    PINSEL_ConfigPin(&PinCfg);//P0.2 TXD0
 #endif
 
 #if (UART_PORT == 1)
-	/*
-	 * Initialize UART1 pin connect
-	 */
-	PinCfg.Funcnum = 2;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 0;
-	PinCfg.Portnum = 2;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 1;
-	PINSEL_ConfigPin(&PinCfg);
+    /*
+     * Initialize UART1 pin connect
+     */
+    PinCfg.Funcnum = 2;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Pinnum = 0;
+    PinCfg.Portnum = 2;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 1;
+    PINSEL_ConfigPin(&PinCfg);
 #endif
-	/*
-	 * Initialize UART3 pin connect
-	 */
-	PinCfg.Funcnum = 3;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 26;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);//P0.26 RXD3
+    /*
+     * Initialize UART3 pin connect
+     */
+    PinCfg.Funcnum = 3;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Pinnum = 26;
+    PinCfg.Portnum = 0;
+    PINSEL_ConfigPin(&PinCfg);//P0.26 RXD3
 
-	/* Initialize UART Configuration parameter structure to default state:
-	 * Baudrate = 9600bps
-	 * 8 data bit
-	 * 1 Stop bit
-	 * None parity
-	 */
-	UART_ConfigStructInit(&UARTConfigStruct);
+    /* Initialize UART Configuration parameter structure to default state:
+     * Baudrate = 9600bps
+     * 8 data bit
+     * 1 Stop bit
+     * None parity
+     */
+    UART_ConfigStructInit(&UARTConfigStruct);
 
-	// Initialize UART0 & UART3 peripheral with given to corresponding parameter
-	UART_Init(TEST_UART, &UARTConfigStruct);
-	UART_Init(TEST_IRDA, &UARTConfigStruct);
-	/* Initialize FIFOConfigStruct to default state:
-	 * 				- FIFO_DMAMode = DISABLE
-	 * 				- FIFO_Level = UART_FIFO_TRGLEV0
-	 * 				- FIFO_ResetRxBuf = ENABLE
-	 * 				- FIFO_ResetTxBuf = ENABLE
-	 * 				- FIFO_State = ENABLE
-	 */
-	UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
+    // Initialize UART0 & UART3 peripheral with given to corresponding parameter
+    UART_Init(TEST_UART, &UARTConfigStruct);
+    UART_Init(TEST_IRDA, &UARTConfigStruct);
+    /* Initialize FIFOConfigStruct to default state:
+     *              - FIFO_DMAMode = DISABLE
+     *              - FIFO_Level = UART_FIFO_TRGLEV0
+     *              - FIFO_ResetRxBuf = ENABLE
+     *              - FIFO_ResetTxBuf = ENABLE
+     *              - FIFO_State = ENABLE
+     */
+    UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);
 
-	// Initialize FIFO for UART0 & UART3 peripheral
-	UART_FIFOConfig(TEST_UART, &UARTFIFOConfigStruct);
-	UART_FIFOConfig(TEST_IRDA, &UARTFIFOConfigStruct);
-	//Configure and enable IrDA mode on UART
-	UART_IrDACmd(TEST_IRDA,ENABLE);
+    // Initialize FIFO for UART0 & UART3 peripheral
+    UART_FIFOConfig(TEST_UART, &UARTFIFOConfigStruct);
+    UART_FIFOConfig(TEST_IRDA, &UARTFIFOConfigStruct);
+    //Configure and enable IrDA mode on UART
+    UART_IrDACmd(TEST_IRDA,ENABLE);
 
-	// Enable UART Transmit
-	UART_TxCmd(TEST_UART, ENABLE);
+    // Enable UART Transmit
+    UART_TxCmd(TEST_UART, ENABLE);
 
-	// print welcome screen
-	print_menu();
+    // print welcome screen
+    print_menu();
 
     /* Read some data from the buffer */
     while (1)
     {
-    	len=0;
-    	while(len==0)
-    	{
-        	len = UART_Receive(TEST_IRDA, &buffer, 1, NONE_BLOCKING);
-    	}
-    	if(buffer!=0)
-    	{
-    		for(i=0;i<8;i++)
-    		{
-    	        if((buffer>>i)&0x01){//set
-    	        	if(i<3)
-    	        		GPIO_SetValue(1, led_mask[i]);
-    	        	else
-    	        		GPIO_SetValue(2, led_mask[i]);
-    	        }
-    	        else { 					//clear
-    	        	if(i<3)
-    	        		GPIO_ClearValue(1, led_mask[i]);
-    	        	else
-    	        		GPIO_ClearValue(2, led_mask[i]);
-    	        }
-    		}
-    	}
-    	else //clear 8 led bank
-    	{
-    		GPIO_ClearValue(1, 0xB0000000);
-    		GPIO_ClearValue(2, 0x0000007C);
-    	}
+        len=0;
+        while(len==0)
+        {
+            len = UART_Receive(TEST_IRDA, &buffer, 1, NONE_BLOCKING);
+        }
+        if(buffer!=0)
+        {
+            for(i=0;i<8;i++)
+            {
+                if((buffer>>i)&0x01){//set
+                    if(i<3)
+                        GPIO_SetValue(1, led_mask[i]);
+                    else
+                        GPIO_SetValue(2, led_mask[i]);
+                }
+                else {                  //clear
+                    if(i<3)
+                        GPIO_ClearValue(1, led_mask[i]);
+                    else
+                        GPIO_ClearValue(2, led_mask[i]);
+                }
+            }
+        }
+        else //clear 8 led bank
+        {
+            GPIO_ClearValue(1, 0xB0000000);
+            GPIO_ClearValue(2, 0x0000007C);
+        }
     }
 }
 
@@ -210,19 +210,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 /*

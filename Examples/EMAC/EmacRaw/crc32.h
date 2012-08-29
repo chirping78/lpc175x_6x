@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		crc32.h  				2006-09-01
+* $Id$      crc32.h                 2006-09-01
 *//**
-* @file		crc32.h
-* @brief	Ethernet CRC module file for NXP LPC230x Family Microprocessors
-* @version	1.0
-* @date		01. September. 2006
-* @author	NXP MCU SW Application Team
+* @file     crc32.h
+* @brief    Ethernet CRC module file for NXP LPC230x Family Microprocessors
+* @version  1.0
+* @date     01. September. 2006
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2006, NXP Semiconductor
 * All rights reserved.

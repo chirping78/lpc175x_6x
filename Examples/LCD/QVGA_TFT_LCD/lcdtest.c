@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		lcdtest.c 				2010-05-21
+* $Id$      lcdtest.c               2010-05-21
 *//**
-* @file		lcdtest.c
-* @brief	This example used to test a LCD on MCB1700 board
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @file     lcdtest.c
+* @brief    This example used to test a LCD on MCB1700 board
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -34,14 +34,14 @@
 #include "GLCD.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup LCD_QVGA_TFT_LCD	QVGA_TFT_LCD
+/** @defgroup LCD_QVGA_TFT_LCD  QVGA_TFT_LCD
  * @ingroup LCD_Examples
  * @{
  */
 
 /************************** PRIVATE DEFINITIONS ********************/
 // Time out definition - used in blocking mode in read/write function
-#define TIME_OUT	10000
+#define TIME_OUT    10000
 
 
 /************************** PRIVATE VARIABLES *************************/
@@ -66,43 +66,43 @@ uint8_t lcd_text[2][16+1] = {"   NXP SEMI.    ",      /* Buffer for LCD text    
 void print_menu(void);
 
 /*********************************************************************//**
- * @brief		Print Welcome menu
- * @param[in]	none
- * @return 		None
+ * @brief       Print Welcome menu
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 //void print_menu(void)
 //{
-//	_DBG(menu1);
+//  _DBG(menu1);
 //}
 
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main LCD program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main LCD program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-//	/* Initialize debug via UART0
-//	 * – 115200bps
-//	 * – 8 data bit
-//	 * – No parity
-//	 * – 1 stop bit
-//	 * – No flow control
-//	 */
-//	debug_frmwrk_init();
+//  /* Initialize debug via UART0
+//   * – 115200bps
+//   * – 8 data bit
+//   * – No parity
+//   * – 1 stop bit
+//   * – No flow control
+//   */
+//  debug_frmwrk_init();
 //
-//	// print welcome screen
-//	print_menu();
+//  // print welcome screen
+//  print_menu();
 
-	/* LCD block section -------------------------------------------- */
-	GLCD_Init();
-	GLCD_Clear(White);
+    /* LCD block section -------------------------------------------- */
+    GLCD_Init();
+    GLCD_Clear(White);
 
-	/* Update LCD Module display text. */
-	GLCD_DisplayString(0,0, lcd_text[0] );
-	GLCD_DisplayString(1,2, lcd_text[1] );
+    /* Update LCD Module display text. */
+    GLCD_DisplayString(0,0, lcd_text[0] );
+    GLCD_DisplayString(1,2, lcd_text[1] );
 
     /* Loop forever */
     while(1);
@@ -121,19 +121,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

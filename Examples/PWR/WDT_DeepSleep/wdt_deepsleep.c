@@ -1,12 +1,12 @@
 /**********************************************************************
-* $Id$		exti_deepsleep.c 				2010-06-18
+* $Id$      exti_deepsleep.c                2010-06-18
 *//**
-* @file		exti_deepsleep.c
-* @brief	This example describes how to enter the system in deep
-* 			sleep mode and wake-up by using Watchdog timer interrupt
-* @version	1.0
-* @date		18. June. 2010
-* @author	NXP MCU SW Application Team
+* @file     exti_deepsleep.c
+* @brief    This example describes how to enter the system in deep
+*           sleep mode and wake-up by using Watchdog timer interrupt
+* @version  1.0
+* @date     18. June. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -36,24 +36,24 @@
 #include "lpc17xx_wdt.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup PWR_WDT_DeepSleep	WDT_DeepSleep
+/** @defgroup PWR_WDT_DeepSleep WDT_DeepSleep
  * @ingroup PWR_Examples
  * @{
  */
 
 /************************** PRIVATE VARIABLES *************************/
 uint8_t menu[]=
-	"********************************************************************************\n\r"
-	"Hello NXP Semiconductors \n\r"
-	"Power control demo \n\r"
-	"\t - MCU: LPC17xx \n\r"
-	"\t - Core: ARM CORTEX-M3 \n\r"
-	"\t - Communicate via: UART0 - 115200 bps \n\r"
-	"This example used to enter system in deep sleep mode and wake up it by using \n\r "
-	"Watchdog timer interrupt \n\r"
-	"********************************************************************************\n\r";
+    "********************************************************************************\n\r"
+    "Hello NXP Semiconductors \n\r"
+    "Power control demo \n\r"
+    "\t - MCU: LPC17xx \n\r"
+    "\t - Core: ARM CORTEX-M3 \n\r"
+    "\t - Communicate via: UART0 - 115200 bps \n\r"
+    "This example used to enter system in deep sleep mode and wake up it by using \n\r "
+    "Watchdog timer interrupt \n\r"
+    "********************************************************************************\n\r";
 //Watchodog time out in 2 seconds
-#define WDT_TIMEOUT 	2000000
+#define WDT_TIMEOUT     2000000
 
 /************************** PRIVATE FUNCTIONS *************************/
 void print_menu(void);
@@ -62,73 +62,73 @@ void WDT_IRQHandler(void);
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/
 void WDT_IRQHandler(void)
 {
-	// Disable WDT interrupt
-	NVIC_DisableIRQ(WDT_IRQn);
-	WDT_ClrTimeOutFlag();
+    // Disable WDT interrupt
+    NVIC_DisableIRQ(WDT_IRQn);
+    WDT_ClrTimeOutFlag();
 }
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Print Welcome menu
- * @param[in]	none
- * @return 		None
+ * @brief       Print Welcome menu
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	_DBG(menu);
+    _DBG(menu);
 }
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry (void)
 {
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	// print welcome screen
-	print_menu();
+    // print welcome screen
+    print_menu();
 
-	// Init WDT, IRC OSC, interrupt mode, timeout = 2000000 us = 2s
-	WDT_Init(WDT_CLKSRC_IRC, WDT_MODE_INT_ONLY);
+    // Init WDT, IRC OSC, interrupt mode, timeout = 2000000 us = 2s
+    WDT_Init(WDT_CLKSRC_IRC, WDT_MODE_INT_ONLY);
 
-	_DBG_("Press '1' to enter system in Deep Sleep mode");
-	while(_DG !='1');
+    _DBG_("Press '1' to enter system in Deep Sleep mode");
+    while(_DG !='1');
 
-	NVIC_EnableIRQ(WDT_IRQn);
-	WDT_Start(WDT_TIMEOUT);
+    NVIC_EnableIRQ(WDT_IRQn);
+    WDT_Start(WDT_TIMEOUT);
 
-	_DBG_("Enter Deep Sleep mode!");
-	_DBG_("Wait 2s for WDT wake-up system...");
+    _DBG_("Enter Deep Sleep mode!");
+    _DBG_("Wait 2s for WDT wake-up system...");
 
-	/*---------- Disable and disconnect the main PLL0 before enter into Deep-Sleep
-	 * or Power-Down mode <according to errata.lpc1768-16.March.2010> ------------
-	 */
-	LPC_SC->PLL0CON &= ~(1<<1); /* Disconnect the main PLL (PLL0) */
-	LPC_SC->PLL0FEED = 0xAA; /* Feed */
-	LPC_SC->PLL0FEED = 0x55; /* Feed */
-	while ((LPC_SC->PLL0STAT & (1<<25)) != 0x00); /* Wait for main PLL (PLL0) to disconnect */
-	LPC_SC->PLL0CON &= ~(1<<0); /* Turn off the main PLL (PLL0) */
-	LPC_SC->PLL0FEED = 0xAA; /* Feed */
-	LPC_SC->PLL0FEED = 0x55; /* Feed */
-	while ((LPC_SC->PLL0STAT & (1<<24)) != 0x00); /* Wait for main PLL (PLL0) to shut down */
-	/*------------Then enter into PowerDown mode ----------------------------------*/
+    /*---------- Disable and disconnect the main PLL0 before enter into Deep-Sleep
+     * or Power-Down mode <according to errata.lpc1768-16.March.2010> ------------
+     */
+    LPC_SC->PLL0CON &= ~(1<<1); /* Disconnect the main PLL (PLL0) */
+    LPC_SC->PLL0FEED = 0xAA; /* Feed */
+    LPC_SC->PLL0FEED = 0x55; /* Feed */
+    while ((LPC_SC->PLL0STAT & (1<<25)) != 0x00); /* Wait for main PLL (PLL0) to disconnect */
+    LPC_SC->PLL0CON &= ~(1<<0); /* Turn off the main PLL (PLL0) */
+    LPC_SC->PLL0FEED = 0xAA; /* Feed */
+    LPC_SC->PLL0FEED = 0x55; /* Feed */
+    while ((LPC_SC->PLL0STAT & (1<<24)) != 0x00); /* Wait for main PLL (PLL0) to shut down */
+    /*------------Then enter into PowerDown mode ----------------------------------*/
 
-	// Enter target power down mode
-	CLKPWR_DeepSleep();
-	SystemInit();
-	debug_frmwrk_init();
-	_DBG_("\n\rSystem wake-up!\n\r");
-	while(1);
+    // Enter target power down mode
+    CLKPWR_DeepSleep();
+    SystemInit();
+    debug_frmwrk_init();
+    _DBG_("\n\rSystem wake-up!\n\r");
+    while(1);
 }
 
 
@@ -144,19 +144,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

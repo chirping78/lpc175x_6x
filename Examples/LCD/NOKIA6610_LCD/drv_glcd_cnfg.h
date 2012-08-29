@@ -19,13 +19,13 @@
 
 // GLCD DRV Default setup data
 // SPI0 default clock
-#define GLCD_DEF_CLOCK	          (1000000UL)
+#define GLCD_DEF_CLOCK            (1000000UL)
 // SPI0 default data width
-#define GLCD_DEF_WIDTH	           9
+#define GLCD_DEF_WIDTH             9
 // Horizontal Size of display [Pixels]
 #define GLCD_HORIZONTAL_SIZE       132
 // Vertical Size of display [Pixels]
-#define GLCD_VERTICAL_SIZE   	     132
+#define GLCD_VERTICAL_SIZE           132
 // Display On/Off 1/0
 #define GLCD_DISPLAY_STATE         1
 // Default Display inversion setting

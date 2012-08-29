@@ -26,9 +26,9 @@
  *----------------------------------------------------------------------------*/
 void ADC_init (void) {
 #ifdef MCB_LPC_1768
-	/* Using MCB1700 board :
-	 * ADC channel 2 is available
-	 */
+    /* Using MCB1700 board :
+     * ADC channel 2 is available
+     */
   LPC_PINCON->PINSEL1 &= ~(3<<18);                   /* P0.25 is GPIO */
   LPC_PINCON->PINSEL1 |=  (1<<18);                   /* P0.25 is AD0.2 */
 
@@ -56,8 +56,8 @@ void ADC_init (void) {
   start ADC Conversion
  *----------------------------------------------------------------------------*/
 void ADC_startCnv (void) {
-	LPC_ADC->ADCR &= ~(7<<24);                         /* stop conversion  */
-	LPC_ADC->ADCR |=  (1<<24);                         /* start conversion */
+    LPC_ADC->ADCR &= ~(7<<24);                         /* stop conversion  */
+    LPC_ADC->ADCR |=  (1<<24);                         /* start conversion */
 }
 
 
@@ -65,7 +65,7 @@ void ADC_startCnv (void) {
   stop ADC Conversion
  *----------------------------------------------------------------------------*/
 void ADC_stopCnv (void) {
-	LPC_ADC->ADCR &= ~(7<<24);                         /* stop conversion */
+    LPC_ADC->ADCR &= ~(7<<24);                         /* stop conversion */
 }
 
 

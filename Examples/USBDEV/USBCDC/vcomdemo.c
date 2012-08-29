@@ -27,7 +27,7 @@
 #include "vcomdemo.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup USBDEV_USBCDC	USBCDC
+/** @defgroup USBDEV_USBCDC USBCDC
  * @ingroup USBDEV_Examples
  * @{
  */
@@ -58,7 +58,7 @@ void VCOM_Serial2Usb(void) {
       numBytesRead = ser_Read (&serBuf[0], &numAvailByte);
 
       CDC_DepInEmpty = 0;
-	  USB_WriteEP (CDC_DEP_IN, (unsigned char *)&serBuf[0], numBytesRead);
+      USB_WriteEP (CDC_DEP_IN, (unsigned char *)&serBuf[0], numBytesRead);
     }
   }
 
@@ -81,9 +81,9 @@ void VCOM_Usb2Serial(void) {
 #else
       ser_Write (0, &serBuf[0], &numBytesRead);
 #endif
-		/* reenable endpoint interrupt to receive other data */
-		LPC_USB->USBDevIntEn |= EP_SLOW_INT;
-		//NVIC_EnableIRQ(USB_IRQn);
+        /* reenable endpoint interrupt to receive other data */
+        LPC_USB->USBDevIntEn |= EP_SLOW_INT;
+        //NVIC_EnableIRQ(USB_IRQn);
   }
 
 }
@@ -118,7 +118,7 @@ int main (void) {
   while (1) {                               // Loop forever
     VCOM_Serial2Usb();                      // read serial port and initiate USB event
     VCOM_CheckSerialState();
-	VCOM_Usb2Serial();
+    VCOM_Usb2Serial();
   } // end while
 } // end main ()
 

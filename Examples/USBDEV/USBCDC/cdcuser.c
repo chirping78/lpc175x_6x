@@ -69,7 +69,7 @@ volatile CDC_BUF_T  CDC_OutBuf;                                 // buffer for al
 int CDC_RdOutBuf (char *buffer, const int *length) {
   int bytesToRead, bytesRead;
 
-  /* Read *length bytes, block if *bytes are not available	*/
+  /* Read *length bytes, block if *bytes are not available  */
   bytesToRead = *length;
   bytesToRead = (bytesToRead < (*length)) ? bytesToRead : (*length);
   bytesRead = bytesToRead;
@@ -126,16 +126,16 @@ void CDC_Init (char portNum ) {
 
   if ( portNum == 0 )
   {
-	ser_OpenPort (0);
-	ser_InitPort0 (CDC_LineCoding.dwDTERate,
+    ser_OpenPort (0);
+    ser_InitPort0 (CDC_LineCoding.dwDTERate,
                 CDC_LineCoding.bDataBits,
                 CDC_LineCoding.bParityType,
                 CDC_LineCoding.bCharFormat);
   }
   else
   {
-	ser_OpenPort (1);
-	ser_InitPort1 (CDC_LineCoding.dwDTERate,
+    ser_OpenPort (1);
+    ser_InitPort1 (CDC_LineCoding.dwDTERate,
                 CDC_LineCoding.bDataBits,
                 CDC_LineCoding.bParityType,
                 CDC_LineCoding.bCharFormat);
@@ -310,7 +310,7 @@ void CDC_BulkIn(void) {
 
   // send over USB
   if (numBytesRead > 0) {
-	USB_WriteEP (CDC_DEP_IN, &BulkBufIn[0], numBytesRead);
+    USB_WriteEP (CDC_DEP_IN, &BulkBufIn[0], numBytesRead);
   }
   else {
     CDC_DepInEmpty = 1;
@@ -328,12 +328,12 @@ void CDC_BulkOut(void) {
 
   numBytesRead = USB_ReadEP(CDC_DEP_OUT, &BulkBufOut[0]);
   // ... add code to check for overwrite
-	CDC_BUF_RESET(CDC_OutBuf);
-	// store data in a buffer to transmit it over serial interface
-	CDC_WrOutBuf ((char *)&BulkBufOut[0], &numBytesRead);
-	/* Disable EP Interrupt */
-	LPC_USB->USBDevIntEn &= ~EP_SLOW_INT;
-	//NVIC_DisableIRQ(USB_IRQn);
+    CDC_BUF_RESET(CDC_OutBuf);
+    // store data in a buffer to transmit it over serial interface
+    CDC_WrOutBuf ((char *)&BulkBufOut[0], &numBytesRead);
+    /* Disable EP Interrupt */
+    LPC_USB->USBDevIntEn &= ~EP_SLOW_INT;
+    //NVIC_DisableIRQ(USB_IRQn);
 }
 
 

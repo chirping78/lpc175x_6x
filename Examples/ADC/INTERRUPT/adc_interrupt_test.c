@@ -1,12 +1,12 @@
 /**********************************************************************
-* $Id$		adc_interrupt_test.c			2010-05-21
+* $Id$      adc_interrupt_test.c            2010-05-21
 *//**
-* @file		adc_interrupt_test.c
-* @brief	This example describes how to use ADC conversion in
-* 			interrupt mode
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @file     adc_interrupt_test.c
+* @brief    This example describes how to use ADC conversion in
+*           interrupt mode
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -35,7 +35,7 @@
 #include "debug_frmwrk.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup ADC_INTERRUPT	INTERRUPT
+/** @defgroup ADC_INTERRUPT INTERRUPT
  * @ingroup ADC_Examples
  * @{
  */
@@ -45,11 +45,11 @@
 //#define IAR_LPC_1768
 
 #ifdef MCB_LPC_1768
-#define _ADC_INT			ADC_ADINTEN2
-#define _ADC_CHANNEL		ADC_CHANNEL_2
+#define _ADC_INT            ADC_ADINTEN2
+#define _ADC_CHANNEL        ADC_CHANNEL_2
 #elif defined(IAR_LPC_1768)
-#define _ADC_INT			ADC_ADINTEN5
-#define _ADC_CHANNEL		ADC_CHANNEL_5
+#define _ADC_INT            ADC_ADINTEN5
+#define _ADC_CHANNEL        ADC_CHANNEL_5
 #endif
 
 /************************** PRIVATE VARIABLES *************************/
@@ -74,135 +74,135 @@ void print_menu(void);
 
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/
 /*********************************************************************//**
- * @brief		ADC interrupt handler sub-routine
- * @param[in]	None
- * @return 		None
+ * @brief       ADC interrupt handler sub-routine
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void ADC_IRQHandler(void)
 {
-	adc_value = 0;
-	if (ADC_ChannelGetStatus(LPC_ADC,_ADC_CHANNEL,ADC_DATA_DONE))
-	{
-		adc_value =  ADC_ChannelGetData(LPC_ADC,_ADC_CHANNEL);
-		NVIC_DisableIRQ(ADC_IRQn);
-	}
+    adc_value = 0;
+    if (ADC_ChannelGetStatus(LPC_ADC,_ADC_CHANNEL,ADC_DATA_DONE))
+    {
+        adc_value =  ADC_ChannelGetData(LPC_ADC,_ADC_CHANNEL);
+        NVIC_DisableIRQ(ADC_IRQn);
+    }
 }
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Print menu
- * @param[in]	None
- * @return 		None
+ * @brief       Print menu
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	_DBG(menu1);
+    _DBG(menu1);
 }
 
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main ADC program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main ADC program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	PINSEL_CFG_Type PinCfg;
-	volatile uint32_t tmp;
+    PINSEL_CFG_Type PinCfg;
+    volatile uint32_t tmp;
 
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	// print welcome screen
-	print_menu();
+    // print welcome screen
+    print_menu();
 
-	/* Because the potentiometer on different boards (MCB & IAR) connect
-	 * with different ADC channel, so we have to configure correct ADC channel
-	 * on each board respectively.
-	 * If you want to check other ADC channels, you have to wire this ADC pin directly
-	 * to potentiometer pin (please see schematic doc for more reference)
-	 */
+    /* Because the potentiometer on different boards (MCB & IAR) connect
+     * with different ADC channel, so we have to configure correct ADC channel
+     * on each board respectively.
+     * If you want to check other ADC channels, you have to wire this ADC pin directly
+     * to potentiometer pin (please see schematic doc for more reference)
+     */
 #ifdef MCB_LPC_1768
-	/*
-	 * Init ADC pin connect
-	 * AD0.2 on P0.25
-	 */
-	PinCfg.Funcnum = 1;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 25;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
+    /*
+     * Init ADC pin connect
+     * AD0.2 on P0.25
+     */
+    PinCfg.Funcnum = 1;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Pinnum = 25;
+    PinCfg.Portnum = 0;
+    PINSEL_ConfigPin(&PinCfg);
 #elif defined (IAR_LPC_1768)
-	/* select P1.31 as AD0.5 */
-	PinCfg.Funcnum = 3;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 31;
-	PinCfg.Portnum = 1;
-	PINSEL_ConfigPin(&PinCfg);
+    /* select P1.31 as AD0.5 */
+    PinCfg.Funcnum = 3;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Pinnum = 31;
+    PinCfg.Portnum = 1;
+    PINSEL_ConfigPin(&PinCfg);
 #endif
 
 
-	/* Configuration for ADC:
-	 *  select: ADC channel 2 (if using MCB1700 board)
-	 *  		ADC channel 5 (if using IAR-LPC1768 board)
-	 *  ADC conversion rate = 200KHz
-	 */
-	ADC_Init(LPC_ADC, 200000);
-	ADC_IntConfig(LPC_ADC,_ADC_INT,ENABLE);
-	ADC_ChannelCmd(LPC_ADC,_ADC_CHANNEL,ENABLE);
+    /* Configuration for ADC:
+     *  select: ADC channel 2 (if using MCB1700 board)
+     *          ADC channel 5 (if using IAR-LPC1768 board)
+     *  ADC conversion rate = 200KHz
+     */
+    ADC_Init(LPC_ADC, 200000);
+    ADC_IntConfig(LPC_ADC,_ADC_INT,ENABLE);
+    ADC_ChannelCmd(LPC_ADC,_ADC_CHANNEL,ENABLE);
 
-	/* preemption = 1, sub-priority = 1 */
-	NVIC_SetPriority(ADC_IRQn, ((0x01<<3)|0x01));
+    /* preemption = 1, sub-priority = 1 */
+    NVIC_SetPriority(ADC_IRQn, ((0x01<<3)|0x01));
 
-	while(1)
-	{
-		// Start conversion
-		ADC_StartCmd(LPC_ADC,ADC_START_NOW);
+    while(1)
+    {
+        // Start conversion
+        ADC_StartCmd(LPC_ADC,ADC_START_NOW);
 
-		/* Enable ADC in NVIC */
-		NVIC_EnableIRQ(ADC_IRQn);
+        /* Enable ADC in NVIC */
+        NVIC_EnableIRQ(ADC_IRQn);
 
-		//Display the result of conversion on the UART0
+        //Display the result of conversion on the UART0
 #ifdef MCB_LPC_1768
-		_DBG("ADC value on channel 2: ");
+        _DBG("ADC value on channel 2: ");
 #elif defined (IAR_LPC_1768)
-		_DBG("ADC value on channel 5: ");
+        _DBG("ADC value on channel 5: ");
 #endif
-		_DBD32(adc_value);
-		_DBG_("");
-		for(tmp = 0; tmp < 1000000; tmp++);
-	}
+        _DBD32(adc_value);
+        _DBG_("");
+        for(tmp = 0; tmp < 1000000; tmp++);
+    }
 }
 
 /* Support required entry point for other toolchain */
 int main (void)
 {
-	return c_entry();
+    return c_entry();
 }
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

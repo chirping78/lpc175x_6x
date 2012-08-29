@@ -1,13 +1,13 @@
 /**********************************************************************
-* $Id$		spi_polling_test.c					2010-05-21
+* $Id$      spi_polling_test.c                  2010-05-21
 *//**
-* @file		spi_polling_test.c
-* @brief	This example describes how to use SPI at mode SPI master/8bit
-* 			on LPC1768 to communicate with SC16IS750/760 Demo board
-* 			in polling mode
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @file     spi_polling_test.c
+* @brief    This example describes how to use SPI at mode SPI master/8bit
+*           on LPC1768 to communicate with SC16IS750/760 Demo board
+*           in polling mode
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -37,7 +37,7 @@
 #include "lpc17xx_gpio.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup SPI_sc16is750_polling	sc16is750_polling
+/** @defgroup SPI_sc16is750_polling sc16is750_polling
  * @ingroup SPI_Examples
  * @{
  */
@@ -45,18 +45,18 @@
 
 /************************** PRIVATE DEFINITONS **********************/
 // PORT number that /CS pin assigned on
-#define CS_PORT_NUM		0
+#define CS_PORT_NUM     0
 // PIN number that  /CS pin assigned on
-#define CS_PIN_NUM		16
+#define CS_PIN_NUM      16
 
 // Define macro used in command when using SPI with SC16IS740
-#define SC16IS740_WR_CMD(x)		((uint8_t) (x << 3))
-#define SC16IS740_RD_CMD(x)		((uint8_t) ((x << 3) | 0x80))
+#define SC16IS740_WR_CMD(x)     ((uint8_t) (x << 3))
+#define SC16IS740_RD_CMD(x)     ((uint8_t) ((x << 3) | 0x80))
 
 // Define register address of SC16IS740
-#define SC16IS740_IODIR_REG		0x0A
-#define SC16IS740_IOSTATE_REG	0x0B
-#define SC16IS740_IOCON_REG		0x0E
+#define SC16IS740_IODIR_REG     0x0A
+#define SC16IS740_IOSTATE_REG   0x0B
+#define SC16IS740_IOCON_REG     0x0E
 
 
 /************************** PRIVATE VARIABLES *************************/
@@ -90,156 +90,156 @@ void print_menu(void);
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief 		Initialize CS pin as GPIO function to drive /CS pin
- * 				due to definition of CS_PORT_NUM and CS_PORT_NUM
- * @param		None
- * @return		None
+ * @brief       Initialize CS pin as GPIO function to drive /CS pin
+ *              due to definition of CS_PORT_NUM and CS_PORT_NUM
+ * @param       None
+ * @return      None
  ***********************************************************************/
 void CS_Init(void)
 {
-	GPIO_SetDir(CS_PORT_NUM, (1<<CS_PIN_NUM), 1);
-	GPIO_SetValue(CS_PORT_NUM, (1<<CS_PIN_NUM));
+    GPIO_SetDir(CS_PORT_NUM, (1<<CS_PIN_NUM), 1);
+    GPIO_SetValue(CS_PORT_NUM, (1<<CS_PIN_NUM));
 }
 
 
 /*********************************************************************//**
- * @brief 		Drive CS output pin to low/high level to select slave device
- * 				via /CS pin state
- * @param[in]	state State of CS output pin that will be driven:
- * 				- 0: Drive CS pin to low level
- * 				- 1: Drive CS pin to high level
- * @return		None
+ * @brief       Drive CS output pin to low/high level to select slave device
+ *              via /CS pin state
+ * @param[in]   state State of CS output pin that will be driven:
+ *              - 0: Drive CS pin to low level
+ *              - 1: Drive CS pin to high level
+ * @return      None
  ***********************************************************************/
 void CS_Force(int32_t state)
 {
-	if (state){
-		GPIO_SetValue(CS_PORT_NUM, (1<<CS_PIN_NUM));
-	}else{
-		GPIO_ClearValue(CS_PORT_NUM, (1<<CS_PIN_NUM));
-	}
+    if (state){
+        GPIO_SetValue(CS_PORT_NUM, (1<<CS_PIN_NUM));
+    }else{
+        GPIO_ClearValue(CS_PORT_NUM, (1<<CS_PIN_NUM));
+    }
 }
 
 
 /*********************************************************************//**
- * @brief		Print Welcome menu
- * @param[in]	none
- * @return 		None
+ * @brief       Print Welcome menu
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	_DBG(menu1);
+    _DBG(menu1);
 }
 
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main SPI program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main SPI program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	uint8_t tmpchar[2] = {0, 0};
-	PINSEL_CFG_Type PinCfg;
-	__IO FlagStatus exitflag;
-	SPI_DATA_SETUP_Type xferConfig;
+    uint8_t tmpchar[2] = {0, 0};
+    PINSEL_CFG_Type PinCfg;
+    __IO FlagStatus exitflag;
+    SPI_DATA_SETUP_Type xferConfig;
 
-	/*
-	 * Initialize SPI pin connect
-	 * P0.15 - SCK;
-	 * P0.16 - SSEL - used as GPIO
-	 * P0.17 - MISO
-	 * P0.18 - MOSI
-	 */
-	PinCfg.Funcnum = 3;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Portnum = 0;
-	PinCfg.Pinnum = 15;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 17;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 18;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 16;
-	PinCfg.Funcnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
+    /*
+     * Initialize SPI pin connect
+     * P0.15 - SCK;
+     * P0.16 - SSEL - used as GPIO
+     * P0.17 - MISO
+     * P0.18 - MOSI
+     */
+    PinCfg.Funcnum = 3;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Portnum = 0;
+    PinCfg.Pinnum = 15;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 17;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 18;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 16;
+    PinCfg.Funcnum = 0;
+    PINSEL_ConfigPin(&PinCfg);
 
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	// print welcome screen
-	print_menu();
+    // print welcome screen
+    print_menu();
 
-	// initialize SPI configuration structure to default
-	SPI_ConfigStructInit(&SPI_ConfigStruct);
-	// Initialize SPI peripheral with parameter given in structure above
-	SPI_Init(LPC_SPI, &SPI_ConfigStruct);
+    // initialize SPI configuration structure to default
+    SPI_ConfigStructInit(&SPI_ConfigStruct);
+    // Initialize SPI peripheral with parameter given in structure above
+    SPI_Init(LPC_SPI, &SPI_ConfigStruct);
 
-	// Initialize /CS pin to GPIO function
-	CS_Init();
+    // Initialize /CS pin to GPIO function
+    CS_Init();
 
-	/* First, send some command to reset SC16IS740 chip via SPI bus interface
-	 * note driver /CS pin to low state before transferring by CS_Enable() function
-	 */
-	CS_Force(0);
-	xferConfig.tx_data = iocon_cfg;
-	xferConfig.rx_data = spireadbuf;
-	xferConfig.length = sizeof (iocon_cfg);
-	SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
-	CS_Force(1);
-	CS_Force(0);
-	xferConfig.tx_data = iodir_cfg;
-	xferConfig.rx_data = spireadbuf;
-	xferConfig.length = sizeof (iodir_cfg);
-	SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
-	CS_Force(1);
+    /* First, send some command to reset SC16IS740 chip via SPI bus interface
+     * note driver /CS pin to low state before transferring by CS_Enable() function
+     */
+    CS_Force(0);
+    xferConfig.tx_data = iocon_cfg;
+    xferConfig.rx_data = spireadbuf;
+    xferConfig.length = sizeof (iocon_cfg);
+    SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
+    CS_Force(1);
+    CS_Force(0);
+    xferConfig.tx_data = iodir_cfg;
+    xferConfig.rx_data = spireadbuf;
+    xferConfig.length = sizeof (iodir_cfg);
+    SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
+    CS_Force(1);
 
-	// Reset exit flag
-	exitflag = RESET;
+    // Reset exit flag
+    exitflag = RESET;
 
     /* Read some data from the buffer */
     while (exitflag == RESET)
     {
-    	while((tmpchar[0] = _DG) == 0);
+        while((tmpchar[0] = _DG) == 0);
 
-    	if (tmpchar[0] == 27){
-			/* ESC key, set exit flag */
-			_DBG_(menu2);
-			exitflag = SET;
-		}
-		else if (tmpchar[0] == 'r'){
-			print_menu();
-		} else {
-			if (tmpchar[0] == '1')
-			{
-				// LEDs are ON now...
-				CS_Force(0);
-				xferConfig.tx_data = iostate_on;
-				xferConfig.rx_data = spireadbuf;
-				xferConfig.length = sizeof (iostate_on);
-				SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
-				CS_Force(1);
-			}
-			else if (tmpchar[0] == '2')
-			{
-				// LEDs are OFF now...
-				CS_Force(0);
-				xferConfig.tx_data = iostate_off;
-				xferConfig.rx_data = spireadbuf;
-				xferConfig.length = sizeof (iostate_off);
-				SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
-				CS_Force(1);
-			}
-			/* Then Echo it back */
-			_DBG_(tmpchar);
-		}
+        if (tmpchar[0] == 27){
+            /* ESC key, set exit flag */
+            _DBG_(menu2);
+            exitflag = SET;
+        }
+        else if (tmpchar[0] == 'r'){
+            print_menu();
+        } else {
+            if (tmpchar[0] == '1')
+            {
+                // LEDs are ON now...
+                CS_Force(0);
+                xferConfig.tx_data = iostate_on;
+                xferConfig.rx_data = spireadbuf;
+                xferConfig.length = sizeof (iostate_on);
+                SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
+                CS_Force(1);
+            }
+            else if (tmpchar[0] == '2')
+            {
+                // LEDs are OFF now...
+                CS_Force(0);
+                xferConfig.tx_data = iostate_off;
+                xferConfig.rx_data = spireadbuf;
+                xferConfig.length = sizeof (iostate_off);
+                SPI_ReadWrite(LPC_SPI, &xferConfig, SPI_TRANSFER_POLLING);
+                CS_Force(1);
+            }
+            /* Then Echo it back */
+            _DBG_(tmpchar);
+        }
     }
     SPI_DeInit(LPC_SPI);
     /* Loop forever */
@@ -259,19 +259,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

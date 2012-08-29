@@ -19,13 +19,13 @@
 #ifndef  __DRV_GLCD_H
 #define  __DRV_GLCD_H
 
-#define DEF_X_LEFT         	0
-#define DEF_Y_UP           	0
-#define DEF_X_RIGHT        	GLCD_HORIZONTAL_SIZE
-#define DEF_Y_DOWN         	GLCD_VERTICAL_SIZE
-#define DEF_FONT_COLOUR    	0x000000
-#define DEF_BACKGND_COLOUR 	0x00FF0
-#define TEXT_DEF_TAB_SIZE  	4
+#define DEF_X_LEFT          0
+#define DEF_Y_UP            0
+#define DEF_X_RIGHT         GLCD_HORIZONTAL_SIZE
+#define DEF_Y_DOWN          GLCD_VERTICAL_SIZE
+#define DEF_FONT_COLOUR     0x000000
+#define DEF_BACKGND_COLOUR  0x00FF0
+#define TEXT_DEF_TAB_SIZE   4
 
 #define MAX_GLCD_STR_SIZE   256
 // External function
@@ -74,25 +74,25 @@ uint32_t Temp;\
 
 // GLCD command interpreter type
 typedef enum _GLCD_ISS_t {
-	GLCD_ISS_0 = 0, GLCD_ISS_1
+    GLCD_ISS_0 = 0, GLCD_ISS_1
 } GLCD_ISS_t;
 
 // execution status
 typedef enum _GLCD_Status_t {
-	GLCD_OK = 0, GLCD_ID_ERROR, GLCD_UNSUPPORTED, GLCD_ERROR
+    GLCD_OK = 0, GLCD_ID_ERROR, GLCD_UNSUPPORTED, GLCD_ERROR
 } GLCD_Status_t;
 
 // GCLD command set
 typedef enum _GLCD_Cmd_t {
-	// Equal commands
-	NOP, SLPIN, SLPOUT, PTLOUT, INVOFF, INVON,
-	DISPOFF, DISPON, CASET, RASET, RAMWR, RGBSET, VSCSAD,
-	IDMOFF, IDMON, RDID1, RDID2, RDID3, FRMSEL, FRM8SEL, TMPRNG,
-	TMPHIS, TMPREAD, EPWRIN, EPWROUT, RDEV, RDRR,
+    // Equal commands
+    NOP, SLPIN, SLPOUT, PTLOUT, INVOFF, INVON,
+    DISPOFF, DISPON, CASET, RASET, RAMWR, RGBSET, VSCSAD,
+    IDMOFF, IDMON, RDID1, RDID2, RDID3, FRMSEL, FRM8SEL, TMPRNG,
+    TMPHIS, TMPREAD, EPWRIN, EPWROUT, RDEV, RDRR,
   // Adapted commands
-  PTIN, 	// ISS=0 equal on PTLAR + PTIN
-  SCRLAR,	// ISS=1 ASCSET mode 0
-  DATCTR,	// ISS=0 equal on MADCTR + COLMOD
+  PTIN,     // ISS=0 equal on PTLAR + PTIN
+  SCRLAR,   // ISS=1 ASCSET mode 0
+  DATCTR,   // ISS=0 equal on MADCTR + COLMOD
   SETCON, //
   // Commands applicable only when ISS=1
   OSCON, OSCOFF, RMWIN, RMWOUT, VOLUP, VOLDOWN, ASCSET, DISCTR,
@@ -100,37 +100,37 @@ typedef enum _GLCD_Cmd_t {
   // Commands applicable only when ISS=0
   CLKINT, CLKEXT, RDDST, SWRESET, RDDID, PTLAR, PTLON, MADCTR,
   COLMOD, APOFF, APON, BSTROFF, BSTRON,
-	GLCD_CMD_NUMB
+    GLCD_CMD_NUMB
 } GLCD_Cmd_t;
 
 // Command direction
 typedef enum _GLCD_CmdDir_t {
-	GLCD_WRITE = 0, GLCD_READ
+    GLCD_WRITE = 0, GLCD_READ
 } GLCD_CmdDir_t;
 
 // Data flag
-#define GLCD_DATA				      0x100
+#define GLCD_DATA                     0x100
 
 // Invalid command (some commands don't have analog in other
 // command mode interpreter)
-#define GLCD_INV_CMD					((uint32_t)(-1))
+#define GLCD_INV_CMD                    ((uint32_t)(-1))
 
 #define GLCD_MAX_COTRAST   63
 #define GLCD_MIN_COTRAST  -64
 
 typedef struct _GLCD_CmdCtrl_t {
-	uint32_t        Cmd;
-	GLCD_CmdDir_t   Dir;
-	Bool 		Pulse;
-	uint32_t 		Param;
+    uint32_t        Cmd;
+    GLCD_CmdDir_t   Dir;
+    Bool        Pulse;
+    uint32_t        Param;
 } GLCD_CmdCtrl_t, *pGLCD_CmdCtrl_t;
 
 #pragma pack(1)
 typedef struct _ASCSET_Data_t {
-	uint8_t Ssl;
-	uint8_t Sel;
-	uint8_t Sfl;
-	uint8_t Smd;
+    uint8_t Ssl;
+    uint8_t Sel;
+    uint8_t Sfl;
+    uint8_t Smd;
 } ASCSET_Data_t, *pASCSET_Data_t;
 
 #if defined ( __CC_ARM   )
@@ -138,65 +138,65 @@ typedef struct _ASCSET_Data_t {
 #endif
 
 typedef struct _DATCTR_Data_t {
-	union 
-	{
-		uint8_t RC_AddMode;
-		struct 
-		{
-			uint8_t MY : 1;
-			uint8_t MX : 1;
-			uint8_t MV : 1;
-			uint8_t ML : 1;
-			uint8_t : 4;
-		};
-	};
-	union  
-	{
-		uint8_t RGB_Mode;
-		struct 
-		{
-			uint8_t RGB : 1;
-			uint8_t : 7;
-		};
-	};
-	union 
-	{
-		uint8_t GrayScale;
-		struct  
-		{
-			uint8_t GS  : 3;
-			uint8_t Reversed: 5;
-		};
-	};
+    union 
+    {
+        uint8_t RC_AddMode;
+        struct 
+        {
+            uint8_t MY : 1;
+            uint8_t MX : 1;
+            uint8_t MV : 1;
+            uint8_t ML : 1;
+            uint8_t : 4;
+        };
+    };
+    union  
+    {
+        uint8_t RGB_Mode;
+        struct 
+        {
+            uint8_t RGB : 1;
+            uint8_t : 7;
+        };
+    };
+    union 
+    {
+        uint8_t GrayScale;
+        struct  
+        {
+            uint8_t GS  : 3;
+            uint8_t Reversed: 5;
+        };
+    };
 } DATCTR_Data_t, *pDATCTR_Data_t;
 
 typedef struct _MADCTR_Data_t {
-	union
-	{
-		uint8_t MemDataAccCtrl;
-		struct 
-		{
-			uint8_t Reversed: 3;
-			uint8_t RGB : 1;
-			uint8_t ML  : 1;
-			uint8_t MV  : 1;
-			uint8_t MX  : 1;
-			uint8_t MY  : 1;
-		};
-	};
+    union
+    {
+        uint8_t MemDataAccCtrl;
+        struct 
+        {
+            uint8_t Reversed: 3;
+            uint8_t RGB : 1;
+            uint8_t ML  : 1;
+            uint8_t MV  : 1;
+            uint8_t MX  : 1;
+            uint8_t MY  : 1;
+        };
+    };
 } MADCTR_Data_t, *pMADCTR_Data_t;
 
 
 typedef struct _COLMOD_Data_t {
-	union
-	{
-		uint8_t ColourMode;
-		struct
-		{
-			uint8_t Mode 	: 3;
-			uint8_t Reversed : 5;
-		};
-	};
+    union
+    {
+        uint8_t ColourMode;
+        struct
+        {
+            uint8_t Mode    : 3;
+            uint8_t Reversed : 5;
+        };
+    };
 } COLMOD_Data_t, *pCOLMOD_Data_t;
 #pragma pack()
 
@@ -238,7 +238,7 @@ GLCD_Status_t GLCD_SendCmd (GLCD_Cmd_t Cmd, unsigned char *pData, uint32_t Size)
  * Parameters: unsigned char* pInitData
  * Return: GLCD_Status_t
  *         GLCD_OK - init pass
- *			 	 GLCD_ID_ERROR - unsupported driver type
+ *               GLCD_ID_ERROR - unsupported driver type
  * Description: Power-up initialization of Graphic LCD
  *
  *************************************************************************/
@@ -308,8 +308,8 @@ void GLCD_TextSetTabSize(uint32_t Size);
  *
  *************************************************************************/
 static Bool GLCD_TextCalcWindow (unsigned int *pXL, unsigned int *pXR,
-		unsigned int *pYU, unsigned int *pYD,
-		unsigned int *pH_Size, unsigned int *pV_Size);
+        unsigned int *pYU, unsigned int *pYD,
+        unsigned int *pH_Size, unsigned int *pV_Size);
 
 /*************************************************************************
  * Function Name: GLCD_putchar

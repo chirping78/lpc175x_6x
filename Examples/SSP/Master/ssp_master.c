@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		ssp_master.c					2010-05-21
+* $Id$      ssp_master.c                    2010-05-21
 *//**
-* @file		ssp_master.c
-* @brief	This example describes how to use SPP in master mode
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @file     ssp_master.c
+* @brief    This example describes how to use SPP in master mode
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -35,14 +35,14 @@
 #include "lpc17xx_gpio.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup SSP_Master	Master
+/** @defgroup SSP_Master    Master
  * @ingroup SSP_Examples
  * @{
  */
 
 /************************** PRIVATE DEFINTIONS ************************/
 /** Max buffer length */
-#define BUFFER_SIZE			0x40
+#define BUFFER_SIZE         0x40
 
 
 /************************** PRIVATE VARIABLES *************************/
@@ -76,133 +76,133 @@ void Buffer_Verify(void);
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Initialize buffer
- * @param[in]	None
- * @return 		None
+ * @brief       Initialize buffer
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void Buffer_Init(void)
 {
-	uint8_t i;
+    uint8_t i;
 
-	for (i = 0; i < BUFFER_SIZE; i++) {
-		Tx_Buf[i] = i;
-		Rx_Buf[i] = 0;
-	}
+    for (i = 0; i < BUFFER_SIZE; i++) {
+        Tx_Buf[i] = i;
+        Rx_Buf[i] = 0;
+    }
 }
 
 /*********************************************************************//**
- * @brief		Error Loop (called by Buffer_Verify() if any error)
- * @param[in]	none
- * @return 		None
+ * @brief       Error Loop (called by Buffer_Verify() if any error)
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 void Error_Loop(void)
 {
-	/* Loop forever */
-	while (1);
+    /* Loop forever */
+    while (1);
 }
 
 
 /*********************************************************************//**
- * @brief		Verify buffer
- * @param[in]	none
- * @return 		None
+ * @brief       Verify buffer
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 void Buffer_Verify(void)
 {
-	uint8_t i;
-	uint8_t *src_addr = (uint8_t *) &Tx_Buf[0];
-	uint8_t *dest_addr = (uint8_t *) &Rx_Buf[0];
+    uint8_t i;
+    uint8_t *src_addr = (uint8_t *) &Tx_Buf[0];
+    uint8_t *dest_addr = (uint8_t *) &Rx_Buf[0];
 
-	for ( i = 0; i < BUFFER_SIZE; i++ )
-	{
-		if ( *src_addr++ != *dest_addr++ )
-		{
-			_DBG_("Verify error");
-			/* Call Error Loop */
-			Error_Loop();
-		}
-	}
+    for ( i = 0; i < BUFFER_SIZE; i++ )
+    {
+        if ( *src_addr++ != *dest_addr++ )
+        {
+            _DBG_("Verify error");
+            /* Call Error Loop */
+            Error_Loop();
+        }
+    }
 }
 
 
 /*********************************************************************//**
- * @brief		Print Welcome menu
- * @param[in]	none
- * @return 		None
+ * @brief       Print Welcome menu
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	_DBG(menu1);
+    _DBG(menu1);
 }
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main SSP program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main SSP program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	PINSEL_CFG_Type PinCfg;
-	SSP_DATA_SETUP_Type xferConfig;
+    PINSEL_CFG_Type PinCfg;
+    SSP_DATA_SETUP_Type xferConfig;
 
-	/*
-	 * Initialize SPI pin connect
-	 * P0.15 - SCK;
-	 * P0.16 - SSEL
-	 * P0.17 - MISO
-	 * P0.18 - MOSI
-	 */
-	PinCfg.Funcnum = 2;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Portnum = 0;
-	PinCfg.Pinnum = 15;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 17;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 18;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 16;
-	PINSEL_ConfigPin(&PinCfg);
+    /*
+     * Initialize SPI pin connect
+     * P0.15 - SCK;
+     * P0.16 - SSEL
+     * P0.17 - MISO
+     * P0.18 - MOSI
+     */
+    PinCfg.Funcnum = 2;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Portnum = 0;
+    PinCfg.Pinnum = 15;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 17;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 18;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 16;
+    PINSEL_ConfigPin(&PinCfg);
 
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	// print welcome screen
-	print_menu();
+    // print welcome screen
+    print_menu();
 
-	// initialize SSP configuration structure to default
-	SSP_ConfigStructInit(&SSP_ConfigStruct);
-	// Initialize SSP peripheral with parameter given in structure above
-	SSP_Init(LPC_SSP0, &SSP_ConfigStruct);
+    // initialize SSP configuration structure to default
+    SSP_ConfigStructInit(&SSP_ConfigStruct);
+    // Initialize SSP peripheral with parameter given in structure above
+    SSP_Init(LPC_SSP0, &SSP_ConfigStruct);
 
-	// Enable SSP peripheral
-	SSP_Cmd(LPC_SSP0, ENABLE);
+    // Enable SSP peripheral
+    SSP_Cmd(LPC_SSP0, ENABLE);
 
-	_DBG_("Press '1' to start transfer...");
-	while (_DG != '1');
+    _DBG_("Press '1' to start transfer...");
+    while (_DG != '1');
 
-	/* Initialize Buffer */
-	_DBG_("Init buffer");
-	Buffer_Init();
+    /* Initialize Buffer */
+    _DBG_("Init buffer");
+    Buffer_Init();
 
-	_DBG_("Start transfer...");
+    _DBG_("Start transfer...");
 
-	xferConfig.tx_data = Tx_Buf;
-	xferConfig.rx_data = Rx_Buf;
-	xferConfig.length = BUFFER_SIZE;
-	SSP_ReadWrite(LPC_SSP0, &xferConfig, SSP_TRANSFER_POLLING);
+    xferConfig.tx_data = Tx_Buf;
+    xferConfig.rx_data = Rx_Buf;
+    xferConfig.length = BUFFER_SIZE;
+    SSP_ReadWrite(LPC_SSP0, &xferConfig, SSP_TRANSFER_POLLING);
 
-	// Verify buffer after transferring
-	Buffer_Verify();
-	_DBG_("Verify complete!");
+    // Verify buffer after transferring
+    Buffer_Verify();
+    _DBG_("Verify complete!");
 
     /* Loop forever */
     while(1);
@@ -221,18 +221,18 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif

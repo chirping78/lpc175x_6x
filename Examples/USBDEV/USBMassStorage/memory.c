@@ -30,7 +30,7 @@
 #include "lpc17xx_nvic.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup USBDEV_USBMassStorage	USBMassStorage
+/** @defgroup USBDEV_USBMassStorage USBMassStorage
  * @ingroup USBDEV_Examples
  * @{
  */
@@ -41,33 +41,33 @@ extern uint8_t Memory[MSC_MemorySize];         /* MSC Memory in RAM */
 /* Main Program */
 
 int main (void) {
-	uint32_t n;
+    uint32_t n;
 
-	for (n = 0; n < MSC_ImageSize; n++) {     /* Copy Initial Disk Image */
-		Memory[n] = DiskImage[n];               /*   from Flash to RAM     */
-	}
+    for (n = 0; n < MSC_ImageSize; n++) {     /* Copy Initial Disk Image */
+        Memory[n] = DiskImage[n];               /*   from Flash to RAM     */
+    }
 
-	USB_Init();                               /* USB Initialization */
-	USB_Connect(TRUE);                        /* USB Connect */
+    USB_Init();                               /* USB Initialization */
+    USB_Connect(TRUE);                        /* USB Connect */
 
-	while (1);                                /* Loop forever */
+    while (1);                                /* Loop forever */
 }
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

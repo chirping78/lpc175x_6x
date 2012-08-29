@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		lcdtest.c 				2010-06-18
+* $Id$      lcdtest.c               2010-06-18
 *//**
-* @file		lcdtest.c
-* @brief	This example used to test LCD on IAR-LPC1768-KS board
-* @version	3.0
-* @date		18. June. 2010
-* @author	NXP MCU SW Application Team
+* @file     lcdtest.c
+* @brief    This example used to test LCD on IAR-LPC1768-KS board
+* @version  3.0
+* @date     18. June. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -41,7 +41,7 @@
 #include "lpc17xx_gpio.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup LCD_NOKIA6610_LCD	NOKIA6610_LCD
+/** @defgroup LCD_NOKIA6610_LCD NOKIA6610_LCD
  * @ingroup LCD_Examples
  * @{
  */
@@ -69,169 +69,169 @@ void Dly100us(void *arg);
 
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/
 /*********************************************************************//**
- * @brief		TIMER0 IRQ Handler
- * @param[in]	None
- * @return 		None
+ * @brief       TIMER0 IRQ Handler
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void TIMER0_IRQHandler (void)
 {
-	//check BUT1
-	if(!(GPIO_ReadValue(0)&(1<<23)))
-	{
-		CntrSel = FALSE;
-	}
-	//Check BUT2
-	else if (!(GPIO_ReadValue(2)&(1<<13)))
-	{
-		CntrSel = TRUE;
-	}
+    //check BUT1
+    if(!(GPIO_ReadValue(0)&(1<<23)))
+    {
+        CntrSel = FALSE;
+    }
+    //Check BUT2
+    else if (!(GPIO_ReadValue(2)&(1<<13)))
+    {
+        CntrSel = TRUE;
+    }
   // clear interrupt
-	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
-	NVIC_ClearPendingIRQ(TIMER0_IRQn);
+    TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
+    NVIC_ClearPendingIRQ(TIMER0_IRQn);
 }
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Delay 100us
- * @param[in]	void *arg
- * @return 		None
+ * @brief       Delay 100us
+ * @param[in]   void *arg
+ * @return      None
  **********************************************************************/
 void Dly100us(void *arg)
 {
-	volatile uint32_t Dly = (uint32_t)arg, Dly100;
-	for(;Dly;Dly--)
+    volatile uint32_t Dly = (uint32_t)arg, Dly100;
+    for(;Dly;Dly--)
     for(Dly100 = 500; Dly100; Dly100--);
 }
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main LCD program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main LCD program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	Bool SelHold;
-	uint32_t AdcData, timer_tick;
-	PINSEL_CFG_Type PinCfg;
-	TIM_TIMERCFG_Type TimerCfg;
-	TIM_MATCHCFG_Type MatchCfg;
+    Bool SelHold;
+    uint32_t AdcData, timer_tick;
+    PINSEL_CFG_Type PinCfg;
+    TIM_TIMERCFG_Type TimerCfg;
+    TIM_MATCHCFG_Type MatchCfg;
 
-	// But 0,1 init
-	GPIO_SetDir(0, (1<<23), 0); //Setting BUT0 (P0.23) as input
-	GPIO_SetDir(2, (1<<13), 0); //Setting BUT1 (P2.13) as input
+    // But 0,1 init
+    GPIO_SetDir(0, (1<<23), 0); //Setting BUT0 (P0.23) as input
+    GPIO_SetDir(2, (1<<13), 0); //Setting BUT1 (P2.13) as input
 
-	/* ADC Pin select
-	 * P1.31 as AD0.5
-	 */
-	PinCfg.Funcnum = 3;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 2; //Pin has neither pull-up nor pull-down
-	PinCfg.Pinnum = 31;
-	PinCfg.Portnum = 1;
-	PINSEL_ConfigPin(&PinCfg);
+    /* ADC Pin select
+     * P1.31 as AD0.5
+     */
+    PinCfg.Funcnum = 3;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 2; //Pin has neither pull-up nor pull-down
+    PinCfg.Pinnum = 31;
+    PinCfg.Portnum = 1;
+    PINSEL_ConfigPin(&PinCfg);
 
-	// Enable ADC clock
-	CLKPWR_ConfigPPWR (CLKPWR_PCONP_PCAD, ENABLE);
+    // Enable ADC clock
+    CLKPWR_ConfigPPWR (CLKPWR_PCONP_PCAD, ENABLE);
 
-	/* Initialize ADC peripheral */
-	ADC_Init(LPC_ADC, 100000);
+    /* Initialize ADC peripheral */
+    ADC_Init(LPC_ADC, 100000);
 
-	/* Enable ADC channel 5 */
-	ADC_ChannelCmd (LPC_ADC, 5, ENABLE);
+    /* Enable ADC channel 5 */
+    ADC_ChannelCmd (LPC_ADC, 5, ENABLE);
 
-	/* Start ADC */
-	ADC_StartCmd(LPC_ADC, ADC_START_NOW);
+    /* Start ADC */
+    ADC_StartCmd(LPC_ADC, ADC_START_NOW);
 
-	/* Initialize TIMER0
-	 * Timer channel: TIMER0
-	 * Timer mode: every rising PCLK edge
-	 * Prescale option: TICKVAL
-	 * Prescale value = 0
-	 */
-	TimerCfg.PrescaleOption = TIM_PRESCALE_TICKVAL;
-	TimerCfg.PrescaleValue = 0;
-	TIM_Init(LPC_TIM0, TIM_COUNTER_RISING_MODE, &TimerCfg);
+    /* Initialize TIMER0
+     * Timer channel: TIMER0
+     * Timer mode: every rising PCLK edge
+     * Prescale option: TICKVAL
+     * Prescale value = 0
+     */
+    TimerCfg.PrescaleOption = TIM_PRESCALE_TICKVAL;
+    TimerCfg.PrescaleValue = 0;
+    TIM_Init(LPC_TIM0, TIM_COUNTER_RISING_MODE, &TimerCfg);
 
-	//disable timer counter
-	TIM_Cmd(LPC_TIM0, DISABLE);
+    //disable timer counter
+    TIM_Cmd(LPC_TIM0, DISABLE);
 
-	/* Initalize Match MR0
-	 * - Enable interrupt
-	 * - Enable reset
-	 * - Disable stop
-	 * - Match value = CLKPWR_GetPCLK(CLKPWR_PCLKSEL_TIMER0)/(TIMER0_TICK_PER_SEC)
-	 */
-	timer_tick = CLKPWR_GetPCLK(CLKPWR_PCLKSEL_TIMER0)/(TIMER0_TICK_PER_SEC);
-	MatchCfg.MatchChannel = 0;
-	MatchCfg.IntOnMatch = ENABLE;
-	MatchCfg.ResetOnMatch = ENABLE;
-	MatchCfg.StopOnMatch = DISABLE;
-	MatchCfg.ExtMatchOutputType = TIM_EXTMATCH_NOTHING;
-	MatchCfg.MatchValue = timer_tick;
-	TIM_ConfigMatch(LPC_TIM0,&MatchCfg);
+    /* Initalize Match MR0
+     * - Enable interrupt
+     * - Enable reset
+     * - Disable stop
+     * - Match value = CLKPWR_GetPCLK(CLKPWR_PCLKSEL_TIMER0)/(TIMER0_TICK_PER_SEC)
+     */
+    timer_tick = CLKPWR_GetPCLK(CLKPWR_PCLKSEL_TIMER0)/(TIMER0_TICK_PER_SEC);
+    MatchCfg.MatchChannel = 0;
+    MatchCfg.IntOnMatch = ENABLE;
+    MatchCfg.ResetOnMatch = ENABLE;
+    MatchCfg.StopOnMatch = DISABLE;
+    MatchCfg.ExtMatchOutputType = TIM_EXTMATCH_NOTHING;
+    MatchCfg.MatchValue = timer_tick;
+    TIM_ConfigMatch(LPC_TIM0,&MatchCfg);
 
-	// Clear MR0 interrupt pending
-	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
+    // Clear MR0 interrupt pending
+    TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 
-	//Enable TIMER0 interrupt
-	NVIC_EnableIRQ(TIMER0_IRQn);
+    //Enable TIMER0 interrupt
+    NVIC_EnableIRQ(TIMER0_IRQn);
 
-	// Enable TIMER0 counter
-	TIM_Cmd(LPC_TIM0, ENABLE);
+    // Enable TIMER0 counter
+    TIM_Cmd(LPC_TIM0, ENABLE);
 
-	// GLCD init
-	GLCD_PowerUpInit((unsigned char *)NXP_Logo.pPicStream);
-	GLCD_Backlight(BACKLIGHT_ON);
+    // GLCD init
+    GLCD_PowerUpInit((unsigned char *)NXP_Logo.pPicStream);
+    GLCD_Backlight(BACKLIGHT_ON);
 
-	GLCD_SetFont(&Terminal_9_12_6,0x000F00,0x00FF0);
-	GLCD_SetWindow(10,116,131,131);
-	GLCD_TextSetPos(0,0);
+    GLCD_SetFont(&Terminal_9_12_6,0x000F00,0x00FF0);
+    GLCD_SetWindow(10,116,131,131);
+    GLCD_TextSetPos(0,0);
 
-	if(CntrSel)
-	{
-		SelHold = TRUE;
-		GLCD_print("\fContrast adj.\r");
-	}
-	else
-	{
-		SelHold = FALSE;
-		GLCD_print("\fBacklight adj.\r");
-	}
+    if(CntrSel)
+    {
+        SelHold = TRUE;
+        GLCD_print("\fContrast adj.\r");
+    }
+    else
+    {
+        SelHold = FALSE;
+        GLCD_print("\fBacklight adj.\r");
+    }
 
-	while(1)
-	{
-		AdcData = ADC_GlobalGetData(LPC_ADC);
-		if(AdcData & (1UL << 31))
-		{
-			//AD0 start conversion
-			ADC_StartCmd(LPC_ADC, ADC_START_NOW);
-			AdcData >>= 10;
-			AdcData  &= 0xFF;
-			if(SelHold)
-			{
-				// Contract adj
-				GLCD_SendCmd(SETCON,(unsigned char *)&AdcData,0);
-			}
-			else
-			{
-				// Backlight adj
-				AdcData >>= 1;
-				GLCD_Backlight(AdcData);
-			}
-		}
-		if(SelHold != CntrSel)
-		{
-			SelHold ^= 1;
-			if(SelHold)
-			{
-				GLCD_print("\fContrast adj.\r");
-			}
-			else
-			{
-				GLCD_print("\fBacklight adj.\r");
-			}
-		}
-	}
+    while(1)
+    {
+        AdcData = ADC_GlobalGetData(LPC_ADC);
+        if(AdcData & (1UL << 31))
+        {
+            //AD0 start conversion
+            ADC_StartCmd(LPC_ADC, ADC_START_NOW);
+            AdcData >>= 10;
+            AdcData  &= 0xFF;
+            if(SelHold)
+            {
+                // Contract adj
+                GLCD_SendCmd(SETCON,(unsigned char *)&AdcData,0);
+            }
+            else
+            {
+                // Backlight adj
+                AdcData >>= 1;
+                GLCD_Backlight(AdcData);
+            }
+        }
+        if(SelHold != CntrSel)
+        {
+            SelHold ^= 1;
+            if(SelHold)
+            {
+                GLCD_print("\fContrast adj.\r");
+            }
+            else
+            {
+                GLCD_print("\fBacklight adj.\r");
+            }
+        }
+    }
 }
 
 /* With ARM and GHS toolsets, the entry point is main() - this will
@@ -246,19 +246,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

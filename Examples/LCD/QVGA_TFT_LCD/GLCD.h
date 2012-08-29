@@ -22,7 +22,7 @@
  *----------------------------------------------------------------------------*/
 
 /* GLCD RGB color definitions                                                 */
-#define Black           0x0000		/*   0,   0,   0 */
+#define Black           0x0000      /*   0,   0,   0 */
 #define Navy            0x000F      /*   0,   0, 128 */
 #define DarkGreen       0x03E0      /*   0, 128,   0 */
 #define DarkCyan        0x03EF      /*   0, 128, 128 */

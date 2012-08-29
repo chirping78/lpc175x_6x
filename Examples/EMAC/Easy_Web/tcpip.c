@@ -25,14 +25,14 @@
 /* For debugging... */
 #include "debug_frmwrk.h"
 #include <stdio.h>
-#define DB	_DBG((uint8_t *)db_)
+#define DB  _DBG((uint8_t *)db_)
 char db_[64];
 uint16_t _tickVal;
 
 #ifdef MCB_LPC_1768
-#define LED_PIN	(1<<6) // P2.6
-#define LED2_MASK	((1<<2) | (1<<3) | (1<<4) | (1<<5) | (1<<6))
-#define LED1_MASK	((1<<28) | (1<<29) | (0x80000000))
+#define LED_PIN (1<<6) // P2.6
+#define LED2_MASK   ((1<<2) | (1<<3) | (1<<4) | (1<<5) | (1<<6))
+#define LED1_MASK   ((1<<28) | (1<<29) | (0x80000000))
 #elif defined(IAR_LPC_1768)
 #define LED_PIN (1<<25)  //P1.25
 #define LED2_MASK ((1<<4))
@@ -54,44 +54,44 @@ void SysTick_Handler (void);
 
 void LED_Init (void)
 {
-	PINSEL_CFG_Type PinCfg;
+    PINSEL_CFG_Type PinCfg;
 
-	uint8_t temp;
+    uint8_t temp;
 #ifdef MCB_LPC_1768
-	PinCfg.Funcnum = 0;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Portnum = 2;
-	for (temp = 2; temp <= 6; temp++){
-		PinCfg.Pinnum = temp;
-		PINSEL_ConfigPin(&PinCfg);
-	}
+    PinCfg.Funcnum = 0;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Portnum = 2;
+    for (temp = 2; temp <= 6; temp++){
+        PinCfg.Pinnum = temp;
+        PINSEL_ConfigPin(&PinCfg);
+    }
 
-	PinCfg.Funcnum = 0;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Portnum = 1;
-	PinCfg.Pinnum = 28;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 29;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 31;
-	PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Funcnum = 0;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Portnum = 1;
+    PinCfg.Pinnum = 28;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 29;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 31;
+    PINSEL_ConfigPin(&PinCfg);
 
-	// Set direction to output
-	LPC_GPIO2->FIODIR |= LED2_MASK;
-	LPC_GPIO1->FIODIR |= LED1_MASK;
+    // Set direction to output
+    LPC_GPIO2->FIODIR |= LED2_MASK;
+    LPC_GPIO1->FIODIR |= LED1_MASK;
 
-	/* Turn off all LEDs */
-	LPC_GPIO2->FIOCLR = LED2_MASK;
-	LPC_GPIO1->FIOCLR = LED1_MASK;
+    /* Turn off all LEDs */
+    LPC_GPIO2->FIOCLR = LED2_MASK;
+    LPC_GPIO1->FIOCLR = LED1_MASK;
 #elif defined(IAR_LPC_1768)
-	LPC_GPIO0->FIODIR |= LED2_MASK;
-	LPC_GPIO1->FIODIR |= LED1_MASK;
+    LPC_GPIO0->FIODIR |= LED2_MASK;
+    LPC_GPIO1->FIODIR |= LED1_MASK;
 
-	/* Turn off all LEDs */
-	LPC_GPIO0->FIOSET = LED2_MASK;
-	LPC_GPIO1->FIOSET = LED1_MASK;
+    /* Turn off all LEDs */
+    LPC_GPIO0->FIOSET = LED2_MASK;
+    LPC_GPIO1->FIOSET = LED1_MASK;
 #endif
 }
 // easyWEB-API function
@@ -99,37 +99,37 @@ void LED_Init (void)
 
 void TCPLowLevelInit(void)
 {
-	// ADC initializing
-	ADC_init();
+    // ADC initializing
+    ADC_init();
 
-	// Initialize LED for system tick timer
-	LED_Init();
+    // Initialize LED for system tick timer
+    LED_Init();
 
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
-	_DBG_("Hello NXP EMAC");
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
+    _DBG_("Hello NXP EMAC");
 
-	Init_EMAC();
-	TransmitControl = 0;
-	TCPFlags = 0;
-	TCPStateMachine = CLOSED;
-	SocketStatus = 0;
+    Init_EMAC();
+    TransmitControl = 0;
+    TCPFlags = 0;
+    TCPStateMachine = CLOSED;
+    SocketStatus = 0;
 
-	// NXP: Initialize System tick timer
-	// Generate interrupt each SYSTICK_PERIOD microsecond
-	if (SysTick_Config((4000000/1000000)*SYSTICK_PERIOD)){
-		// Capture error
-		while (1);
-	}
-	_DBG_("Init LowLevelTCP complete!");
-	sprintf(db_, "IP Address: %d.%d.%d.%d \n\r", MYIP_1, MYIP_2, MYIP_3, MYIP_4);
-	DB;
+    // NXP: Initialize System tick timer
+    // Generate interrupt each SYSTICK_PERIOD microsecond
+    if (SysTick_Config((4000000/1000000)*SYSTICK_PERIOD)){
+        // Capture error
+        while (1);
+    }
+    _DBG_("Init LowLevelTCP complete!");
+    sprintf(db_, "IP Address: %d.%d.%d.%d \n\r", MYIP_1, MYIP_2, MYIP_3, MYIP_4);
+    DB;
 }
 
 // easyWEB-API function
@@ -337,8 +337,8 @@ void DoNetworkStuff(void)
     RequestSend(TxFrame2Size);
 
     if (Rdy4Tx()) {                               // NOTE: when using a very fast MCU, maybe
-    	_DBG_("Send Frm2");
-    	SendFrame2();                              // the EMAC isn't ready yet, include
+        _DBG_("Send Frm2");
+        SendFrame2();                              // the EMAC isn't ready yet, include
     } else {                                       // a kind of timer or counter here
       TCPStateMachine = CLOSED;
       SocketStatus = SOCK_ERR_ETHERNET;          // indicate an error to user
@@ -354,8 +354,8 @@ void DoNetworkStuff(void)
     RequestSend(TxFrame1Size);
 
     if (Rdy4Tx()){                                // EMAC ready to accept our frame?
-    	_DBG_("Send Frm1");
-    	SendFrame1();                              // (see note above)
+        _DBG_("Send Frm1");
+        SendFrame1();                              // (see note above)
     } else {
       TCPStateMachine = CLOSED;
       SocketStatus = SOCK_ERR_ETHERNET;          // indicate an error to user
@@ -913,13 +913,13 @@ unsigned short CalcChecksum(void *Start, unsigned short Count, unsigned char IsT
 
   piStart = Start;                               // Keil: Line added
   while (Count > 1) {                            // sum words
-//  Sum += *((unsigned short *)Start)++;		     // Keil: Line replaced with following line
+//  Sum += *((unsigned short *)Start)++;             // Keil: Line replaced with following line
     Sum += *piStart++;
     Count -= 2;
   }
 
   if (Count)                                     // add left-over byte, if any
-//  Sum += *(unsigned char *)Start; 	         // Keil: Line replaced with following line
+//  Sum += *(unsigned char *)Start;              // Keil: Line replaced with following line
     Sum += *(unsigned char *)piStart;
 
   while (Sum >> 16)                              // fold 32-bit sum to 16 bits
@@ -1004,16 +1004,16 @@ void TCPHandleTimeout(void)
 // function executed every 0.210s by the CPU. used for the
 // inital sequence number generator (ISN) and the TCP-timer
 void SysTick_Handler (void) {           /* SysTick Interrupt Handler (1ms)    */
-	ISNGenHigh++;                                  // upper 16 bits of initial sequence number
-	TCPTimer++;                                    // timer for retransmissions
-	_tickVal = (_tickVal + 1) & 0x03;
-	if (!_tickVal){
+    ISNGenHigh++;                                  // upper 16 bits of initial sequence number
+    TCPTimer++;                                    // timer for retransmissions
+    _tickVal = (_tickVal + 1) & 0x03;
+    if (!_tickVal){
 #ifdef MCB_LPC_1768
-		LPC_GPIO2->FIOPIN ^= LED_PIN;
+        LPC_GPIO2->FIOPIN ^= LED_PIN;
 #elif defined(IAR_LPC_1768)
-		LPC_GPIO1->FIOPIN ^= LED_PIN;
+        LPC_GPIO1->FIOPIN ^= LED_PIN;
 #endif
-	}
+    }
 }
 
 

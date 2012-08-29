@@ -24,7 +24,7 @@
 #include "usbaudio.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup USBDEV_USBAudio	USBAudio
+/** @defgroup USBDEV_USBAudio   USBAudio
  * @ingroup USBDEV_Examples
  * @{
  */
@@ -134,8 +134,8 @@ int main (void)
   /* Enable CLOCK into ADC controller */
   LPC_SC->PCONP |= (1 << 12);
 
-  LPC_ADC->ADCR = 0x00200E04;		/* ADC: 10-bit AIN2 @ 4MHz */
-  LPC_DAC->DACR = 0x00008000;		/* DAC Output set to Middle Point */
+  LPC_ADC->ADCR = 0x00200E04;       /* ADC: 10-bit AIN2 @ 4MHz */
+  LPC_DAC->DACR = 0x00008000;       /* DAC Output set to Middle Point */
 
   /* By default, the PCLKSELx value is zero, thus, the PCLK for
   all the peripherals is 1/4 of the SystemFrequency. */
@@ -143,28 +143,28 @@ int main (void)
   pclkdiv = (LPC_SC->PCLKSEL0 >> 2) & 0x03;
   switch ( pclkdiv )
   {
-	case 0x00:
-	default:
-	  pclk = SystemCoreClock/4;
-	break;
-	case 0x01:
-	  pclk = SystemCoreClock;
-	break;
-	case 0x02:
-	  pclk = SystemCoreClock/2;
-	break;
-	case 0x03:
-	  pclk = SystemCoreClock/8;
-	break;
+    case 0x00:
+    default:
+      pclk = SystemCoreClock/4;
+    break;
+    case 0x01:
+      pclk = SystemCoreClock;
+    break;
+    case 0x02:
+      pclk = SystemCoreClock/2;
+    break;
+    case 0x03:
+      pclk = SystemCoreClock/8;
+    break;
   }
 
-  LPC_TIM0->MR0 = pclk/DATA_FREQ - 1;	/* TC0 Match Value 0 */
-  LPC_TIM0->MCR = 3;					/* TCO Interrupt and Reset on MR0 */
-  LPC_TIM0->TCR = 1;					/* TC0 Enable */
+  LPC_TIM0->MR0 = pclk/DATA_FREQ - 1;   /* TC0 Match Value 0 */
+  LPC_TIM0->MCR = 3;                    /* TCO Interrupt and Reset on MR0 */
+  LPC_TIM0->TCR = 1;                    /* TC0 Enable */
   NVIC_EnableIRQ(TIMER0_IRQn);
 
-  USB_Init();				/* USB Initialization */
-  USB_Connect(TRUE);		/* USB Connect */
+  USB_Init();               /* USB Initialization */
+  USB_Connect(TRUE);        /* USB Connect */
 
   /********* The main Function is an endless loop ***********/
   while( 1 );

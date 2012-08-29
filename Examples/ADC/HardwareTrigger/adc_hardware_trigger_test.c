@@ -1,12 +1,12 @@
 /**********************************************************************
-* $Id$		adc_hardware_trigger_test.c			2010-06-18
+* $Id$      adc_hardware_trigger_test.c         2010-06-18
 *//**
-* @file		adc_hardware_trigger_test.c
-* @brief	This example describes how to use ADC conversion in
-* 			hardware-triggered mode
-* @version	1.0
-* @date		18. June. 2010
-* @author	NXP MCU SW Application Team
+* @file     adc_hardware_trigger_test.c
+* @brief    This example describes how to use ADC conversion in
+*           hardware-triggered mode
+* @version  1.0
+* @date     18. June. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -35,14 +35,14 @@
 #include "debug_frmwrk.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup ADC_HardwareTrigger	HardwareTrigger
+/** @defgroup ADC_HardwareTrigger   HardwareTrigger
  * @ingroup ADC_Examples
  * @{
  */
 
 /************************** PRIVATE DEFINITIONS ***********************/
-#define _ADC_INT			ADC_ADINTEN2
-#define _ADC_CHANNEL		ADC_CHANNEL_2
+#define _ADC_INT            ADC_ADINTEN2
+#define _ADC_CHANNEL        ADC_CHANNEL_2
 
 /************************** PRIVATE VARIABLES *************************/
 uint8_t menu1[] =
@@ -67,130 +67,130 @@ void print_menu(void);
 
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/
 /*********************************************************************//**
- * @brief		ADC interrupt handler sub-routine
- * @param[in]	None
- * @return 		None
+ * @brief       ADC interrupt handler sub-routine
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void ADC_IRQHandler(void)
 {
-	adc_value = 0;
-	if (ADC_ChannelGetStatus(LPC_ADC,_ADC_CHANNEL,ADC_DATA_DONE))
-	{
-		adc_value =  ADC_ChannelGetData(LPC_ADC,_ADC_CHANNEL);
-		NVIC_DisableIRQ(ADC_IRQn);
-	}
+    adc_value = 0;
+    if (ADC_ChannelGetStatus(LPC_ADC,_ADC_CHANNEL,ADC_DATA_DONE))
+    {
+        adc_value =  ADC_ChannelGetData(LPC_ADC,_ADC_CHANNEL);
+        NVIC_DisableIRQ(ADC_IRQn);
+    }
 }
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Print menu
- * @param[in]	None
- * @return 		None
+ * @brief       Print menu
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	_DBG(menu1);
+    _DBG(menu1);
 }
 
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main ADC program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main ADC program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	PINSEL_CFG_Type PinCfg;
+    PINSEL_CFG_Type PinCfg;
 
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	// print welcome screen
-	print_menu();
+    // print welcome screen
+    print_menu();
 
-	/*
-	 * Init ADC pin connect
-	 * AD0.2 on P0.25
-	 */
-	PinCfg.Funcnum = 1;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 25;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
+    /*
+     * Init ADC pin connect
+     * AD0.2 on P0.25
+     */
+    PinCfg.Funcnum = 1;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Pinnum = 25;
+    PinCfg.Portnum = 0;
+    PINSEL_ConfigPin(&PinCfg);
 
-	/*
-	 * Init P2.10
-	 *
-	 */
-	PinCfg.Funcnum = 1; //EINT0
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Pinnum = 10;
-	PinCfg.Portnum = 2;
-	PINSEL_ConfigPin(&PinCfg);
+    /*
+     * Init P2.10
+     *
+     */
+    PinCfg.Funcnum = 1; //EINT0
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Pinnum = 10;
+    PinCfg.Portnum = 2;
+    PINSEL_ConfigPin(&PinCfg);
 
-	/* Configuration for ADC:
-	 *  select: ADC channel 2 (if using MCB1700 board)
-	 *  		ADC channel 5 (if using IAR-LPC1768 board)
-	 *  ADC conversion rate = 200KHz
-	 */
-	ADC_Init(LPC_ADC, 200000);
-	ADC_IntConfig(LPC_ADC,_ADC_INT,ENABLE);
-	ADC_ChannelCmd(LPC_ADC,_ADC_CHANNEL,ENABLE);
-	ADC_EdgeStartConfig(LPC_ADC,ADC_START_ON_FALLING);
+    /* Configuration for ADC:
+     *  select: ADC channel 2 (if using MCB1700 board)
+     *          ADC channel 5 (if using IAR-LPC1768 board)
+     *  ADC conversion rate = 200KHz
+     */
+    ADC_Init(LPC_ADC, 200000);
+    ADC_IntConfig(LPC_ADC,_ADC_INT,ENABLE);
+    ADC_ChannelCmd(LPC_ADC,_ADC_CHANNEL,ENABLE);
+    ADC_EdgeStartConfig(LPC_ADC,ADC_START_ON_FALLING);
 
-	/* preemption = 1, sub-priority = 1 */
-	NVIC_SetPriority(ADC_IRQn, ((0x01<<3)|0x01));
+    /* preemption = 1, sub-priority = 1 */
+    NVIC_SetPriority(ADC_IRQn, ((0x01<<3)|0x01));
 
-	while(1)
-	{
-		adc_value = 0;
+    while(1)
+    {
+        adc_value = 0;
 
-		// Start conversion on EINT0 falling edge
-		ADC_StartCmd(LPC_ADC,ADC_START_ON_EINT0);
+        // Start conversion on EINT0 falling edge
+        ADC_StartCmd(LPC_ADC,ADC_START_ON_EINT0);
 
-		/* Enable ADC in NVIC */
-		NVIC_EnableIRQ(ADC_IRQn);
+        /* Enable ADC in NVIC */
+        NVIC_EnableIRQ(ADC_IRQn);
 
-		_DBG("Press INT0 button to start ADC conversion on AD0.2...");_DBG_("");
-		while(adc_value==0);
+        _DBG("Press INT0 button to start ADC conversion on AD0.2...");_DBG_("");
+        while(adc_value==0);
 
-		//Display the result of conversion on the UART0
-		_DBG("ADC value on channel 2: ");
+        //Display the result of conversion on the UART0
+        _DBG("ADC value on channel 2: ");
 
-		_DBD32(adc_value);
-		_DBG_("");
-	}
+        _DBD32(adc_value);
+        _DBG_("");
+    }
 }
 
 /* Support required entry point for other toolchain */
 int main (void)
 {
-	return c_entry();
+    return c_entry();
 }
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 /*

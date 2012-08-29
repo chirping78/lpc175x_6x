@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		LedBlinky.c  				2010-05-21
+* $Id$      LedBlinky.c                 2010-05-21
 *//**
-* @file		LedBlinky.c
-* @brief	This example describes how to use GPIO interrupt to drive LEDs
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @file     LedBlinky.c
+* @brief    This example describes how to use GPIO interrupt to drive LEDs
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -32,7 +32,7 @@
 #include "lpc17xx_libcfg.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup GPIO_LedBlinky	LedBlinky
+/** @defgroup GPIO_LedBlinky    LedBlinky
  * @ingroup GPIO_Examples
  * @{
  */
@@ -59,9 +59,9 @@ void Delay (unsigned long tick);
 
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/
 /*********************************************************************//**
- * @brief		SysTick handler sub-routine (1ms)
- * @param[in]	None
- * @return 		None
+ * @brief       SysTick handler sub-routine (1ms)
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void SysTick_Handler (void) {
   SysTickCnt++;
@@ -69,9 +69,9 @@ void SysTick_Handler (void) {
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Delay function
- * @param[in]	tick - number milisecond of delay time
- * @return 		None
+ * @brief       Delay function
+ * @param[in]   tick - number milisecond of delay time
+ * @return      None
  **********************************************************************/
 void Delay (unsigned long tick) {
   unsigned long systickcnt;
@@ -82,9 +82,9 @@ void Delay (unsigned long tick) {
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry (void) {                       /* Main Program                       */
   int num = -1;
@@ -146,19 +146,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

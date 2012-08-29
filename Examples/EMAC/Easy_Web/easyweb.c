@@ -25,7 +25,7 @@
 #include "webpage.h"                             // webside for our HTTP server (HTML)
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup EMAC_Easy_Web	Easy_Web
+/** @defgroup EMAC_Easy_Web Easy_Web
  * @ingroup EMAC_Examples
  * @{
  */
@@ -111,19 +111,19 @@ void HTTPServer(void)
 
 unsigned int GetAD7Val(void)
 {
-	unsigned int val;
-	ADC_startCnv();
-	val = ADC_getCnv();
-	ADC_stopCnv();
-	return ((val*100)/0xFFF);
+    unsigned int val;
+    ADC_startCnv();
+    val = ADC_getCnv();
+    ADC_stopCnv();
+    return ((val*100)/0xFFF);
 }
 
 // samples and returns AD-converter value of channel 1
 
 unsigned int GetTempVal(void)
 {
-	// Always return (0)
-	return (0);
+    // Always return (0)
+    return (0);
 }
 
 
@@ -166,19 +166,19 @@ void InsertDynamicValues(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		template.c 				yyyy-mm-dd
+* $Id$      template.c              yyyy-mm-dd
 *//**
-* @file		template.c
-* @brief	A simple template for GNU example
-* @version	x.x
-* @date		dd. mm. yy
-* @author	xxxx
+* @file     template.c
+* @brief    A simple template for GNU example
+* @version  x.x
+* @date     dd. mm. yy
+* @author   xxxx
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -46,32 +46,32 @@
  */
 int c_entry(void)
 {
-	/* <<add code here >> */
-	while(1);
-	return 1;
+    /* <<add code here >> */
+    while(1);
+    return 1;
 }
 
 /* Support required entry point for other toolchain */
 int main (void)
 {
-	return c_entry();
+    return c_entry();
 }
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

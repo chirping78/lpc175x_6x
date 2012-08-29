@@ -1,13 +1,13 @@
 /**********************************************************************
-* $Id$		rtc_alarm_cntincr_int.c						2010-05-21
+* $Id$      rtc_alarm_cntincr_int.c                     2010-05-21
 *//**
-* @file		rtc_alarm_cntincr_int.c
-* @brief	This example describes how to use RTC to generate interrupt
-* 			in Second Counter Increment Interrupt (1s) and generate
+* @file     rtc_alarm_cntincr_int.c
+* @brief    This example describes how to use RTC to generate interrupt
+*           in Second Counter Increment Interrupt (1s) and generate
 *          alarm interrupt at 10s
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -35,7 +35,7 @@
 #include "debug_frmwrk.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup RTC_AlarmCntIncrInterrupt	AlarmCntIncrInterrupt
+/** @defgroup RTC_AlarmCntIncrInterrupt AlarmCntIncrInterrupt
  * @ingroup RTC_Examples
  * @{
  */
@@ -61,116 +61,116 @@ void print_menu(void);
 
 /*----------------- INTERRUPT SERVICE ROUTINES --------------------------*/
 /*********************************************************************//**
- * @brief		RTC interrupt handler sub-routine
- * @param[in]	None
- * @return 		None
+ * @brief       RTC interrupt handler sub-routine
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void RTC_IRQHandler(void)
 {
-	uint32_t secval;
+    uint32_t secval;
 
-	/* This is increment counter interrupt*/
-	if (RTC_GetIntPending(LPC_RTC, RTC_INT_COUNTER_INCREASE))
-	{
-		secval = RTC_GetTime (LPC_RTC, RTC_TIMETYPE_SECOND);
+    /* This is increment counter interrupt*/
+    if (RTC_GetIntPending(LPC_RTC, RTC_INT_COUNTER_INCREASE))
+    {
+        secval = RTC_GetTime (LPC_RTC, RTC_TIMETYPE_SECOND);
 
-		/* Send debug information */
-		_DBG ("Second: "); _DBD(secval);
-		_DBG_("");
+        /* Send debug information */
+        _DBG ("Second: "); _DBD(secval);
+        _DBG_("");
 
-		// Clear pending interrupt
-		RTC_ClearIntPending(LPC_RTC, RTC_INT_COUNTER_INCREASE);
-	}
+        // Clear pending interrupt
+        RTC_ClearIntPending(LPC_RTC, RTC_INT_COUNTER_INCREASE);
+    }
 
-	/* Continue to check the Alarm match*/
-	if (RTC_GetIntPending(LPC_RTC, RTC_INT_ALARM))
-	{
-		/* Send debug information */
-		_DBG_ ("ALARM 10s matched!");
+    /* Continue to check the Alarm match*/
+    if (RTC_GetIntPending(LPC_RTC, RTC_INT_ALARM))
+    {
+        /* Send debug information */
+        _DBG_ ("ALARM 10s matched!");
 
-		// Clear pending interrupt
-		RTC_ClearIntPending(LPC_RTC, RTC_INT_ALARM);
-	}
+        // Clear pending interrupt
+        RTC_ClearIntPending(LPC_RTC, RTC_INT_ALARM);
+    }
 }
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Print menu
- * @param[in]	None
- * @return 		None
+ * @brief       Print menu
+ * @param[in]   None
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	_DBG(menu1);
+    _DBG(menu1);
 }
 
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main RTC program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main RTC program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	RTC_TIME_Type RTCFullTime;
+    RTC_TIME_Type RTCFullTime;
 
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	// print welcome screen
-	print_menu();
+    // print welcome screen
+    print_menu();
 
-	/* RTC Block section ------------------------------------------------------ */
-	// Init RTC module
-	RTC_Init(LPC_RTC);
+    /* RTC Block section ------------------------------------------------------ */
+    // Init RTC module
+    RTC_Init(LPC_RTC);
 
     /* Disable RTC interrupt */
     NVIC_DisableIRQ(RTC_IRQn);
     /* preemption = 1, sub-priority = 1 */
     NVIC_SetPriority(RTC_IRQn, ((0x01<<3)|0x01));
 
-	/* Enable rtc (starts increase the tick counter and second counter register) */
-	RTC_ResetClockTickCounter(LPC_RTC);
-	RTC_Cmd(LPC_RTC, ENABLE);
-	RTC_CalibCounterCmd(LPC_RTC, DISABLE);
+    /* Enable rtc (starts increase the tick counter and second counter register) */
+    RTC_ResetClockTickCounter(LPC_RTC);
+    RTC_Cmd(LPC_RTC, ENABLE);
+    RTC_CalibCounterCmd(LPC_RTC, DISABLE);
 
-	/* Set current time for RTC */
-	// Current time is 8:00:00PM, 2009-04-24
-	RTC_SetTime (LPC_RTC, RTC_TIMETYPE_SECOND, 0);
-	RTC_SetTime (LPC_RTC, RTC_TIMETYPE_MINUTE, 0);
-	RTC_SetTime (LPC_RTC, RTC_TIMETYPE_HOUR, 20);
-	RTC_SetTime (LPC_RTC, RTC_TIMETYPE_MONTH, 4);
-	RTC_SetTime (LPC_RTC, RTC_TIMETYPE_YEAR, 2009);
-	RTC_SetTime (LPC_RTC, RTC_TIMETYPE_DAYOFMONTH, 24);
+    /* Set current time for RTC */
+    // Current time is 8:00:00PM, 2009-04-24
+    RTC_SetTime (LPC_RTC, RTC_TIMETYPE_SECOND, 0);
+    RTC_SetTime (LPC_RTC, RTC_TIMETYPE_MINUTE, 0);
+    RTC_SetTime (LPC_RTC, RTC_TIMETYPE_HOUR, 20);
+    RTC_SetTime (LPC_RTC, RTC_TIMETYPE_MONTH, 4);
+    RTC_SetTime (LPC_RTC, RTC_TIMETYPE_YEAR, 2009);
+    RTC_SetTime (LPC_RTC, RTC_TIMETYPE_DAYOFMONTH, 24);
 
-	/* Set ALARM time for second */
-	RTC_SetAlarmTime (LPC_RTC, RTC_TIMETYPE_SECOND, 10);
+    /* Set ALARM time for second */
+    RTC_SetAlarmTime (LPC_RTC, RTC_TIMETYPE_SECOND, 10);
 
-	// Get and print current time
-	RTC_GetFullTime (LPC_RTC, &RTCFullTime);
-	_DBG( "Current time set to: ");
-	_DBD((RTCFullTime.HOUR)); _DBG (":");
-	_DBD ((RTCFullTime.MIN)); _DBG (":");
-	_DBD ((RTCFullTime.SEC)); _DBG("  ");
-	_DBD ((RTCFullTime.DOM)); _DBG("/");
-	_DBD ((RTCFullTime.MONTH)); _DBG("/");
-	_DBD16 ((RTCFullTime.YEAR)); _DBG_("");
+    // Get and print current time
+    RTC_GetFullTime (LPC_RTC, &RTCFullTime);
+    _DBG( "Current time set to: ");
+    _DBD((RTCFullTime.HOUR)); _DBG (":");
+    _DBD ((RTCFullTime.MIN)); _DBG (":");
+    _DBD ((RTCFullTime.SEC)); _DBG("  ");
+    _DBD ((RTCFullTime.DOM)); _DBG("/");
+    _DBD ((RTCFullTime.MONTH)); _DBG("/");
+    _DBD16 ((RTCFullTime.YEAR)); _DBG_("");
 
-	_DBG("Second ALARM set to ");
-	_DBD (RTC_GetAlarmTime (LPC_RTC, RTC_TIMETYPE_SECOND));
-	_DBG_("s");
+    _DBG("Second ALARM set to ");
+    _DBD (RTC_GetAlarmTime (LPC_RTC, RTC_TIMETYPE_SECOND));
+    _DBG_("s");
 
-	/* Set the CIIR for second counter interrupt*/
-	RTC_CntIncrIntConfig (LPC_RTC, RTC_TIMETYPE_SECOND, ENABLE);
-	/* Set the AMR for 10s match alarm interrupt */
-	RTC_AlarmIntConfig (LPC_RTC, RTC_TIMETYPE_SECOND, ENABLE);
+    /* Set the CIIR for second counter interrupt*/
+    RTC_CntIncrIntConfig (LPC_RTC, RTC_TIMETYPE_SECOND, ENABLE);
+    /* Set the AMR for 10s match alarm interrupt */
+    RTC_AlarmIntConfig (LPC_RTC, RTC_TIMETYPE_SECOND, ENABLE);
 
     /* Enable RTC interrupt */
     NVIC_EnableIRQ(RTC_IRQn);
@@ -194,19 +194,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

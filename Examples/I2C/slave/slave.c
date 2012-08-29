@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		slave.c  				2010-05-21
+* $Id$      slave.c                 2010-05-21
 *//**
-* @file		slave.c
-* @brief	This example describes how to use I2C peripheral as a slave
-* @version	2.0
-* @date		21. May. 2010
-* @author	NXP MCU SW Application Team
+* @file     slave.c
+* @brief    This example describes how to use I2C peripheral as a slave
+* @version  2.0
+* @date     21. May. 2010
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2010, NXP Semiconductor
 * All rights reserved.
@@ -34,19 +34,19 @@
 #include "debug_frmwrk.h"
 
 /* Example group ----------------------------------------------------------- */
-/** @defgroup I2C_slave	slave
+/** @defgroup I2C_slave slave
  * @ingroup I2C_Examples
  * @{
  */
 
 /************************** PRIVATE DEFINITIONS *************************/
 /** Used I2C device as slave definition */
-#define USEDI2CDEV_S		(0)
+#define USEDI2CDEV_S        (0)
 /** Own Slave address in Slave I2C device */
-#define I2CDEV_S_OWN_ADDR	(0x90>>1)
+#define I2CDEV_S_OWN_ADDR   (0x90>>1)
 
 /** Max buffer length */
-#define BUFFER_SIZE			0x10
+#define BUFFER_SIZE         0x10
 
 #if (USEDI2CDEV_S == 0)
 #define I2CDEV_S LPC_I2C0
@@ -77,169 +77,169 @@ void Buffer_Init(uint8_t type);
 
 /*-------------------------PRIVATE FUNCTIONS------------------------------*/
 /*********************************************************************//**
- * @brief		Print Welcome menu
- * @param[in]	none
- * @return 		None
+ * @brief       Print Welcome menu
+ * @param[in]   none
+ * @return      None
  **********************************************************************/
 void print_menu(void)
 {
-	_DBG_(menu1);
+    _DBG_(menu1);
 }
 
 /*********************************************************************//**
- * @brief		Initialize buffer
- * @param[in]	type:
- * 				- 0: Initialize Master_Buf with increment value from 0
- * 					Fill all member in Slave_Buf with 0
- * 				- 1: Initialize Slave_Buf with increment value from 0
- * 					Fill all member in Master_Buf with 0
+ * @brief       Initialize buffer
+ * @param[in]   type:
+ *              - 0: Initialize Master_Buf with increment value from 0
+ *                  Fill all member in Slave_Buf with 0
+ *              - 1: Initialize Slave_Buf with increment value from 0
+ *                  Fill all member in Master_Buf with 0
  *
- * @return 		None
+ * @return      None
  **********************************************************************/
 void Buffer_Init(uint8_t type)
 {
-	uint8_t i;
+    uint8_t i;
 
-	if (type)
-	{
-		for (i = 0; i < BUFFER_SIZE; i++) {
-			Slave_Buf[i] = i;
-		}
-	}
-	else
-	{
-		for (i = 0; i < BUFFER_SIZE; i++) {
-			Slave_Buf[i] = 0;
-		}
-	}
+    if (type)
+    {
+        for (i = 0; i < BUFFER_SIZE; i++) {
+            Slave_Buf[i] = i;
+        }
+    }
+    else
+    {
+        for (i = 0; i < BUFFER_SIZE; i++) {
+            Slave_Buf[i] = 0;
+        }
+    }
 }
 
 
 /*-------------------------MAIN FUNCTION------------------------------*/
 /*********************************************************************//**
- * @brief		c_entry: Main program body
- * @param[in]	None
- * @return 		int
+ * @brief       c_entry: Main program body
+ * @param[in]   None
+ * @return      int
  **********************************************************************/
 int c_entry(void)
 {
-	PINSEL_CFG_Type PinCfg;
-	I2C_OWNSLAVEADDR_CFG_Type OwnSlavAdr;
-	I2C_S_SETUP_Type transferSCfg;
-	uint32_t tempp;
-	uint8_t *pdat;
+    PINSEL_CFG_Type PinCfg;
+    I2C_OWNSLAVEADDR_CFG_Type OwnSlavAdr;
+    I2C_S_SETUP_Type transferSCfg;
+    uint32_t tempp;
+    uint8_t *pdat;
 
-	/* Initialize debug via UART0
-	 * – 115200bps
-	 * – 8 data bit
-	 * – No parity
-	 * – 1 stop bit
-	 * – No flow control
-	 */
-	debug_frmwrk_init();
+    /* Initialize debug via UART0
+     * – 115200bps
+     * – 8 data bit
+     * – No parity
+     * – 1 stop bit
+     * – No flow control
+     */
+    debug_frmwrk_init();
 
-	print_menu();
+    print_menu();
 
-	/* I2C block ------------------------------------------------------------------- */
+    /* I2C block ------------------------------------------------------------------- */
 
-	/*
-	 * Init I2C pin connect
-	 */
-	PinCfg.OpenDrain = PINSEL_PINMODE_OPENDRAIN;
-	PinCfg.Pinmode = PINSEL_PINMODE_TRISTATE;
+    /*
+     * Init I2C pin connect
+     */
+    PinCfg.OpenDrain = PINSEL_PINMODE_OPENDRAIN;
+    PinCfg.Pinmode = PINSEL_PINMODE_TRISTATE;
 #if ((USEDI2CDEV_S == 0))
-	PinCfg.Funcnum = 1;
-	PinCfg.Pinnum = 27;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 28;
-	PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Funcnum = 1;
+    PinCfg.Pinnum = 27;
+    PinCfg.Portnum = 0;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 28;
+    PINSEL_ConfigPin(&PinCfg);
 #endif
 #if ((USEDI2CDEV_S == 2))
-	PinCfg.Funcnum = 2;
-	PinCfg.Pinnum = 10;
-	PinCfg.Portnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 11;
-	PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Funcnum = 2;
+    PinCfg.Pinnum = 10;
+    PinCfg.Portnum = 0;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 11;
+    PINSEL_ConfigPin(&PinCfg);
 #endif
 
-	// Initialize Slave I2C peripheral
-	I2C_Init(I2CDEV_S, 100000);
+    // Initialize Slave I2C peripheral
+    I2C_Init(I2CDEV_S, 100000);
 
-	/* Set  Own slave address for I2C device */
-	OwnSlavAdr.GeneralCallState = ENABLE;
-	OwnSlavAdr.SlaveAddrChannel= 0;
-	OwnSlavAdr.SlaveAddrMaskValue = 0xFF;
-	OwnSlavAdr.SlaveAddr_7bit = I2CDEV_S_OWN_ADDR;
-	I2C_SetOwnSlaveAddr(I2CDEV_S, &OwnSlavAdr);
+    /* Set  Own slave address for I2C device */
+    OwnSlavAdr.GeneralCallState = ENABLE;
+    OwnSlavAdr.SlaveAddrChannel= 0;
+    OwnSlavAdr.SlaveAddrMaskValue = 0xFF;
+    OwnSlavAdr.SlaveAddr_7bit = I2CDEV_S_OWN_ADDR;
+    I2C_SetOwnSlaveAddr(I2CDEV_S, &OwnSlavAdr);
 
-	/* Enable Slave I2C operation */
-	I2C_Cmd(I2CDEV_S, I2C_SLAVE_MODE, ENABLE);
+    /* Enable Slave I2C operation */
+    I2C_Cmd(I2CDEV_S, I2C_SLAVE_MODE, ENABLE);
 
-	_DBG_("Press '1' to start");
-	while (_DG != '1');
+    _DBG_("Press '1' to start");
+    while (_DG != '1');
 
 
-	/* Reading -------------------------------------------------------- */
-	_DBG_("Start Reading...");
+    /* Reading -------------------------------------------------------- */
+    _DBG_("Start Reading...");
 
-	/* Initialize buffer */
-	Buffer_Init(0);
+    /* Initialize buffer */
+    Buffer_Init(0);
 
-	/* Start I2C slave device first */
-	transferSCfg.tx_data = NULL;
-	transferSCfg.tx_length = 0;
-	transferSCfg.rx_data = Slave_Buf;
-	transferSCfg.rx_length = sizeof(Slave_Buf);
-	I2C_SlaveTransferData(I2CDEV_S, &transferSCfg, I2C_TRANSFER_POLLING);
+    /* Start I2C slave device first */
+    transferSCfg.tx_data = NULL;
+    transferSCfg.tx_length = 0;
+    transferSCfg.rx_data = Slave_Buf;
+    transferSCfg.rx_length = sizeof(Slave_Buf);
+    I2C_SlaveTransferData(I2CDEV_S, &transferSCfg, I2C_TRANSFER_POLLING);
 
-	pdat = Slave_Buf;
-	// Verify
-	for (tempp = 0; tempp < sizeof(Slave_Buf); tempp++){
-		if (*pdat++ != tempp){
-			_DBG_("Verify error");
-			break;
-		}
-	}
-	if (tempp == sizeof(Slave_Buf)){
-		_DBG_("Verify successfully");
-	}
+    pdat = Slave_Buf;
+    // Verify
+    for (tempp = 0; tempp < sizeof(Slave_Buf); tempp++){
+        if (*pdat++ != tempp){
+            _DBG_("Verify error");
+            break;
+        }
+    }
+    if (tempp == sizeof(Slave_Buf)){
+        _DBG_("Verify successfully");
+    }
 
-	/* Transmit -------------------------------------------------------- */
-	_DBG_("Start Transmit...");
+    /* Transmit -------------------------------------------------------- */
+    _DBG_("Start Transmit...");
 
-	/* Initialize buffer */
-	Buffer_Init(1);
+    /* Initialize buffer */
+    Buffer_Init(1);
 
-	/* Start I2C slave device first */
-	transferSCfg.tx_data = Slave_Buf;
-	transferSCfg.tx_length = sizeof(Slave_Buf);
-	transferSCfg.rx_data = NULL;
-	transferSCfg.rx_length = 0;
-	I2C_SlaveTransferData(I2CDEV_S, &transferSCfg, I2C_TRANSFER_POLLING);
+    /* Start I2C slave device first */
+    transferSCfg.tx_data = Slave_Buf;
+    transferSCfg.tx_length = sizeof(Slave_Buf);
+    transferSCfg.rx_data = NULL;
+    transferSCfg.rx_length = 0;
+    I2C_SlaveTransferData(I2CDEV_S, &transferSCfg, I2C_TRANSFER_POLLING);
 
-	_DBG_("Complete!");
+    _DBG_("Complete!");
 
 #if 1
-	/* Receive and transmit -------------------------------------------------------- */
-	_DBG_("Start Receive, wait for repeat start and transmit...");
+    /* Receive and transmit -------------------------------------------------------- */
+    _DBG_("Start Receive, wait for repeat start and transmit...");
 
-	/* Initialize buffer */
-	Buffer_Init(1);
-	slave_test[0] = 0xAA;
-	slave_test[1] = 0x55;
+    /* Initialize buffer */
+    Buffer_Init(1);
+    slave_test[0] = 0xAA;
+    slave_test[1] = 0x55;
 
-	/* Start I2C slave device first */
-	transferSCfg.tx_data = Slave_Buf;
-	transferSCfg.tx_length = sizeof(Slave_Buf);
-	transferSCfg.rx_data = slave_test;
-	transferSCfg.rx_length = sizeof(slave_test);
-	I2C_SlaveTransferData(I2CDEV_S, &transferSCfg, I2C_TRANSFER_POLLING);
-	_DBG_("Receive Data:");
-	_DBH(slave_test[0]); _DBG_("");
-	_DBH(slave_test[1]); _DBG_("");
-	_DBG_("Complete!");
+    /* Start I2C slave device first */
+    transferSCfg.tx_data = Slave_Buf;
+    transferSCfg.tx_length = sizeof(Slave_Buf);
+    transferSCfg.rx_data = slave_test;
+    transferSCfg.rx_length = sizeof(slave_test);
+    I2C_SlaveTransferData(I2CDEV_S, &transferSCfg, I2C_TRANSFER_POLLING);
+    _DBG_("Receive Data:");
+    _DBH(slave_test[0]); _DBG_("");
+    _DBH(slave_test[1]); _DBG_("");
+    _DBG_("Complete!");
 #endif
 
 
@@ -260,19 +260,19 @@ int main(void)
 
 #ifdef  DEBUG
 /*******************************************************************************
-* @brief		Reports the name of the source file and the source line number
-* 				where the CHECK_PARAM error has occurred.
-* @param[in]	file Pointer to the source file name
+* @brief        Reports the name of the source file and the source line number
+*               where the CHECK_PARAM error has occurred.
+* @param[in]    file Pointer to the source file name
 * @param[in]    line assert_param error line source number
-* @return		None
+* @return       None
 *******************************************************************************/
 void check_failed(uint8_t *file, uint32_t line)
 {
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-	/* Infinite loop */
-	while(1);
+    /* Infinite loop */
+    while(1);
 }
 #endif
 

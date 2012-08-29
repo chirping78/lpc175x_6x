@@ -1,11 +1,11 @@
 /**********************************************************************
-* $Id$		crc32.c  				2006-09-01
+* $Id$      crc32.c                 2006-09-01
 *//**
-* @file		crc32.c
-* @brief	Ethernet CRC module file for NXP LPC230x Family Microprocessors
-* @version	1.0
-* @date		01. September. 2006
-* @author	NXP MCU SW Application Team
+* @file     crc32.c
+* @brief    Ethernet CRC module file for NXP LPC230x Family Microprocessors
+* @version  1.0
+* @date     01. September. 2006
+* @author   NXP MCU SW Application Team
 *
 * Copyright(C) 2006, NXP Semiconductor
 * All rights reserved.
@@ -32,12 +32,12 @@
 #include "crc32.h"
 
 /******************************************************************************
-** Function name:		CRC_init
+** Function name:       CRC_init
 **
-** Descriptions:		Begin CRC calculation.
+** Descriptions:        Begin CRC calculation.
 **
-** parameters:			pointer to the CRC area.
-** Returned value:		None
+** parameters:          pointer to the CRC area.
+** Returned value:      None
 **
 ******************************************************************************/
 void crc32_init(uint32_t *pCRC)
@@ -46,12 +46,12 @@ void crc32_init(uint32_t *pCRC)
 }
 
 /******************************************************************************
-** Function name:		CRC32_add
+** Function name:       CRC32_add
 **
-** Descriptions:		Calculate CRC value one at a time
+** Descriptions:        Calculate CRC value one at a time
 **
-** parameters:			pointer to the CRC area, and passing value to get the CRC
-** Returned value:		None
+** parameters:          pointer to the CRC area, and passing value to get the CRC
+** Returned value:      None
 **
 ******************************************************************************/
 void crc32_add(uint32_t *pCRC, uint8_t val8)
@@ -77,12 +77,12 @@ void crc32_add(uint32_t *pCRC, uint8_t val8)
 }
 
 /******************************************************************************
-** Function name:		CRC32_end
+** Function name:       CRC32_end
 **
-** Descriptions:		Finish CRC calculation
+** Descriptions:        Finish CRC calculation
 **
-** parameters:			pointer to the CRC area.
-** Returned value:		None
+** parameters:          pointer to the CRC area.
+** Returned value:      None
 **
 ******************************************************************************/
 void crc32_end(uint32_t *pCRC)
@@ -91,12 +91,12 @@ void crc32_end(uint32_t *pCRC)
 }
 
 /******************************************************************************
-** Function name:		CRC32_bfr
+** Function name:       CRC32_bfr
 **
-** Descriptions:		Get the CRC value based on size of the string.
+** Descriptions:        Get the CRC value based on size of the string.
 **
-** parameters:			Pointer to the string, size of the string.
-** Returned value:		CRC value
+** parameters:          Pointer to the string, size of the string.
+** Returned value:      CRC value
 **
 ******************************************************************************/
 uint32_t crc32_bfr(void *pBfr, uint32_t size)

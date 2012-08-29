@@ -10,7 +10,7 @@
  *****  Func: ethernet packet-driver for use with LAN-        *****
  *****        controller CS8900 from Crystal/Cirrus Logic     *****
  *****                                                        *****
- *****  NXP: Module modified for use with NXP            	  *****
+ *****  NXP: Module modified for use with NXP                 *****
  *****        LPC1768 EMAC Ethernet controller                *****
  *****                                                        *****
  ******************************************************************/
@@ -23,7 +23,7 @@
 /* For debugging... */
 #include "debug_frmwrk.h"
 #include <stdio.h>
-#define DB	_DBG((uint8_t *)db)
+#define DB  _DBG((uint8_t *)db)
 char db[64];
 
 static unsigned short *rptr;
@@ -39,70 +39,70 @@ static unsigned short *pgBuf = (unsigned short *)LPC_AHBRAM1_BASE;
 // reset it and send the configuration-sequence
 void Init_EMAC(void)
 {
-	volatile uint32_t delay;
+    volatile uint32_t delay;
 
-	/* EMAC configuration type */
-	EMAC_CFG_Type Emac_Config;
-	/* pin configuration */
-	PINSEL_CFG_Type PinCfg;
+    /* EMAC configuration type */
+    EMAC_CFG_Type Emac_Config;
+    /* pin configuration */
+    PINSEL_CFG_Type PinCfg;
 
-	/* EMAC address */
-	uint8_t EMACAddr[] = {MYMAC_1, MYMAC_2, MYMAC_3, MYMAC_4, MYMAC_5, MYMAC_6};
+    /* EMAC address */
+    uint8_t EMACAddr[] = {MYMAC_1, MYMAC_2, MYMAC_3, MYMAC_4, MYMAC_5, MYMAC_6};
 
-	/*
-	 * Enable P1 Ethernet Pins:
-	 * P1.0 - ENET_TXD0
-	 * P1.1 - ENET_TXD1
-	 * P1.4 - ENET_TX_EN
-	 * P1.8 - ENET_CRS
-	 * P1.9 - ENET_RXD0
-	 * P1.10 - ENET_RXD1
-	 * P1.14 - ENET_RX_ER
-	 * P1.15 - ENET_REF_CLK
-	 * P1.16 - ENET_MDC
-	 * P1.17 - ENET_MDIO
-	 */
-	PinCfg.Funcnum = 1;
-	PinCfg.OpenDrain = 0;
-	PinCfg.Pinmode = 0;
-	PinCfg.Portnum = 1;
+    /*
+     * Enable P1 Ethernet Pins:
+     * P1.0 - ENET_TXD0
+     * P1.1 - ENET_TXD1
+     * P1.4 - ENET_TX_EN
+     * P1.8 - ENET_CRS
+     * P1.9 - ENET_RXD0
+     * P1.10 - ENET_RXD1
+     * P1.14 - ENET_RX_ER
+     * P1.15 - ENET_REF_CLK
+     * P1.16 - ENET_MDC
+     * P1.17 - ENET_MDIO
+     */
+    PinCfg.Funcnum = 1;
+    PinCfg.OpenDrain = 0;
+    PinCfg.Pinmode = 0;
+    PinCfg.Portnum = 1;
 
-	PinCfg.Pinnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 1;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 4;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 8;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 9;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 10;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 14;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 15;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 16;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 17;
-	PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 0;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 1;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 4;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 8;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 9;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 10;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 14;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 15;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 16;
+    PINSEL_ConfigPin(&PinCfg);
+    PinCfg.Pinnum = 17;
+    PINSEL_ConfigPin(&PinCfg);
 
-	_DBG_("Init EMAC module");
-	sprintf(db,"MAC addr: %X-%X-%X-%X-%X-%X \n\r", \
-			 EMACAddr[0],  EMACAddr[1],  EMACAddr[2], \
-			  EMACAddr[3],  EMACAddr[4],  EMACAddr[5]);
-	DB;
+    _DBG_("Init EMAC module");
+    sprintf(db,"MAC addr: %X-%X-%X-%X-%X-%X \n\r", \
+             EMACAddr[0],  EMACAddr[1],  EMACAddr[2], \
+              EMACAddr[3],  EMACAddr[4],  EMACAddr[5]);
+    DB;
 
-	Emac_Config.Mode = EMAC_MODE_AUTO;
-	Emac_Config.pbEMAC_Addr = EMACAddr;
-	// Initialize EMAC module with given parameter
-	while (EMAC_Init(&Emac_Config) == ERROR){
-		// Delay for a while then continue initializing EMAC module
-		_DBG_("Error during initializing EMAC, restart after a while");
-		for (delay = 0x100000; delay; delay--);
-	}
-	_DBG_("Init EMAC complete");
+    Emac_Config.Mode = EMAC_MODE_AUTO;
+    Emac_Config.pbEMAC_Addr = EMACAddr;
+    // Initialize EMAC module with given parameter
+    while (EMAC_Init(&Emac_Config) == ERROR){
+        // Delay for a while then continue initializing EMAC module
+        _DBG_("Error during initializing EMAC, restart after a while");
+        for (delay = 0x100000; delay; delay--);
+    }
+    _DBG_("Init EMAC complete");
 }
 
 
@@ -161,39 +161,39 @@ void DummyReadFrame_EMAC(unsigned short Size)    // discards an EVEN number of b
 // destination address is a broadcast message or not
 // returns the frame length
 unsigned short StartReadFrame(void) {
-	unsigned short RxLen;
-	EMAC_PACKETBUF_Type RxPack;
+    unsigned short RxLen;
+    EMAC_PACKETBUF_Type RxPack;
 
-	RxLen = EMAC_GetReceiveDataSize() - 3;
-	// Copy packet to data buffer
-	RxPack.pbDataBuf = (uint32_t *)pgBuf;
-	RxPack.ulDataLen = RxLen;
-	EMAC_ReadPacketBuffer(&RxPack);
-	// Point to the data buffer
-	rptr = (unsigned short *)pgBuf;
-	return(RxLen);
+    RxLen = EMAC_GetReceiveDataSize() - 3;
+    // Copy packet to data buffer
+    RxPack.pbDataBuf = (uint32_t *)pgBuf;
+    RxPack.ulDataLen = RxLen;
+    EMAC_ReadPacketBuffer(&RxPack);
+    // Point to the data buffer
+    rptr = (unsigned short *)pgBuf;
+    return(RxLen);
 }
 
 // Release the buffer after reading all the content inside
 void EndReadFrame(void) {
-	// just call EMAC_UpdateConsumeIndex() in EMAC driver
-	EMAC_UpdateRxConsumeIndex();
+    // just call EMAC_UpdateConsumeIndex() in EMAC driver
+    EMAC_UpdateRxConsumeIndex();
 }
 
 // Check whether if there is a receive packet coming
 unsigned int CheckFrameReceived(void) {             // Packet received ?
-	// Just call EMAC_CheckReceiveIndex() in EMAC driver
-	if (EMAC_CheckReceiveIndex() == TRUE){
-		return (1);
-	} else {
-		return (0);
-	}
+    // Just call EMAC_CheckReceiveIndex() in EMAC driver
+    if (EMAC_CheckReceiveIndex() == TRUE){
+        return (1);
+    } else {
+        return (0);
+    }
 }
 
 // requests space in EMAC memory for storing an outgoing frame
 void RequestSend(unsigned short FrameSize)
 {
-	// Nothing to do here, just implemented in CopyToFrame_EMAC()
+    // Nothing to do here, just implemented in CopyToFrame_EMAC()
 }
 
 // check if ethernet controller is ready to accept the
@@ -218,13 +218,13 @@ void WriteFrame_EMAC(unsigned short Data)
 
 void CopyToFrame_EMAC(void *Source, unsigned int Size)
 {
-	EMAC_PACKETBUF_Type TxPack;
+    EMAC_PACKETBUF_Type TxPack;
 
-	// Setup Tx Packet buffer
-	// NXP: Added for compatibility with old style
-	TxPack.ulDataLen = Size;
-	TxPack.pbDataBuf = (uint32_t *)Source;
-	EMAC_WritePacketBuffer(&TxPack);
-	EMAC_UpdateTxProduceIndex();
+    // Setup Tx Packet buffer
+    // NXP: Added for compatibility with old style
+    TxPack.ulDataLen = Size;
+    TxPack.pbDataBuf = (uint32_t *)Source;
+    EMAC_WritePacketBuffer(&TxPack);
+    EMAC_UpdateTxProduceIndex();
 }
 

@@ -62,11 +62,11 @@ uint32_t DDMemMap[2];                          /* DMA Descriptor Memory Usage */
 #endif
 
 #if defined (  __GNUC__  )
-uint32_t UDCA[USB_EP_NUM] __attribute__((section("USB_RAM"))); 				/* UDCA in USB RAM */
+uint32_t UDCA[USB_EP_NUM] __attribute__((section("USB_RAM")));              /* UDCA in USB RAM */
 uint32_t DD_NISO_Mem[4*DD_NISO_CNT] __attribute__((section("USB_RAM")));    /* Non-Iso DMA Descriptor Memory */
 uint32_t DD_ISO_Mem [5*DD_ISO_CNT] __attribute__((section("USB_RAM")));     /* Iso DMA Descriptor Memory */
-uint32_t udca[USB_EP_NUM];                     								/* UDCA saved values */
-uint32_t DDMemMap[2];                          								/* DMA Descriptor Memory Usage */
+uint32_t udca[USB_EP_NUM];                                                  /* UDCA saved values */
+uint32_t DDMemMap[2];                                                       /* DMA Descriptor Memory Usage */
 #endif
 
 #endif
@@ -99,9 +99,9 @@ uint32_t EPAdr (uint32_t EPNum) {
 
 void WrCmd (uint32_t cmd) {
 
-	LPC_USB->USBDevIntClr = CCEMTY_INT;
-	LPC_USB->USBCmdCode = cmd;
-	while ((LPC_USB->USBDevIntSt & CCEMTY_INT) == 0);
+    LPC_USB->USBDevIntClr = CCEMTY_INT;
+    LPC_USB->USBCmdCode = cmd;
+    while ((LPC_USB->USBDevIntSt & CCEMTY_INT) == 0);
 }
 
 
@@ -131,10 +131,10 @@ void WrCmdDat (uint32_t cmd, uint32_t val) {
 
 uint32_t RdCmdDat (uint32_t cmd) {
 
-	LPC_USB->USBDevIntClr = CCEMTY_INT | CDFULL_INT;
-	LPC_USB->USBCmdCode = cmd;
-	while ((LPC_USB->USBDevIntSt & CDFULL_INT) == 0);
-	return (LPC_USB->USBCmdData);
+    LPC_USB->USBDevIntClr = CCEMTY_INT | CDFULL_INT;
+    LPC_USB->USBCmdCode = cmd;
+    while ((LPC_USB->USBDevIntSt & CDFULL_INT) == 0);
+    return (LPC_USB->USBCmdData);
 }
 
 
@@ -146,24 +146,24 @@ uint32_t RdCmdDat (uint32_t cmd) {
 
 void USB_Init (void) {
 
-	LPC_PINCON->PINSEL1 &= ~((3<<26)|(3<<28));   /* P0.29 D+, P0.30 D- */
-	LPC_PINCON->PINSEL1 |=  ((1<<26)|(1<<28));   /* PINSEL1 26.27, 28.29  = 01 */
+    LPC_PINCON->PINSEL1 &= ~((3<<26)|(3<<28));   /* P0.29 D+, P0.30 D- */
+    LPC_PINCON->PINSEL1 |=  ((1<<26)|(1<<28));   /* PINSEL1 26.27, 28.29  = 01 */
 
-	LPC_PINCON->PINSEL3 &= ~((3<< 4)|(3<<28));   /* P1.18 GoodLink, P1.30 VBUS */
-	LPC_PINCON->PINSEL3 |=  ((1<< 4)|(2<<28));   /* PINSEL3 4.5 = 01, 28.29 = 10 */
+    LPC_PINCON->PINSEL3 &= ~((3<< 4)|(3<<28));   /* P1.18 GoodLink, P1.30 VBUS */
+    LPC_PINCON->PINSEL3 |=  ((1<< 4)|(2<<28));   /* PINSEL3 4.5 = 01, 28.29 = 10 */
 
-	LPC_PINCON->PINSEL4 &= ~((3<<18)        );   /* P2.9 SoftConnect */
-	LPC_PINCON->PINSEL4 |=  ((1<<18)        );   /* PINSEL4 18.19 = 01 */
+    LPC_PINCON->PINSEL4 &= ~((3<<18)        );   /* P2.9 SoftConnect */
+    LPC_PINCON->PINSEL4 |=  ((1<<18)        );   /* PINSEL4 18.19 = 01 */
 
-	LPC_SC->PCONP |= (1UL<<31);                /* USB PCLK -> enable USB Per.       */
+    LPC_SC->PCONP |= (1UL<<31);                /* USB PCLK -> enable USB Per.       */
 
-	LPC_USB->USBClkCtrl = 0x1A;                  /* Dev, PortSel, AHB clock enable */
-	while ((LPC_USB->USBClkSt & 0x1A) != 0x1A);
+    LPC_USB->USBClkCtrl = 0x1A;                  /* Dev, PortSel, AHB clock enable */
+    while ((LPC_USB->USBClkSt & 0x1A) != 0x1A);
 
-	NVIC_EnableIRQ(USB_IRQn);               /* enable USB interrupt */
+    NVIC_EnableIRQ(USB_IRQn);               /* enable USB interrupt */
 
-	USB_Reset();
-	USB_SetAddress(0);
+    USB_Reset();
+    USB_SetAddress(0);
 }
 
 
@@ -442,7 +442,7 @@ uint32_t USB_WriteEP (uint32_t EPNum, uint8_t *pData, uint32_t cnt) {
   LPC_USB->USBTxPLen = cnt;
 
   for (n = 0; n < (cnt + 3) / 4; n++) {
-	  LPC_USB->USBTxData = *((__packed uint32_t *)pData);
+      LPC_USB->USBTxData = *((__packed uint32_t *)pData);
     pData += 4;
   }
   LPC_USB->USBCtrl = 0;
@@ -522,7 +522,7 @@ uint32_t USB_DMA_Setup(uint32_t EPNum, USB_DMA_DESCRIPTOR *pDD) {
   *tmp++ =  pDD->Cfg.Type.LenPos << 8;
   if (iso) {
 //    *((uint32_t *)nxt) =  pDD->InfoAdr;
-	  *tmp =  pDD->InfoAdr;
+      *tmp =  pDD->InfoAdr;
   }
 
   return (TRUE); /* Success */
@@ -538,7 +538,7 @@ uint32_t USB_DMA_Setup(uint32_t EPNum, USB_DMA_DESCRIPTOR *pDD) {
  */
 
 void USB_DMA_Enable (uint32_t EPNum) {
-	LPC_USB->USBEpDMAEn = 1 << EPAdr(EPNum);
+    LPC_USB->USBEpDMAEn = 1 << EPAdr(EPNum);
 }
 
 
@@ -551,7 +551,7 @@ void USB_DMA_Enable (uint32_t EPNum) {
  */
 
 void USB_DMA_Disable (uint32_t EPNum) {
-	LPC_USB->USBEpDMADis = 1 << EPAdr(EPNum);
+    LPC_USB->USBEpDMADis = 1 << EPAdr(EPNum);
 }
 
 
@@ -602,7 +602,7 @@ uint32_t USB_DMA_BufAdr (uint32_t EPNum) {
   ptr = UDCA[EPAdr(EPNum)];                 /* Current Descriptor */
   if (ptr == 0)
   {
-	return ((uint32_t)(-1));                /* DMA Invalid */
+    return ((uint32_t)(-1));                /* DMA Invalid */
   }
 
   val = *((uint32_t *)(ptr + 2*4));         /* Buffer Address */
@@ -625,7 +625,7 @@ uint32_t USB_DMA_BufCnt (uint32_t EPNum) {
   ptr = UDCA[EPAdr(EPNum)];                 /* Current Descriptor */
   if (ptr == 0)
   {
-	return ((uint32_t)(-1));                /* DMA Invalid */
+    return ((uint32_t)(-1));                /* DMA Invalid */
   }
   val = *((uint32_t *)(ptr + 3*4));         /* Status Information */
   return (val >> 16);                       /* Current Count */
@@ -695,7 +695,7 @@ void USB_IRQHandler (void) {
 #if USB_SOF_EVENT
   /* Start of Frame Interrupt */
   if (disr & FRAME_INT) {
-	LPC_USB->USBDevIntClr = FRAME_INT;
+    LPC_USB->USBDevIntClr = FRAME_INT;
     USB_SOF_Event();
   }
 #endif
@@ -703,7 +703,7 @@ void USB_IRQHandler (void) {
 #if USB_ERROR_EVENT
   /* Error Interrupt */
   if (disr & ERR_INT) {
-	LPC_USB->USBDevIntClr = ERR_INT;
+    LPC_USB->USBDevIntClr = ERR_INT;
     WrCmd(CMD_RD_ERR_STAT);
     val = RdCmdDat(DAT_RD_ERR_STAT);
     USB_Error_Event(val);
@@ -734,15 +734,15 @@ void USB_IRQHandler (void) {
               USB_P_EP[m](USB_EVT_OUT);
             }
           } else {                          /* IN Endpoint */
-			//if (USB_P_EP[m]) {
+            //if (USB_P_EP[m]) {
               //USB_P_EP[m](USB_EVT_IN);
-			  if(m==0)
-			    USB_EndPoint0(USB_EVT_IN);
-			  if(m==1)
-			  	USB_EndPoint1(USB_EVT_IN);
-			  if(m==2)
-			  	USB_EndPoint2(USB_EVT_IN);
-			  /* ............. */
+              if(m==0)
+                USB_EndPoint0(USB_EVT_IN);
+              if(m==1)
+                USB_EndPoint1(USB_EVT_IN);
+              if(m==2)
+                USB_EndPoint2(USB_EVT_IN);
+              /* ............. */
             //}
           }
         }
