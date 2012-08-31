@@ -1,3 +1,10 @@
+RELEASE: LPC1700CMSIS_120831
+
+1./ Update I2C Driver: Don't check Repeat Start or Stop was received in case all neccessary data was sent/received.
+2./ Fix issue:  Can't send file from the virtual COM port to the real COM port.
+3./ Replace TABs with Spaces for all source files.
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120731
 
 1./ Update I2C driver:
