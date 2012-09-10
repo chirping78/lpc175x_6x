@@ -26,6 +26,11 @@
 
 #include "usbaudio.h"
 
+#if defined ( __ICCARM__ )
+#pragma language=save
+#pragma language=extended
+#endif
+
       uint16_t VolCur = 0x0100;     /* Volume Current Value */
 const uint16_t VolMin = 0x0000;     /* Volume Minimum Value */
 const uint16_t VolMax = 0x0100;     /* Volume Maximum Value */
@@ -162,3 +167,6 @@ uint32_t ADC_EP_SetRequest (void) {
 */
   return (FALSE);  /* Not Supported */
 }
+#if defined ( __ICCARM__ )
+#pragma language=restore
+#endif

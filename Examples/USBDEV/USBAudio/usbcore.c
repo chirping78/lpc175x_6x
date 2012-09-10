@@ -70,6 +70,8 @@ extern MSC_CSW CSW;
 
 #if defined   (  __IAR_SYSTEMS_ICC__  )
 #define   __inline     inline
+#pragma language=save
+#pragma language=extended
 #endif
 
 
@@ -1085,3 +1087,7 @@ out_class_ok:                                                            /* requ
 
   }
 }
+#if defined ( __ICCARM__ )
+#pragma language=restore
+#endif
+

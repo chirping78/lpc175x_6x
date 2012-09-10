@@ -14,6 +14,8 @@
  *    $Revision: 28532 $
  **************************************************************************/
 #include "drv_glcd_cnfg.h"
+#include "LPC17xx.h"
+#include "core_cm3.h"
 #include "lpc_types.h"
 
 #ifndef  __DRV_GLCD_H
@@ -71,6 +73,11 @@ uint32_t Temp;\
 #define PCF8833_ST_ALL_PIXELS_OFF (1UL << 19)
 #define PCF8833_ST_DISPLAY_MODE   (1UL << 18)
 #define PCF8833_ST_TEARING_MODE   (1UL << 17)
+
+#if defined ( __ICCARM__ )
+#pragma language=save
+#pragma language=extended
+#endif
 
 // GLCD command interpreter type
 typedef enum _GLCD_ISS_t {
@@ -220,6 +227,10 @@ typedef struct _Bmp_t {
   unsigned int *pPicStream;
   unsigned char *pPicDesc;
 } Bmp_t, *pBmp_t;
+
+#if defined ( __ICCARM__ )
+#pragma language=restore
+#endif
 
 extern void Dly100us(void *arg);
 

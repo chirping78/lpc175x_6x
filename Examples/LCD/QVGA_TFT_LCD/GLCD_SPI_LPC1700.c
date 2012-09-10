@@ -493,7 +493,7 @@ void GLCD_DisplayString (unsigned int ln, unsigned int col, unsigned char *s) {
 void GLCD_ClearLn (unsigned int ln) {
 
   GLCD_WindowMax();
-  GLCD_DisplayString(ln, 0, "                    ");
+  GLCD_DisplayString(ln, 0, (unsigned char*)"                    ");
 }
 
 /*******************************************************************************

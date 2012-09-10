@@ -58,6 +58,11 @@ extern MSC_CSW CSW;
 #pragma diag_suppress 111,1441
 #endif
 
+#if defined ( __ICCARM__ )
+#pragma language=save
+#pragma language=extended
+#endif
+
 uint16_t  USB_DeviceStatus;
 uint8_t  USB_DeviceAddress;
 uint8_t  USB_Configuration;
@@ -818,3 +823,7 @@ stall_i:  USB_SetStallEP(0x80);
 
   }
 }
+#if defined ( __ICCARM__ )
+#pragma language=restore
+#endif
+

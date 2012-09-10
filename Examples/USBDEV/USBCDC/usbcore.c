@@ -67,6 +67,11 @@ extern MSC_CSW CSW;
 #define __packed __attribute__((__packed__))
 #endif
 
+#if defined ( __ICCARM__ )
+#pragma language=save
+#pragma language=extended
+#endif
+
 uint16_t  USB_DeviceStatus;
 uint8_t  USB_DeviceAddress;
 uint8_t  USB_Configuration;
@@ -1110,3 +1115,6 @@ out_class_ok:                                                            /* requ
 
   }
 }
+#if defined ( __ICCARM__ )
+#pragma language=restore
+#endif

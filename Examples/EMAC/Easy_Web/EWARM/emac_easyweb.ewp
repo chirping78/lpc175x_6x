@@ -937,9 +937,6 @@
       <name>$PROJ_DIR$\..\EMAC.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\Retarget.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\tcpip.c</name>
     </file>
   </group>

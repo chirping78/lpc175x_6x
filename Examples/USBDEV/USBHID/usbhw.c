@@ -31,6 +31,11 @@
 #pragma diag_suppress 1441
 #endif
 
+#if defined ( __ICCARM__ )
+#pragma language=save
+#pragma language=extended
+#endif
+
 #define EP_MSK_CTRL 0x0001      /* Control Endpoint Logical Address Mask */
 #define EP_MSK_BULK 0xC924      /* Bulk Endpoint Logical Address Mask */
 #define EP_MSK_INT  0x4492      /* Interrupt Endpoint Logical Address Mask */
@@ -812,3 +817,7 @@ void USB_IRQHandler (void) {
 isr_end:
   return;
 }
+#if defined ( __ICCARM__ )
+#pragma language=restore
+#endif
+

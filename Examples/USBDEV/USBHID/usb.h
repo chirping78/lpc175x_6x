@@ -83,6 +83,8 @@ typedef union _REQUEST_TYPE {
 #elif defined   (  __GNUC__  )
 	struct __packed _BM {
 #elif defined   (  __IAR_SYSTEMS_ICC__  )
+#pragma language=save
+#pragma language=extended
 #pragma pack(1)
 	struct _BM {
 #endif
@@ -345,6 +347,7 @@ typedef struct _USB_COMMON_DESCRIPTOR {
 } USB_COMMON_DESCRIPTOR;
 #ifdef __IAR_SYSTEMS_ICC__
 #pragma pack()
+#pragma language=restore
 #endif
 
 #endif  /* __USB_H__ */
