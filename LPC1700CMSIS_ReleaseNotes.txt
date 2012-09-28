@@ -1,6 +1,7 @@
 RELEASE: LPC1700CMSIS_120928
 
 1./ Add CAN_SimpleTxRx Example to test CAN peripheral with PCAN.
+2./ Fix IAR compile errors when Language conformance is set to "Strict". 
 
 *******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120831
