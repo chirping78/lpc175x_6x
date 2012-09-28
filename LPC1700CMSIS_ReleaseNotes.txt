@@ -1,3 +1,8 @@
+RELEASE: LPC1700CMSIS_120928
+
+1./ Add CAN_SimpleTxRx Example to test CAN peripheral with PCAN.
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120831
 
 1./ Update I2C Driver: Don't check Repeat Start or Stop was received in case all neccessary data was sent/received.
