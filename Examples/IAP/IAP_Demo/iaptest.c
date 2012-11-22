@@ -29,7 +29,7 @@
 * this code.
 **********************************************************************/
 
-#include "lpc17xx.h"
+#include "LPC17xx.h"
 #include "lpc_types.h"
 #include "lpc17xx_iap.h"
 #include "debug_frmwrk.h"

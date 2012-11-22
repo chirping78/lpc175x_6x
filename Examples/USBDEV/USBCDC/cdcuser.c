@@ -17,7 +17,7 @@
  *---------------------------------------------------------------------------*/
 
 #include "lpc_types.h"
-#include "lpc17xx.h"
+#include "LPC17xx.h"
 #include "usbreg.h"
 #include "usb.h"
 #include "usbhw.h"
