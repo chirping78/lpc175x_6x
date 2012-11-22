@@ -29,7 +29,7 @@
 * this code.
 **********************************************************************/
 #include "lpc17xx_iap.h"
-#include "system_lpc17xx.h"
+#include "system_LPC17xx.h"
 
 //  IAP Command
 typedef void (*IAP)(uint32_t *cmd,uint32_t *result);
