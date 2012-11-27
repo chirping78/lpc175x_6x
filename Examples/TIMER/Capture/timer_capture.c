@@ -76,9 +76,9 @@ void print_menu(void);
  **********************************************************************/
 void TIMER0_IRQHandler(void)
 {
-    if (TIM_GetIntCaptureStatus(LPC_TIM0,TIM_MR0_INT))
+    if (TIM_GetIntStatus(LPC_TIM0,TIM_CR0_INT))
     {
-        TIM_ClearIntCapturePending(LPC_TIM0,TIM_MR0_INT);
+        TIM_ClearIntPending(LPC_TIM0,TIM_CR0_INT);
         _DBG("Time capture: ");
         _DBH32(TIM_GetCaptureValue(LPC_TIM0,TIM_COUNTER_INCAP0));_DBG_("");
     }
@@ -91,9 +91,9 @@ void TIMER0_IRQHandler(void)
  **********************************************************************/
 void TIMER1_IRQHandler(void)
 {
-    if (TIM_GetIntCaptureStatus(LPC_TIM1,TIM_MR0_INT))
+    if (TIM_GetIntStatus(LPC_TIM1,TIM_CR0_INT))
     {
-        TIM_ClearIntCapturePending(LPC_TIM1,TIM_MR0_INT);
+        TIM_ClearIntPending(LPC_TIM1,TIM_CR0_INT);
         _DBG("Time capture: ");
         _DBH32(TIM_GetCaptureValue(LPC_TIM1,TIM_COUNTER_INCAP0));_DBG_("");
     }

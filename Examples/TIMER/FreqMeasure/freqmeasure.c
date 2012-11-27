@@ -72,9 +72,9 @@ void print_menu(void);
  **********************************************************************/
 void TIMER0_IRQHandler(void)
 {
-    if (TIM_GetIntCaptureStatus(LPC_TIM0,TIM_MR0_INT))
+    if (TIM_GetIntStatus(LPC_TIM0,TIM_CR0_INT))
     {
-        TIM_ClearIntCapturePending(LPC_TIM0,TIM_MR0_INT);
+        TIM_ClearIntPending(LPC_TIM0,TIM_CR0_INT);
         if(first_capture==TRUE)
         {
             TIM_Cmd(LPC_TIM0,DISABLE);
