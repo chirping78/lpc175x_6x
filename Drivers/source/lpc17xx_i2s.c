@@ -327,12 +327,13 @@ Status I2S_FreqConfig(LPC_I2S_TypeDef *I2Sx, uint32_t Freq, uint8_t TRMode) {
     uint32_t i2s_clk;
     uint8_t channel, wordwidth;
     uint32_t x, y;
-    uint64_t divider;
-    uint16_t dif;
-    uint16_t x_divide, y_divide;
-    uint16_t err, ErrorOptimal = 0xFFFF;
-    
-    uint32_t N;
+    uint32_t fr;
+    uint16_t xOptimal, yOptimal;
+    uint16_t err, errOptimal = 0xFFFF;
+    uint16_t sampleBytes = 0;
+    uint32_t refClk = 0;
+    uint32_t N1, NOptimal = 0;
+
 
     CHECK_PARAM(PARAM_I2Sx(I2Sx));
     CHECK_PARAM(PRAM_I2S_FREQ(Freq));
@@ -367,47 +368,48 @@ Status I2S_FreqConfig(LPC_I2S_TypeDef *I2Sx, uint32_t Freq, uint8_t TRMode) {
      * We use a loop function to chose the most suitable X,Y value
      */
 
-    /* divider is a fixed point number with 16 fractional bits */
-    divider = (((uint64_t)Freq *channel*wordwidth * 2)<<16) / i2s_clk;
+    sampleBytes = channel*wordwidth ;
+    refClk = i2s_clk/(2*sampleBytes); 
+    // Freq = refClk*x/(N*y)
+    // x = Freq*N*y/refClk
 
     /* find N that make x/y <= 1 -> divider <= 2^16 */
-    for(N=64;N>0;N--){
-        if((divider*N) < (1<<16)) break;
-    }
-
-    if(N == 0) return ERROR;
-
-    divider *= N;
-
-    for (y = 255; y > 0; y--) {
-        x = y * divider;
-        if(x & (0xFF000000)) continue;
-        dif = x & 0xFFFF;
-        if(dif>0x8000) err = 0x10000-dif;
-        else err = dif;
-        if (err == 0)
-        {
-            y_divide = y;
-            break;
+    for(N1=64;N1>0;N1--){
+        for (y = 255; y > 0; y--) {
+            uint16_t tmp = N1*y;
+            x = Freq*tmp/refClk;
+            if((x > 255) || (x == 0) || (x > y)) continue;
+            fr = refClk*x/tmp;
+            if(fr>Freq) 
+            err = fr-Freq;
+            else 
+            err = Freq-fr;
+            if ((err == 0) ||
+                (err < errOptimal) ||
+                ((err == errOptimal) && (y%x == 0)))
+            {
+                errOptimal = err;
+                yOptimal = y;
+                xOptimal = x;
+                NOptimal = N1;
+                if(err == 0)
+                  break;
+            }
         }
-        else if (err < ErrorOptimal)
-        {
-            ErrorOptimal = err;
-            y_divide = y;
-        }
+        
     }
-    x_divide = ((uint64_t)y_divide * Freq *(channel*wordwidth)* N * 2)/i2s_clk;
-    if(x_divide >= 256) x_divide = 0xFF;
-    if(x_divide == 0) x_divide = 1;
-
+    if(NOptimal == 0)
+      return ERROR;
+    
+    
     if (TRMode == I2S_TX_MODE)// Transmitter
     {
-        I2Sx->I2STXBITRATE = N-1;
-        I2Sx->I2STXRATE = y_divide | (x_divide << 8);
+        I2Sx->I2STXBITRATE = NOptimal-1;
+        I2Sx->I2STXRATE = yOptimal | (xOptimal << 8);
     } else //Receiver
     {
-        I2Sx->I2SRXBITRATE = N-1;
-        I2Sx->I2STXRATE = y_divide | (x_divide << 8);
+        I2Sx->I2SRXBITRATE = NOptimal-1;
+        I2Sx->I2STXRATE = yOptimal | (xOptimal << 8);
     }
     return SUCCESS;
 }
