@@ -1,3 +1,11 @@
+RELEASE: LPC1700CMSIS_121130
+
+1./ Make the code compile ok in Linux.
+2./ Update CAN_SetupAFLUT function: Don't modify input parameter. 
+3./ Update TIMER driver: Remove TIM_ClearIntCapturePending & TIM_GetIntCaptureStatus function. 
+4./ Update I2S frequency setting. 
+
+*******************************************************************************************************************************
 RELEASE: LPC1700CMSIS_120928
 
 1./ Add CAN_SimpleTxRx Example to test CAN peripheral with PCAN.
